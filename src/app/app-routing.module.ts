@@ -22,10 +22,10 @@ const routes: Routes = [
       { path: 'home', component: HomeDashComponent },
       { path: 'empresa', component: EmpresaComponent },
       { path: 'funcionario', component: FuncionarioComponent },
+      { path: 'info', component: InfoComponent },
       { path: 'relatorio', component: RelatorioComponent },
     ],
   },
-  { path: 'info', component: InfoComponent },
   { path: 'form', component: FormComponent },
 ];
 

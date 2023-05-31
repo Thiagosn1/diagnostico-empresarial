@@ -2,16 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 95vh;
 }
 
 .form-card {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 600px;
-  width: 100%;
-  background: #d9d9d9;
+  max-width: 750px;
+  background: #FFFFFF;
   border-radius: 20px;
   padding: 16px;
 }
@@ -27,7 +26,7 @@
 }
 
 .form-content {
-  margin: 14px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -41,7 +40,6 @@ span {
 }
 
 button {
-  margin: 20px;
   width: 130px;
   height: 48px;
   background-color: #0064fb;
@@ -60,6 +58,9 @@ button:hover {
 }
 
 @media screen and (max-width: 1400px) {
+  .form-card {
+    max-width: 650px;
+  }
   .form-title {
     font-size: 24px;
   }
