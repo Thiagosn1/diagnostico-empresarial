@@ -1,0 +1,54 @@
+.empresa-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.empresa-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-top: 20px;
+}
+
+button {
+  width: 130px;
+  height: 48px;
+  background-color: #0064fb;
+  border-radius: 50px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+  background-color: #0046b2;
+}
+
+@media (max-width: 1400px) {
+  .empresa-container {
+    min-height: 60vh;
+  }
+
+  mat-form-field {
+    margin-top: 5px;
+    font-size: 0.9em;
+  }
+}
