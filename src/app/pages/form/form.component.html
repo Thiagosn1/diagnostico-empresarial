@@ -1,0 +1,33 @@
+<div class="categories-container">
+  <div
+    *ngFor="let category of categories; let i = index"
+    class="category"
+    [ngClass]="{
+      'category-active': currentCategoryIndex === i,
+      'category-completed': completedCategories[i]
+    }"
+  >
+    {{ category }}
+  </div>
+</div>
+<div class="question-container">
+  <div class="category">{{ currentCategory }}</div>
+  <div class="question-wrapper" [@slideLeftRight]="showQuestion ? 'center-delayed' : 'left'">
+    <div class="question" *ngIf="showQuestion" [@fadeInOut]="currentQuestion">{{ currentQuestion }}</div>
+  </div>
+  <div class="answer-buttons">
+    <button
+      *ngFor="let index of answers; let i = index"
+      [style.backgroundColor]="getGradientColor(i)"
+      (click)="selectAnswer(i)"
+      [disabled]="transitioning"
+    >
+      {{ index }}
+    </button>
+  </div>
+  <div class="legend">
+    <div class="max-label">10: Concordo totalmente</div>
+    <div class="min-label">0: Discordo totalmente</div>
+  </div>
+  <div class="progress-text">{{ progressPercentage }}%</div>
+</div>
