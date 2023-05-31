@@ -1,38 +1,66 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav mode="side" opened class="sidenav">
     <div class="user-info">
-      <img ngSrc="./assets/user.png" class="user-image" alt="User" height="512" width="512">
+      <img
+        ngSrc="./assets/user.png"
+        class="user-image"
+        alt="User"
+        height="512"
+        width="512"
+      />
       <h3 class="user-name">Gestor</h3>
       <p class="user-email">email@example.com</p>
     </div>
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard/home" routerLinkActive="active" class="menu-item">
-    <span class="menu-item-content">
-      <mat-icon>home</mat-icon>
-      Home
-    </span>
+      <a
+        mat-list-item
+        routerLink="/dashboard/home"
+        routerLinkActive="active"
+        class="menu-item"
+      >
+        <span class="menu-item-content">
+          <mat-icon>home</mat-icon>
+          Home
+        </span>
       </a>
 
-      <mat-list-item (click)="toggleCadastroMenu()" class="menu-item cadastro-item">
+      <mat-list-item
+        (click)="toggleCadastroMenu()"
+        class="menu-item cadastro-item"
+      >
         <div class="cadastro-content">
-      <span class="menu-item-content">
-        <mat-icon>add_circle</mat-icon>
-        Cadastro
-      </span>
+          <span class="menu-item-content">
+            <mat-icon>add_circle</mat-icon>
+            Cadastro
+          </span>
           <div class="submenu-icon-container">
-            <mat-icon class="submenu-icon" [style.transform]="'rotate(' + arrowRotation + 'deg)'">keyboard_arrow_down</mat-icon>
+            <mat-icon
+              class="submenu-icon"
+              [style.transform]="'rotate(' + arrowRotation + 'deg)'"
+              >keyboard_arrow_down</mat-icon
+            >
           </div>
         </div>
       </mat-list-item>
 
       <ng-container *ngIf="cadastroMenuVisible">
-        <a mat-list-item routerLink="/dashboard/empresa" routerLinkActive="active" class="menu-item submenu-item">
+        <a
+          mat-list-item
+          routerLink="/dashboard/empresa"
+          routerLinkActive="active"
+          class="menu-item submenu-item"
+        >
           <span class="menu-item-content">
             <mat-icon>business</mat-icon>
             Empresa
           </span>
         </a>
-        <a mat-list-item routerLink="/dashboard/funcionario" routerLinkActive="active" class="menu-item submenu-item">
+        <a
+          mat-list-item
+          routerLink="/dashboard/funcionario"
+          routerLinkActive="active"
+          class="menu-item submenu-item"
+        >
           <span class="menu-item-content">
             <mat-icon>person_add</mat-icon>
             Funcionário
@@ -40,11 +68,16 @@
         </a>
       </ng-container>
 
-      <a mat-list-item routerLink="/dashboard/relatorio" routerLinkActive="active" class="menu-item">
-    <span class="menu-item-content">
-      <mat-icon>assessment</mat-icon>
-      Relatório
-    </span>
+      <a
+        mat-list-item
+        routerLink="/dashboard/relatorio"
+        routerLinkActive="active"
+        class="menu-item"
+      >
+        <span class="menu-item-content">
+          <mat-icon>assessment</mat-icon>
+          Relatório
+        </span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

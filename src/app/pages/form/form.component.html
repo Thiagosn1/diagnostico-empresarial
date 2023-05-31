@@ -12,8 +12,13 @@
 </div>
 <div class="question-container">
   <div class="category">{{ currentCategory }}</div>
-  <div class="question-wrapper" [@slideLeftRight]="showQuestion ? 'center-delayed' : 'left'">
-    <div class="question" *ngIf="showQuestion" [@fadeInOut]="currentQuestion">{{ currentQuestion }}</div>
+  <div
+    class="question-wrapper"
+    [@slideLeftRight]="showQuestion ? 'center-delayed' : 'left'"
+  >
+    <div class="question" *ngIf="showQuestion" [@fadeInOut]="currentQuestion">
+      {{ currentQuestion }}
+    </div>
   </div>
   <div class="answer-buttons">
     <button

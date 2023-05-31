@@ -6,13 +6,18 @@
         <p>Texto do relatório aqui.</p>
       </div>
       <div class="right-column">
-        <canvas baseChart class="chart"
-                [data]="radarChartData"
-                [options]="radarChartOptions"
-                [type]="radarChartType">
+        <canvas
+          baseChart
+          class="chart"
+          [data]="radarChartData"
+          [options]="radarChartOptions"
+          [type]="radarChartType"
+        >
         </canvas>
       </div>
     </div>
-    <button mat-raised-button color="primary" class="solicitar-orcamento">Solicitar Orçamento</button>
+    <button mat-raised-button color="primary" class="solicitar-orcamento">
+      Solicitar Orçamento
+    </button>
   </mat-card>
 </div>

@@ -14,28 +14,17 @@ import {
   animations: [
     trigger('fadeInOut', [
       state('in', style({ opacity: 1 })),
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(300),
-      ]),
-      transition(':leave', [
-        animate(300, style({ opacity: 0 })),
-      ]),
+      transition(':enter', [style({ opacity: 0 }), animate(300)]),
+      transition(':leave', [animate(300, style({ opacity: 0 }))]),
     ]),
     trigger('slideLeftRight', [
       state('left', style({ transform: 'translateX(-100%)' })),
       state('right', style({ transform: 'translateX(100%)' })),
       state('center', style({ transform: 'translateX(0)' })),
       state('center-delayed', style({ transform: 'translateX(0)' })),
-      transition('* => center', [
-        animate('800ms ease-out'),
-      ]),
-      transition('* => center-delayed', [
-        animate('800ms ease-out'),
-      ]),
-      transition('center => *', [
-        animate('800ms ease-in'),
-      ]),
+      transition('* => center', [animate('800ms ease-out')]),
+      transition('* => center-delayed', [animate('800ms ease-out')]),
+      transition('center => *', [animate('800ms ease-in')]),
     ]),
   ],
 })
@@ -171,7 +160,7 @@ export class FormComponent {
   async transitionToNextQuestion() {
     this.transitioning = true;
     this.showQuestion = false;
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     this.nextQuestion();
     this.showQuestion = true;
     this.transitioning = false;
