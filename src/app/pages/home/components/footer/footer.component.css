@@ -1,0 +1,29 @@
+.footer {
+  height: 320px;
+  background: #252525;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.title {
+  font-size: 30px;
+}
+
+p {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+img {
+  width: 35px;
+  height: 35px;
+  display: block;
+  margin-right: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}

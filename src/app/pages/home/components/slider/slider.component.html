@@ -1,0 +1,20 @@
+<div class="slider-container">
+  <div
+    class="slider-item"
+    *ngFor="let item of items; let i = index"
+    [ngClass]="{ active: currentIndex === i }"
+  >
+    <div [style.background-color]="item.color" class="slider-item-content">
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.description }}</p>
+    </div>
+  </div>
+  <div class="slider-nav">
+    <button class="nav-button" (click)="voltar()">
+      <img ngSrc="/assets/botao-voltar.png" alt="Voltar" height="512" width="512"/>
+    </button>
+    <button class="nav-button" (click)="avancar()">
+      <img ngSrc="/assets/botao-avancar.png" alt="Avançar" height="512" width="512"/>
+    </button>
+  </div>
+</div>

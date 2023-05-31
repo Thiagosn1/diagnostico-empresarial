@@ -1,0 +1,25 @@
+.cards {
+  height: 504px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 10px;
+  width: 266px;
+  height: 273px;
+  background: #f4be56;
+  border-radius: 15px;
+}
+
+mat-card-content {
+  height: 100px;
+  margin-top: 90px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
