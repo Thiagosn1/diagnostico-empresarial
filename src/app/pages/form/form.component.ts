@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   trigger,
   state,
@@ -137,7 +139,7 @@ export class FormComponent {
   );
   currentCategoryIndex = 0;
 
-  constructor() {
+  constructor(private router: Router, private snackBar: MatSnackBar) {
     this.updateCategory();
   }
 
@@ -166,6 +168,16 @@ export class FormComponent {
     this.transitioning = false;
   }
 
+  async showSuccessMessageAndNavigate() {
+    this.snackBar.open('Concluído com sucesso', '', {
+      duration: 3000, // Duração do snack bar (em milissegundos)
+      panelClass: ['success-snackbar'], // Classe CSS para estilizar o snack bar
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // Aguarde a duração do snack bar
+    this.router.navigate(['/dashboard']); // Navegue para o dashboard
+  }
+
   // Avança para a próxima pergunta
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
@@ -174,7 +186,13 @@ export class FormComponent {
     } else {
       // Marca a categoria atual como concluída antes de atualizar a categoria
       this.completedCategories[this.currentCategoryIndex] = true;
-      this.updateCategory();
+
+      // Verifica se todas as categorias foram concluídas
+      if (this.completedCategories.every((category) => category === true)) {
+        this.showSuccessMessageAndNavigate(); // Exibe a mensagem de sucesso e navega para o dashboard
+      } else {
+        this.updateCategory();
+      }
     }
   }
 

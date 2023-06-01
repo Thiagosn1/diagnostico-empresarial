@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgChartsModule } from 'ng2-charts';
 import { InfoComponent } from './pages/info/info.component';
 import { FormComponent } from './pages/form/form.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,8 @@ import { FormComponent } from './pages/form/form.component';
     MatButtonModule,
     NgChartsModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
