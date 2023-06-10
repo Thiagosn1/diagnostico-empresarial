@@ -86,3 +86,16 @@
 mat-icon {
   color: #fff;
 }
+
+.nav-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logout-container {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+}
+
+
