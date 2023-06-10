@@ -12,6 +12,7 @@
   max-width: 750px;
   background: #FFFFFF;
   border-radius: 20px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 16px;
 }
 
@@ -19,7 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 30px;
   line-height: 29px;
   color: #000000;

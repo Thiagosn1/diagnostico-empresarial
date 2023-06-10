@@ -98,4 +98,14 @@ mat-icon {
   width: 100%;
 }
 
+@media screen and (max-width: 1400px) {
+  .user-info {
+    padding: 0;
+  }
+
+  .user-name {
+    margin-top: 25px;
+  }
+}
+
 
