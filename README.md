@@ -32,4 +32,12 @@ Execute `ng e2e` para executar os testes de ponta a ponta através de uma plataf
 
 Para obter mais ajuda sobre o Angular CLI, use `ng help` ou consulte a página [Visão geral do Angular CLI e referência de comandos](https://angular.io/cli).
 
+## Utilizando Docker
+
+Execute `docker build -t nome-do-projeto .` para construir a imagem do Docker.
+
+Execute `docker run -p 4200:4200 nome-do-projeto` para executar o container.
+
+Acesse o aplicativo no seu navegador por meio do endereço `http://localhost:4200`.
+
 https://tome.app/skycell/angularizando-o-diagnostico-empresarial-clitg71my092qo43bdovcaib1
