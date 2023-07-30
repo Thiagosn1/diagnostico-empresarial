@@ -21,7 +21,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { EmpresaComponent } from './pages/dashboard/components/cadastro/empresa/empresa.component';
 import { FuncionarioComponent } from './pages/dashboard/components/cadastro/funcionario/funcionario.component';
 import { RelatorioComponent } from './pages/dashboard/components/relatorio/relatorio.component';
 import { HomeDashComponent } from './pages/dashboard/components/home-dash/home-dash.component';
@@ -30,6 +29,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { InfoComponent } from './pages/info/info.component';
 import { FormComponent } from './pages/form/form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CadastroEmpresaComponent } from './pages/cadastro-empresa/cadastro-empresa.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +43,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     LoginComponent,
     TokenComponent,
     DashboardComponent,
-    EmpresaComponent,
     FuncionarioComponent,
     RelatorioComponent,
     HomeDashComponent,
     InfoComponent,
     FormComponent,
+    CadastroEmpresaComponent,
   ],
   imports: [
     AppRoutingModule,
