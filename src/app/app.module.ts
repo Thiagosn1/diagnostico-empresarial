@@ -30,6 +30,9 @@ import { InfoComponent } from './pages/info/info.component';
 import { FormComponent } from './pages/form/form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CadastroEmpresaComponent } from './pages/cadastro-empresa/cadastro-empresa.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatDialogModule} from "@angular/material/dialog";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -67,7 +70,10 @@ import { CadastroEmpresaComponent } from './pages/cadastro-empresa/cadastro-empr
     NgChartsModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    NgChartsModule
+    NgChartsModule,
+    MatTableModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

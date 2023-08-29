@@ -1,32 +1,51 @@
 <div class="funcionario-container">
   <mat-card class="funcionario-card">
     <mat-card-header>
-      <mat-card-title>Cadastrar funcionario</mat-card-title>
+      <mat-card-title>Funcionários</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput />
-        </mat-form-field>
-        <button>Cadastrar</button>
-      </form>
+      <mat-table [dataSource]="employees">
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef class="preenchimento-email"> Email </mat-header-cell>
+          <mat-cell *matCellDef="let employee" class="preenchimento-email"> {{employee.email}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell class="centralizado" *matCellDef="let employee"> {{employee.status}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell class="largura-acao" *matHeaderCellDef> Ações </mat-header-cell>
+          <mat-cell *matCellDef="let employee" class="centralizado">
+            <a href="#" class="imagem-espacada">
+              <img ngSrc="assets/reenviar.png" alt="Reenviar" height="512" width="512" />
+            </a>
+            <a href="#">
+              <img ngSrc="assets/remover.png" alt="Remover" height="512" width="512" />
+            </a>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+      </mat-table>
+      <button class="button" (click)="openConvidarFuncionarioDialog()">Convidar funcionário</button>
     </mat-card-content>
   </mat-card>
+
+  <ng-template #convidarFuncionarioDialog>
+    <mat-card-title>Convidar funcionário</mat-card-title>
+    <div mat-dialog-content>
+      <p>Informe o email do funcionário.</p>
+      <mat-form-field>
+        <input matInput [(ngModel)]="email" />
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancelar</button>
+      <button mat-button [mat-dialog-close]="email" cdkFocusInitial>Confirmar</button>
+    </div>
+  </ng-template>
 </div>

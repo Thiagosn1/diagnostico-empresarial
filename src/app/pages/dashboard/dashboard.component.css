@@ -53,14 +53,6 @@
   position: relative;
 }
 
-.submenu-icon {
-  transition: transform 0.3s ease-in-out;
-}
-
-.submenu-item {
-  padding-left: 24px;
-}
-
 .menu-item-content {
   color: #ffffff;
   display: flex;
@@ -80,11 +72,19 @@
 }
 
 .active {
-  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
 }
 
 mat-icon {
   color: #fff;
+  transform: rotateY(180deg);
+}
+
+img {
+  width: 35px;
+  height: 35px;
+  display: block;
+  margin-right: 20px;
 }
 
 .nav-list-container {

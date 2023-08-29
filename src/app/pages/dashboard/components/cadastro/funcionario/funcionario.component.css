@@ -2,16 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 90vh;
   padding: 16px;
 }
 
 .funcionario-card {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 16px;
+  width: 700px;
+  padding: 30px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 mat-card-title {
@@ -19,36 +18,87 @@ mat-card-title {
   font-weight: bold;
 }
 
+mat-card-header {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+mat-card-content {
+  padding: 0;
+}
+
+img {
+  width: 35px;
+  height: 35px;
+}
+
 mat-form-field {
   width: 100%;
   margin-top: 20px;
 }
 
-button {
-  width: 130px;
+.button {
+  width: 200px;
   height: 48px;
+  margin: 25px auto 0 auto;
+  display: block;
   background-color: #0064fb;
-  border-radius: 50px;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  cursor: pointer;
+  border-radius:50px;
+  color:#ffffff;
+  font-weight:700;
+  font-size:16px;
+  line-height:24px;
+  transition: box-shadow .3s ease-in-out, background-color .3s ease-in-out;
+  cursor:pointer;
 }
 
-button:hover {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
-  background-color: #0046b2;
+.button:hover {
+  box-shadow:0 3px 3px rgba(0,0,0,.25);
+  background-color:#0046b2;
 }
 
-@media (max-width: 1400px) {
-  .funcionario-container {
-    min-height: 60vh;
-  }
+mat-dialog-content {
+  font-size:16px;
+  margin-bottom:20px;
+}
 
-  mat-form-field {
-    margin-top: 5px;
-    font-size: 0.9em;
-  }
+mat-header-cell {
+  justify-content:center;
+}
+
+mat-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+mat-cell, mat-header-cell {
+  border-right: 1px solid #e0e0e0;
+}
+
+
+mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
+  padding: 0;
+}
+
+mat-cell:last-child, mat-header-cell:last-child {
+  border-right: none;
+}
+
+.mdc-data-table__cell, .mdc-data-table__header-cell {
+  padding: 0;
+}
+
+.centralizado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagem-espacada {
+  margin-right: 10px;
+}
+
+.preenchimento-email {
+  padding: 0 10px;
 }
