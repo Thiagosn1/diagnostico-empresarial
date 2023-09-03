@@ -8,6 +8,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-form',
@@ -31,11 +32,29 @@ import {
   ],
 })
 export class FormComponent {
+
+  constructor(private questionService: QuestionService,private router: Router, private snackBar: MatSnackBar) {
+    this.updateCategory();
+  }
+
+  public questions:any = [];
+
+  ngOnInit(): void {
+    this.questionService.getQuestions().subscribe(
+      data => {
+        this.questions = data;
+      }
+    );
+  }
+
   answers = Array.from({ length: 11 }, (_, i) => i);
   currentCategory = '';
   transitioning = false;
   showQuestion = true;
 
+  
+  
+  /*
   // Perguntas e suas categorias
   questions = [
     { text: 'Pergunta 1', category: 'Administrativo' },
@@ -117,9 +136,8 @@ export class FormComponent {
     { text: 'Pergunta 77', category: 'Jurídico' },
     { text: 'Pergunta 78', category: 'Jurídico' },
     { text: 'Pergunta 79', category: 'Jurídico' },
-    { text: 'Pergunta 80', category: 'Jurídico' },
-  ];
-
+    { text: 'Pergunta 80', category: 'Jurídico' }
+  ]; */
   currentQuestionIndex = 0;
 
   categories = [
@@ -139,9 +157,7 @@ export class FormComponent {
   );
   currentCategoryIndex = 0;
 
-  constructor(private router: Router, private snackBar: MatSnackBar) {
-    this.updateCategory();
-  }
+  
 
   // Retorna a pergunta atual com base no índice da pergunta atual
   get currentQuestion() {
