@@ -33,7 +33,7 @@ import { CadastroEmpresaComponent } from './components/cadastro-empresa/cadastro
 import {MatTableModule} from "@angular/material/table";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
