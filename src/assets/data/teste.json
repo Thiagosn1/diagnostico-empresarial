@@ -1,0 +1,538 @@
+[
+  {
+    "id": 1,
+    "name": "Administrativo",
+    "position": 1,
+    "questions": [
+      {
+        "id": 1,
+        "description": "Temos perfeita compreensão do nosso modelo de negócios.",
+        "position": 1,
+        "categoryId": 1
+      },
+      {
+        "id": 2,
+        "description": "Não sabemos, com certeza, como a empresa está se saindo de fato.",
+        "position": 2,
+        "categoryId": 1
+      },
+      {
+        "id": 3,
+        "description": "Gerenciamos bem nossos riscos, entendemos o conceito e temos um plano de ação para lidar com eles.",
+        "position": 3,
+        "categoryId": 1
+      },
+      {
+        "id": 4,
+        "description": "Na realidade tudo aqui é meio caótico, apenas reagimos aos problemas e nunca nos antecipamos a eles.",
+        "position": 4,
+        "categoryId": 1
+      },
+      {
+        "id": 5,
+        "description": "Temos um plano estratégico bem definido, com objetivos, indicadores e metas.",
+        "position": 5,
+        "categoryId": 1
+      },
+      {
+        "id": 6,
+        "description": "Monitoramos nossos indicadores regularmente, sempre adaptando nossos planos aos novos desafios que surgem periodicamente.",
+        "position": 6,
+        "categoryId": 1
+      },
+      {
+        "id": 7,
+        "description": "Nosso planejamento estratégico é meramente um documento de gaveta. Existe mais não é seguido.",
+        "position": 7,
+        "categoryId": 1
+      },
+      {
+        "id": 8,
+        "description": "Não temos planos, apenas apagamos incêndios",
+        "position": 8,
+        "categoryId": 1
+      },
+      {
+        "id": 9,
+        "description": "Não sabemos ao certo como as coisas são feitas por aqui, não existe nenhum passo-a-passo de como executar as tarefas.",
+        "position": 9,
+        "categoryId": 1
+      },
+      {
+        "id": 10,
+        "description": "Todos os departamentos da empresa sabem exatamente onde queremos chegar.",
+        "position": 10,
+        "categoryId": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Comercial",
+    "position": 2,
+    "questions": [
+      {
+        "id": 11,
+        "description": "Não conheço bem os meus clientes.",
+        "position": 1,
+        "categoryId": 2
+      },
+      {
+        "id": 12,
+        "description": "Não sei dizer se meus clientes sabem claramente o que estou oferecendo para eles.",
+        "position": 2,
+        "categoryId": 2
+      },
+      {
+        "id": 13,
+        "description": "Nossa receita está caindo há mais de três meses e não há expectativa de melhoria no curto prazo.",
+        "position": 3,
+        "categoryId": 2
+      },
+      {
+        "id": 14,
+        "description": "Estamos com cada vez mais clientes e estamos felizes com isso!",
+        "position": 4,
+        "categoryId": 2
+      },
+      {
+        "id": 15,
+        "description": "Nossa inadimplência é muito baixa para o ramo no qual estamos trabalhando.",
+        "position": 5,
+        "categoryId": 2
+      },
+      {
+        "id": 16,
+        "description": "Conhecemos bem nossos clientes e desenvolvemos produtos e serviços com base nesse conhecimento.",
+        "position": 6,
+        "categoryId": 2
+      },
+      {
+        "id": 17,
+        "description": "A área comercial possui indicadores claros e metas bem definidas.",
+        "position": 7,
+        "categoryId": 2
+      },
+      {
+        "id": 18,
+        "description": "Não buscamos novos clientes, na verdade, nem sabemos como oferecer o que estamos vendando.",
+        "position": 8,
+        "categoryId": 2
+      },
+      {
+        "id": 19,
+        "description": "Não temos controle sobre a área comercial. As coisas simplesmente acontecem de maneira aleatória e natural.",
+        "position": 9,
+        "categoryId": 2
+      },
+      {
+        "id": 20,
+        "description": "Segmentamos nossos clientes em grupos e conhecemos o perfil desses grupos.",
+        "position": 10,
+        "categoryId": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Marketing",
+    "position": 3,
+    "questions": [
+      {
+        "id": 21,
+        "description": "Temos um site bem estruturado que atende as nossas necessidades e as necessidades de nossos clientes.",
+        "position": 1,
+        "categoryId": 3
+      },
+      {
+        "id": 22,
+        "description": "Não possuímos plano de marketing.",
+        "position": 2,
+        "categoryId": 3
+      },
+      {
+        "id": 23,
+        "description": "Construímos um plano de marketing baseado nas pesquisas que fazemos com nossos clientes. O mesmo é monitorado por indicadores por meio dos quais avaliamos se o que estamos fazendo está realmente dando resultado.",
+        "position": 3,
+        "categoryId": 3
+      },
+      {
+        "id": 24,
+        "description": "Nossas estratégias de marketing estão dando super certo!",
+        "position": 4,
+        "categoryId": 3
+      },
+      {
+        "id": 25,
+        "description": "Nosso marketing funciona na base do improviso. Simplesmente criamos nossas campanhas e agimos.",
+        "position": 5,
+        "categoryId": 3
+      },
+      {
+        "id": 26,
+        "description": "Não sabemos bem onde queremos chegar com nossos produtos e serviços.",
+        "position": 6,
+        "categoryId": 3
+      },
+      {
+        "id": 27,
+        "description": "Investimos pouco em publicidade. Não acreditamos que isso pode nos ajudar.",
+        "position": 7,
+        "categoryId": 3
+      },
+      {
+        "id": 28,
+        "description": "Investimos bem em publicidade e temos como provar que isso está dando resultado.",
+        "position": 8,
+        "categoryId": 3
+      },
+      {
+        "id": 29,
+        "description": "Investimos muito em publicidade e não temos percepção resultado algum.",
+        "position": 9,
+        "categoryId": 3
+      },
+      {
+        "id": 30,
+        "description": "Marketing? Não faço ideia do que seja!",
+        "position": 10,
+        "categoryId": 3
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Financiero",
+    "position": 4,
+    "questions": [
+      {
+        "id": 31,
+        "description": "Fazemos o acompanhamento mensal dos resultados financeiros da empresa e, no geral, a avaliação é positiva.",
+        "position": 1,
+        "categoryId": 4
+      },
+      {
+        "id": 32,
+        "description": "Estamos enfrentando sérias dificuldades financeiras.",
+        "position": 2,
+        "categoryId": 4
+      },
+      {
+        "id": 33,
+        "description": "Acreditamos que, no decorrer dos próximos seis meses, a empresa deve crescer de forma sustentável, gerando lucro e contratando mais pessoas.",
+        "position": 3,
+        "categoryId": 4
+      },
+      {
+        "id": 34,
+        "description": "Não sei para onde está indo o dinheiro que investimos nessa empresa!",
+        "position": 4,
+        "categoryId": 4
+      },
+      {
+        "id": 35,
+        "description": "Não avaliamos a viabilidade dos nossos investimentos. Apenas investimos e seja o que Deus quiser!",
+        "position": 5,
+        "categoryId": 4
+      },
+      {
+        "id": 36,
+        "description": "Possuímos uma boa reserva financeira para fazer frente a imprevistos.",
+        "position": 6,
+        "categoryId": 4
+      },
+      {
+        "id": 37,
+        "description": "As constas dos donos e as contas da empresa estão todas misturadas.",
+        "position": 7,
+        "categoryId": 4
+      },
+      {
+        "id": 38,
+        "description": "Possuímos indicadores financeiros sólidos e bem definidos.",
+        "position": 8,
+        "categoryId": 4
+      },
+      {
+        "id": 39,
+        "description": "Não sei dizer qual é o custo dos produtos e/ou serviços que estou ofertando.",
+        "position": 9,
+        "categoryId": 4
+      },
+      {
+        "id": 40,
+        "description": "Não sei se estou vendendo pelo preço certo.",
+        "position": 10,
+        "categoryId": 4
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Compras",
+    "position": 5,
+    "questions": [
+      {
+        "id": 41,
+        "description": "Avaliamos o desempenho de nossos fornecedores e compramos apenas de fornecedores que realmente atendem as nossas necessidades de forma satisfatória.",
+        "position": 1,
+        "categoryId": 5
+      },
+      {
+        "id": 42,
+        "description": "Nossas compras são reativas, ou seja, compramos apenas quando já não tem mais o produto ou matéria prima em estoque.",
+        "position": 2,
+        "categoryId": 5
+      },
+      {
+        "id": 43,
+        "description": "Temos um ótimo controle de nossos estoques. Sabemos exatamente o que temos e quando precisamos comprar.",
+        "position": 3,
+        "categoryId": 5
+      },
+      {
+        "id": 44,
+        "description": "Possuímos uma boa lista de fornecedores que usamos para suprir nossos estoques.",
+        "position": 4,
+        "categoryId": 5
+      },
+      {
+        "id": 45,
+        "description": "Nossos fornecedores são muito ruins. Sempre nos deixam na mão.",
+        "position": 5,
+        "categoryId": 5
+      },
+      {
+        "id": 46,
+        "description": "Sempre conseguimos bons descontos em nossas compras.",
+        "position": 6,
+        "categoryId": 5
+      },
+      {
+        "id": 47,
+        "description": "Sempre temos problemas com os prazos de entrega dos nossos fornecedores.",
+        "position": 7,
+        "categoryId": 5
+      },
+      {
+        "id": 48,
+        "description": "Não temos controle algum sobre nossos compras.",
+        "position": 8,
+        "categoryId": 5
+      },
+      {
+        "id": 49,
+        "description": "Nosso estoque é uma caixinha de surpresas... Não temos ideia do que temos disponível ou se há algo estragado por lá.",
+        "position": 9,
+        "categoryId": 5
+      },
+      {
+        "id": 50,
+        "description": "Nossos fornecedores são nossos parceiros e assim conseguimos melhores resultados.",
+        "position": 10,
+        "categoryId": 5
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Recursos Humanos",
+    "position": 6,
+    "questions": [
+      {
+        "id": 51,
+        "description": "Na hora de contratar um funcionário, além de avaliar seu currículo verificamos se ele tem perfil comportamental para trabalhar na área para a qual ele está se candidatando.",
+        "position": 1,
+        "categoryId": 6
+      },
+      {
+        "id": 52,
+        "description": "Contamos com um organograma atualizado e todo mundo sabe a quem deve se reportar.",
+        "position": 2,
+        "categoryId": 6
+      },
+      {
+        "id": 53,
+        "description": "Realizamos periodicamente uma avaliação dos colaboradores e a utilizamos como critério para promoção, remanejamento ou requalificação de colaboradores.",
+        "position": 3,
+        "categoryId": 6
+      },
+      {
+        "id": 54,
+        "description": "Fazemos pesquisas periódicas para avaliar o ambiente organizacional.",
+        "position": 4,
+        "categoryId": 6
+      },
+      {
+        "id": 55,
+        "description": "Não possuímos descrição de cargos. Cada um faz o que acredita que é a sua função.",
+        "position": 5,
+        "categoryId": 6
+      },
+      {
+        "id": 56,
+        "description": "Não temos uma equipe. Cada área cuida de seu próprio interesse e geralmente os departamentos competem entre si.",
+        "position": 6,
+        "categoryId": 6
+      },
+      {
+        "id": 57,
+        "description": "Não dispomos de Instruções de Trabalho ou Procedimentos que sirvam de referência para o trabalho de nossos colaboradores.",
+        "position": 7,
+        "categoryId": 6
+      },
+      {
+        "id": 58,
+        "description": "A rotatividade (entrada e saída de colaboradores do quadro de pessoal) é relativamente baixa quando comparamos com nossos concorrentes.",
+        "position": 8,
+        "categoryId": 6
+      },
+      {
+        "id": 59,
+        "description": "Quando um novato começa a trabalhar, nós não perdemos tempo o apresentando aos colegas ou mesmo explicando como a empresa funciona. Apenas encaminhamos para o setor onde ele vai trabalhar e deixamos que ele aprenda na prática.",
+        "position": 9,
+        "categoryId": 6
+      },
+      {
+        "id": 60,
+        "description": "Não toleramos as falhas de nosso pessoal. Se algo deu é errado é má vontade de quem executou a tarefa.",
+        "position": 10,
+        "categoryId": 6
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Operações",
+    "position": 7,
+    "questions": [
+      {
+        "id": 61,
+        "description": "Temos um fluxograma desenhado para cada processo da empresa e está tudo atualizado.",
+        "position": 1,
+        "categoryId": 7
+      },
+      {
+        "id": 62,
+        "description": "Não temos nenhum procedimento documentado.",
+        "position": 2,
+        "categoryId": 7
+      },
+      {
+        "id": 63,
+        "description": "Não controlamos nossa produção e/ou serviços que prestamos.",
+        "position": 3,
+        "categoryId": 7
+      },
+      {
+        "id": 64,
+        "description": "Sempre que ocorre uma falha em algum processo, nós registramos o que aconteceu, estudamos o que causou o problema e tomamos providencias para evitar que a falha aconteça novamente.",
+        "position": 4,
+        "categoryId": 7
+      },
+      {
+        "id": 65,
+        "description": "Muitos clientes reclamam de nossos atrasos e da baixa qualidade de nossos produtos e/ou serviços.",
+        "position": 5,
+        "categoryId": 7
+      },
+      {
+        "id": 66,
+        "description": "Temos um painel com gráficos onde toda a equipe pode acompanhar os nossos indicadores.",
+        "position": 6,
+        "categoryId": 7
+      },
+      {
+        "id": 67,
+        "description": "Não existe planejamento semanal do que será feito. Tudo é prioridade por aqui!",
+        "position": 7,
+        "categoryId": 7
+      },
+      {
+        "id": 68,
+        "description": "Acompanhamos nossos resultados por meio de indicadores que são avaliados periodicamente.",
+        "position": 8,
+        "categoryId": 7
+      },
+      {
+        "id": 69,
+        "description": "O ambiente de trabalho ou linha de produção onde desenvolvemos nossos produtos e/ou serviços é uma verdadeira zona de guerra!",
+        "position": 9,
+        "categoryId": 7
+      },
+      {
+        "id": 70,
+        "description": "Quando algo dá errado, provavelmente, entendemos que o problema está no processo e não no colaborador.",
+        "position": 10,
+        "categoryId": 7
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Jurídico",
+    "position": 8,
+    "questions": [
+      {
+        "id": 71,
+        "description": "A empresa conta com contratos bem estruturados tanto com fornecedores quanto com clientes.",
+        "position": 1,
+        "categoryId": 8
+      },
+      {
+        "id": 72,
+        "description": "Não estamos enfrentando qualquer problema na área jurídica.",
+        "position": 2,
+        "categoryId": 8
+      },
+      {
+        "id": 73,
+        "description": "Gerenciamos parte de nossos riscos celebrando contratos com companhias seguradoras e estamos tranquilos quanto a isto.",
+        "position": 3,
+        "categoryId": 8
+      },
+      {
+        "id": 74,
+        "description": "Gerenciamos parte de nossos riscos celebrando contratos com companhias seguradoras e estamos tranquilos quanto a isto.",
+        "position": 4,
+        "categoryId": 8
+      },
+      {
+        "id": 75,
+        "description": "Não temos nenhum problema com questões trabalhistas.",
+        "position": 5,
+        "categoryId": 8
+      },
+      {
+        "id": 76,
+        "description": "Não analisamos os contratos que celebramos com nossos fornecedores.",
+        "position": 6,
+        "categoryId": 8
+      },
+      {
+        "id": 77,
+        "description": "Não temos controle algum sobre nossos contratos. Estão, em sua imensa maioria, desatualizados e incompletos.",
+        "position": 7,
+        "categoryId": 8
+      },
+      {
+        "id": 78,
+        "description": "Quando terceirizamos o serviço, não fazemos qualquer contrato documentando o que esperamos que seja feito e nem definimos as obrigações entre as partes.",
+        "position": 8,
+        "categoryId": 8
+      },
+      {
+        "id": 79,
+        "description": "Temos enfrentado muitos problemas com questões relativas à legislação ambiental e boa parte do problema está relacionado à forma como estamos gerenciando a empresa.",
+        "position": 9,
+        "categoryId": 8
+      },
+      {
+        "id": 80,
+        "description": "Não sei dizer se dispomos de toda a documentação legal necessária para manter nosso negócio funcionando.",
+        "position": 10,
+        "categoryId": 8
+      }
+    ]
+  }
+]
