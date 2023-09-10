@@ -6,16 +6,16 @@ import {HttpClient} from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 interface Question {
-    id: number;
-    description: string;
-    position: number;
+  id: number;
+  description: string;
+  position: number;
 }
 
 interface Category {
-    id: number;
-    name: string;
-    position: number;
-    questions: Question[];
+  id: number;
+  name: string;
+  position: number;
+  questions: Question[];
 }
 
 @Component({
@@ -40,50 +40,51 @@ interface Category {
   ],
 })
 export class FormComponent {
-    answers = Array.from({ length: 11 }, (_, i) => i);
-    currentCategory = '';
-    transitioning = false;
-    showQuestion = true;
-    questionsByCategory: any[] = [];
+  answers = Array.from({ length: 11 }, (_, i) => i);
+  transitioning = false;
+  showQuestion = true;
+  currentQuestionIndex = 0;
+  currentCategoryIndex = 0;
+  categories: Category[] = [];
+  totalNQuestions = 0;
+  currentNQuestions = 0;
 
-    currentQuestionIndex = 0;
-    categories: string[] = [];
+  completedCategories: boolean[] = new Array(this.categories.length).fill(
+    false
+  );
 
-    // Inicializa um array para armazenar o status de conclusão de cada categoria
-    completedCategories: boolean[] = new Array(this.categories.length).fill(
-        false
-    );
-    currentCategoryIndex = 0;
+  constructor(
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private http: HttpClient
+  ) {
+    this.getData().subscribe((data) => {
+      data.sort((a: any, b: any) => {
+        return a.position - b.position;
+      });
 
-    constructor(
-        private router: Router,
-        private snackBar: MatSnackBar,
-        private http: HttpClient
-    ) {
-        this.getData().subscribe((data) => {
-            this.categories = data.map((item) => item.name);
-            this.questionsByCategory = data.map((item: Category) => ({
-                category: item.name,
-                questions: item.questions.map((question: Question) => ({
-                    id: question.id,
-                    text: question.description,
-                    position: question.position,
-                })),
-            }));
-            this.updateCategory();
+      data.forEach((c: any) => {
+        this.totalNQuestions += c.questions.length;
+        c.questions.sort((a: any, b: any) => {
+          return a.position - b.position;
         });
-    }
+      });
+      this.categories = data;
+    });
+  }
 
-    getData(): Observable<Category[]> {
-        return this.http.get<Category[]>('./assets/data/teste.json');
-    }
-
+  getData(): Observable<Category[]> {
+    return this.http.get<Category[]>('./assets/data/form.json');
+  }
 
   // Retorna a pergunta atual com base no índice da pergunta atual
   get currentQuestion() {
-    const currentCategoryQuestions =
-      this.questionsByCategory[this.currentCategoryIndex].questions;
-    return currentCategoryQuestions[this.currentQuestionIndex].text;
+    return this.categories[this.currentCategoryIndex].questions[this.currentQuestionIndex].description;
+  }
+
+  // Retorna a categoria atual com base no índice da categoria atual
+  get currentCategory() {
+    return this.categories[this.currentCategoryIndex].name;
   }
 
   // Retorna a cor do gradiente com base no índice fornecido
@@ -95,6 +96,7 @@ export class FormComponent {
   selectAnswer(index: number) {
     console.log('Resposta selecionada:', index);
     this.transitionToNextQuestion();
+    this.currentNQuestions++;
   }
 
   async transitionToNextQuestion() {
@@ -118,69 +120,27 @@ export class FormComponent {
 
   // Avança para a próxima pergunta
   nextQuestion() {
-    const currentCategoryQuestions =
-      this.questionsByCategory[this.currentCategoryIndex].questions;
-
-    if (this.currentQuestionIndex < currentCategoryQuestions.length -1) {
+    if(this.categories[this.currentCategoryIndex].questions.length - 1 > this.currentQuestionIndex && this.categories.length - 1 >= this.currentCategoryIndex){
       this.currentQuestionIndex++;
-      this.updateCategory();
-    } else {
+    } else{
       // Marca a categoria atual como concluída antes de atualizar a categoria
       this.completedCategories[this.currentCategoryIndex] = true;
-
-      // Verifica se todas as categorias foram concluídas
-      if (this.completedCategories.every((category) => category === true)) {
+      this.currentCategoryIndex++;
+      this.currentQuestionIndex = 0;
+      if(this.categories.length == this.currentCategoryIndex){
+        // Marca a categoria atual como concluída antes de atualizar a categoria
+        this.completedCategories[this.currentCategoryIndex - 1] = true;
         this.showSuccessMessageAndNavigate(); // Exibe a mensagem de sucesso e navega para o dashboard
-      } else {
-        this.currentQuestionIndex = -1; // Reseta o índice da pergunta atual para -1 para que ele seja incrementado para zero na próxima chamada de nextQuestion()
-        this.updateCategory();
-        this.nextQuestion();
       }
-    }
-  }
-
-  // Atualiza a categoria atual com base no índice da pergunta atual
-  updateCategory() {
-    const currentCategoryQuestions =
-      this.questionsByCategory[this.currentCategoryIndex].questions;
-
-    if (this.currentQuestionIndex === currentCategoryQuestions.length -1) {
-      const newIndex =
-        (this.currentCategoryIndex +1) % this.categories.length;
-
-      // Verifica se a categoria mudou, e se sim, marca a categoria anterior como concluída
-      if (newIndex !== this.currentCategoryIndex) {
-        this.completedCategories[this.currentCategoryIndex] = true;
-        this.currentCategoryIndex = newIndex;
-      }
-    }
-
-    const newCurrentCategoryQuestions =
-      this.questionsByCategory[this.currentCategoryIndex].questions;
-
-    if (this.currentQuestionIndex === -1 && newCurrentCategoryQuestions.length ===0){
-      const newIndex =
-        (this.currentCategoryIndex +1) % this.categories.length;
-      this.currentCategoryIndex = newIndex;
-      this.updateCategory();
     }
   }
 
   // Calcula a porcentagem de progresso com base no índice da pergunta atual e no tamanho total das perguntas
   get progressPercentage() {
-    const totalQuestions = this.questionsByCategory.reduce(
-      (acc, curr) => acc + curr.questions.length,
-      0
-    );
-    const completedQuestions = this.questionsByCategory.reduce(
-      (acc, curr, index) =>
-        index < this.currentCategoryIndex
-          ? acc + curr.questions.length
-          : acc,
-      0
-    );
+    const totalQuestions = this.totalNQuestions;
+    const completedQuestions = this.currentNQuestions;
     return Math.round(
-      ((completedQuestions + this.currentQuestionIndex + 1) / totalQuestions) *
+      (completedQuestions / totalQuestions) *
       100
     );
   }

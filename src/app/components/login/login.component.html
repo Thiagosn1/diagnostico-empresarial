@@ -4,10 +4,8 @@
   <span class="spacer"></span>
 </mat-toolbar>
 <div class="form-container">
-  <form class="form-container">
-    <label for="email-input">Digite seu e-mail</label>
-    <input class="input" id="email-input" type="email" />
-    <button class="button" routerLink="/token">OK</button>
-  </form>
-  <router-outlet></router-outlet>
+  <label for="email-input">Digite seu e-mail</label>
+  <input class="input" id="email-input" type="email" [(ngModel)]="email" name="email" />
+  <button class="button" (click)="sendEmail()">OK</button>
+  <div *ngIf="emailError" class="error">{{emailError}}</div>
 </div>

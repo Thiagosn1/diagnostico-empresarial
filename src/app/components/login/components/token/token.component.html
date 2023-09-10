@@ -6,7 +6,8 @@
 <div class="form-container">
   <label for="token-input">Digite o token que foi enviado no seu email</label>
   <mat-form-field>
-    <input class="input" matInput id="token-input" type="password" />
+    <input class="input" matInput id="token-input" type="password" [(ngModel)]="token" name="token" />
   </mat-form-field>
-  <button class="button" routerLink="/cadastro">OK</button>
+  <button class="button" (click)="submitToken()">OK</button>
+  <div *ngIf="tokenError" class="error">{{tokenError}}</div>
 </div>
