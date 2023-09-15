@@ -18,7 +18,7 @@ export class TokenComponent {
     const isValid = this.token.length === 6;
 
     if (!isValid) {
-      this.tokenError = 'Por favor, insira um token válido.';
+      this.tokenError = 'Token inválido, verifique se você digitou corretamente ou solicite um novo token.';
     } else {
       this.tokenError = '';
     }
