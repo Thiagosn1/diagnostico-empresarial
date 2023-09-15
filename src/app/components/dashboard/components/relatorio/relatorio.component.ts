@@ -1,20 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { FormResponseService } from 'src/app/services/form.response.service';
 
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css'],
 })
-export class RelatorioComponent {
+export class RelatorioComponent implements OnInit {
   public radarChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        ticks: {
+          stepSize: 1
+        }
+      }
+    }
   };
+  
   public radarChartLabels: string[] = [
     'Administrativo',
     'Comercial',
     'Marketing',
-    'Financeiro',
+    'Financiero',
     'Compras',
     'Jurídico',
     'Recursos Humanos',
@@ -31,4 +42,41 @@ export class RelatorioComponent {
     ],
   };
   public radarChartType: ChartType = 'radar';
+
+  constructor(private formResponseService: FormResponseService) {}
+
+  ngOnInit() {
+    this.formResponseService.currentResponse.subscribe(response => {
+      this.updateRadarChartData(response);
+    });
+  }
+
+  updateRadarChartData(response: any) {
+    // Inicialize um novo array para armazenar os dados do gráfico
+    const newRadarChartData: ChartData<'radar'> = {
+      labels: this.radarChartLabels,
+      datasets: [
+        {
+          data: [],
+          label: 'Diagnóstico Empresarial',
+        },
+      ],
+    };
+
+    // Preencha o array com os dados das respostas
+    for (const category of this.radarChartLabels) {
+      const answers = response[category];
+      if (answers) {
+        // Calcule a média das respostas para cada categoria
+        const average = answers.reduce((a: number, b: number) => a + b, 0) / answers.length;
+        newRadarChartData.datasets[0].data.push(average);
+      } else {
+        // Se não houver respostas para uma categoria, adicione um valor padrão (por exemplo, 0)
+        newRadarChartData.datasets[0].data.push(0);
+      }
+    }
+
+    // Atualize radarChartData com os novos dados
+    this.radarChartData = newRadarChartData;
+  }
 }

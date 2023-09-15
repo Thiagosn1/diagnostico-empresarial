@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { trigger, state, style, animate, transition} from '@angular/animations';
-import {HttpClient} from "@angular/common/http";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FormResponseService } from 'src/app/services/form.response.service';
 
 interface Question {
   id: number;
@@ -40,6 +47,7 @@ interface Category {
   ],
 })
 export class FormComponent {
+  responses: any = {};
   answers = Array.from({ length: 11 }, (_, i) => i);
   transitioning = false;
   showQuestion = true;
@@ -56,7 +64,8 @@ export class FormComponent {
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
-    private http: HttpClient
+    private http: HttpClient,
+    private formResponseService: FormResponseService
   ) {
     this.getData().subscribe((data) => {
       data.sort((a: any, b: any) => {
@@ -79,7 +88,9 @@ export class FormComponent {
 
   // Retorna a pergunta atual com base no índice da pergunta atual
   get currentQuestion() {
-    return this.categories[this.currentCategoryIndex].questions[this.currentQuestionIndex].description;
+    return this.categories[this.currentCategoryIndex].questions[
+      this.currentQuestionIndex
+    ].description;
   }
 
   // Retorna a categoria atual com base no índice da categoria atual
@@ -95,6 +106,11 @@ export class FormComponent {
   // Esta função é chamada quando o usuário selecionar uma resposta
   selectAnswer(index: number) {
     console.log('Resposta selecionada:', index);
+    const currentCategory = this.categories[this.currentCategoryIndex].name;
+    if (!this.responses[currentCategory]) {
+      this.responses[currentCategory] = [];
+    }
+    this.responses[currentCategory].push(index);
     this.transitionToNextQuestion();
     this.currentNQuestions++;
   }
@@ -109,6 +125,7 @@ export class FormComponent {
   }
 
   async showSuccessMessageAndNavigate() {
+    this.formResponseService.changeResponse(this.responses);
     this.snackBar.open('Concluído com sucesso', '', {
       duration: 3000, // Duração do snack bar (em milissegundos)
       panelClass: ['success-snackbar'], // Classe CSS para estilizar o snack bar
@@ -120,14 +137,18 @@ export class FormComponent {
 
   // Avança para a próxima pergunta
   nextQuestion() {
-    if(this.categories[this.currentCategoryIndex].questions.length - 1 > this.currentQuestionIndex && this.categories.length - 1 >= this.currentCategoryIndex){
+    if (
+      this.categories[this.currentCategoryIndex].questions.length - 1 >
+        this.currentQuestionIndex &&
+      this.categories.length - 1 >= this.currentCategoryIndex
+    ) {
       this.currentQuestionIndex++;
-    } else{
+    } else {
       // Marca a categoria atual como concluída antes de atualizar a categoria
       this.completedCategories[this.currentCategoryIndex] = true;
       this.currentCategoryIndex++;
       this.currentQuestionIndex = 0;
-      if(this.categories.length == this.currentCategoryIndex){
+      if (this.categories.length == this.currentCategoryIndex) {
         // Marca a categoria atual como concluída antes de atualizar a categoria
         this.completedCategories[this.currentCategoryIndex - 1] = true;
         this.showSuccessMessageAndNavigate(); // Exibe a mensagem de sucesso e navega para o dashboard
@@ -139,9 +160,6 @@ export class FormComponent {
   get progressPercentage() {
     const totalQuestions = this.totalNQuestions;
     const completedQuestions = this.currentNQuestions;
-    return Math.round(
-      (completedQuestions / totalQuestions) *
-      100
-    );
+    return Math.round((completedQuestions / totalQuestions) * 100);
   }
 }
