@@ -24,20 +24,11 @@ export class LoginComponent {
   }
 
   sendEmail() {
-        this.validarEmail();
-        if (!this.emailError) {
-            this.emailService.email = this.email;
-            console.log({ email: this.email });
-            this.router.navigate(['/token']);
-        }
-    }
-
-  /* sendEmail() {
     this.validarEmail();
     if (!this.emailError) {
       this.emailService.sendEmail(this.email).subscribe(
-        () => {
-          console.log({ email: this.email });
+        (response) => {
+          console.log(response);
           this.router.navigate(['/token']);
         },
         (error) => {
@@ -45,5 +36,5 @@ export class LoginComponent {
         }
       );
     }
-  } */
+  }
 }

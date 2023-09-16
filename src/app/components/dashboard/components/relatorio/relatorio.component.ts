@@ -25,7 +25,7 @@ export class RelatorioComponent implements OnInit {
     'Administrativo',
     'Comercial',
     'Marketing',
-    'Financiero',
+    'Financeiro',
     'Compras',
     'Jurídico',
     'Recursos Humanos',

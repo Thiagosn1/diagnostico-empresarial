@@ -10,7 +10,22 @@ export class EmailService {
 
   constructor(private http: HttpClient) { }
 
-  /* sendEmail(email: string) {
-    return this.http.post('http://localhost:3000/send-token', { email });
-  } */
+  // Método para enviar o email para a API
+  sendEmail(email: string) {
+    this.email = email;
+    const body = {
+      "email": email
+    };
+    return this.http.post('http://localhost:3000/requirelogin', body);
+  }
+  
+
+  // Método para enviar o token para a API
+  submitToken(token: string) {
+    const body = {
+      "email": this.email,
+      "loginCode": token
+    };
+    return this.http.post('http://localhost:3000/login', body);
+  }  
 }

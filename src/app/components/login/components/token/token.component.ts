@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-import {EmailService} from "../../../../services/email.service";
+import { Router } from '@angular/router';
+import { EmailService } from '../../../../services/email.service';
 
 @Component({
   selector: 'app-token-form',
@@ -11,14 +11,14 @@ export class TokenComponent {
   token = '';
   tokenError = '';
 
-  constructor(private router: Router, private emailService: EmailService) {} // Injete o EmailService
+  constructor(private router: Router, private emailService: EmailService) {}
 
   validarToken() {
-    // Substitua esta linha pela sua lógica de validação de token
     const isValid = this.token.length === 6;
 
     if (!isValid) {
-      this.tokenError = 'Token inválido, verifique se você digitou corretamente ou solicite um novo token.';
+      this.tokenError =
+        'Token inválido, verifique se você digitou corretamente ou solicite um novo token.';
     } else {
       this.tokenError = '';
     }
@@ -27,8 +27,15 @@ export class TokenComponent {
   submitToken() {
     this.validarToken();
     if (!this.tokenError) {
-      console.log({ email: this.emailService.email, loginCode: this.token }); // Use o e-mail do serviço
-      this.router.navigate(['/cadastro']);
+      this.emailService.submitToken(this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.router.navigate(['/cadastro']);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
   }
 }
