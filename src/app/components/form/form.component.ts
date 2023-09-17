@@ -132,7 +132,7 @@ export class FormComponent {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 3000)); // Aguarde a duração do snack bar
-    this.router.navigate(['/dashboard']); // Navegue para o dashboard
+    this.router.navigate(['/relatorio']);
   }
 
   // Avança para a próxima pergunta

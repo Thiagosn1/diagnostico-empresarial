@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #d9d9d9;
+}
+
+.card {
+  width: 60%;
+  height: 72%;
+  padding: 16px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  text-align: justify;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-column {
+  width: 45%;
+  padding-left: 20px;
+}
+
+.left-column h2 {
+  margin-bottom: 60px;
+  font-size: 30px;
+}
+
+.left-column p {
+  font-size: 18px;
+}
+
+.right-column {
+  width: 55%;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botao-orcamento {
+  width: 240px;
+  height: 40px;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: green;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.botao-orcamento:hover {
+  background-color: darkgreen;
+}

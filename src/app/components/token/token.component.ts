@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EmailService } from '../../../../services/email.service';
+import { EmailService } from '../../services/email.service';
 
 @Component({
   selector: 'app-token-form',

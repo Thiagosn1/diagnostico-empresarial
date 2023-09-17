@@ -15,7 +15,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
-import { TokenComponent } from './components/login/components/token/token.component';
+import { TokenComponent } from './components/token/token.component';
 import { MatInputModule } from '@angular/material/input';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -35,6 +35,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     InfoComponent,
     FormComponent,
     CadastroEmpresaComponent,
+    RelatorioSimplesComponent,
   ],
   imports: [
     AppRoutingModule,
