@@ -18,15 +18,18 @@ export class LoginComponent {
     const re = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     if (!re.test(this.email)) {
       this.emailError = 'Por favor, insira um e-mail válido.';
+      setTimeout(() => {
+        this.emailError = '';
+      }, 2000);
     } else {
       this.emailError = '';
     }
   }
 
-  sendEmail() {
+  enviarEmail() {
     this.validarEmail();
     if (!this.emailError) {
-      this.emailService.sendEmail(this.email).subscribe(
+      this.emailService.enviarEmail(this.email).subscribe(
         (response) => {
           console.log(response);
           this.router.navigate(['/token']);

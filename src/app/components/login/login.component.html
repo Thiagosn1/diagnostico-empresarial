@@ -5,7 +5,7 @@
 </mat-toolbar>
 <div class="form-container">
   <label for="email-input">Digite seu e-mail</label>
-  <input class="input" id="email-input" type="email" [(ngModel)]="email" name="email" />
-  <button class="button" (click)="sendEmail()">OK</button>
-  <div *ngIf="emailError" class="error">{{emailError}}</div>
+  <input class="input" id="email-input" type="email" [(ngModel)]="email" name="email" required/>
+  <button class="button" (click)="enviarEmail()">OK</button>
+  <div *ngIf="emailError" class="error">{{ emailError }}</div>
 </div>

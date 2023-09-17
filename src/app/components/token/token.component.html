@@ -4,10 +4,10 @@
   <span class="spacer"></span>
 </mat-toolbar>
 <div class="form-container">
-  <label for="token-input">Digite o token que foi enviado no seu email</label>
+  <label for="token-input">Digite o código que foi enviado no seu email</label>
   <mat-form-field>
-    <input class="input" matInput id="token-input" type="password" [(ngModel)]="token" name="token" />
+    <input class="input" matInput id="token-input" type="password" [(ngModel)]="token" name="token" required/>
   </mat-form-field>
-  <button class="button" (click)="submitToken()">OK</button>
+  <button class="button" (click)="enviarToken()">OK</button>
   <div *ngIf="tokenError" class="error">{{tokenError}}</div>
 </div>

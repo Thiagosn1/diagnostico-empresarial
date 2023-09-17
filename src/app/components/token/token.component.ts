@@ -18,16 +18,19 @@ export class TokenComponent {
 
     if (!isValid) {
       this.tokenError =
-        'Token inválido, verifique se você digitou corretamente ou solicite um novo token.';
+        'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
+      setTimeout(() => {
+        this.tokenError = '';
+      }, 3000);
     } else {
       this.tokenError = '';
     }
   }
 
-  submitToken() {
+  enviarToken() {
     this.validarToken();
     if (!this.tokenError) {
-      this.emailService.submitToken(this.token).subscribe(
+      this.emailService.enviarToken(this.token).subscribe(
         (response) => {
           console.log(response);
           this.router.navigate(['/cadastro']);

@@ -1,9 +1,13 @@
 .empresa-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 16px;
 }
 
 .empresa-card {
@@ -36,6 +40,7 @@ button {
   line-height: 24px;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   cursor: pointer;
+  border: none;
 }
 
 button:hover {

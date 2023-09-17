@@ -11,7 +11,7 @@ export class EmailService {
   constructor(private http: HttpClient) { }
 
   // Método para enviar o email para a API
-  sendEmail(email: string) {
+  enviarEmail(email: string) {
     this.email = email;
     const body = {
       "email": email
@@ -21,7 +21,7 @@ export class EmailService {
   
 
   // Método para enviar o token para a API
-  submitToken(token: string) {
+  enviarToken(token: string) {
     const body = {
       "email": this.email,
       "loginCode": token

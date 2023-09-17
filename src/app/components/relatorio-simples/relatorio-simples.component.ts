@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { FormResponseService } from 'src/app/services/form.response.service';
+import { QuantidadePessoasService } from 'src/app/services/quantidade.pessoas.service';
 
 @Component({
   selector: 'app-relatorio-simples',
@@ -8,6 +9,8 @@ import { FormResponseService } from 'src/app/services/form.response.service';
   styleUrls: ['./relatorio-simples.component.css']
 })
 export class RelatorioSimplesComponent implements OnInit {
+  quantidadePessoas: number = 0;
+
   public radarChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     scales: {
@@ -43,12 +46,16 @@ export class RelatorioSimplesComponent implements OnInit {
   };
   public radarChartType: ChartType = 'radar';
 
-  constructor(private formResponseService: FormResponseService) {}
+  constructor(private formResponseService: FormResponseService, private qtdPessoasService: QuantidadePessoasService) {}
 
   ngOnInit() {
     this.formResponseService.currentResponse.subscribe(response => {
       this.updateRadarChartData(response);
     });
+    this.qtdPessoasService.quantidadePessoas$.subscribe(qtd => {
+      console.log('Received new quantidadePessoas:', qtd);
+      this.quantidadePessoas = qtd;
+    });    
   }
 
   updateRadarChartData(response: any) {

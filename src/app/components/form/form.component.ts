@@ -1,29 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { trigger, state, style, animate, transition} from '@angular/animations';
 import { FormResponseService } from 'src/app/services/form.response.service';
+import { FormService } from 'src/app/services/form.service';
+import { Category} from 'src/app/models/form.model';
 
-interface Question {
-  id: number;
-  description: string;
-  position: number;
-}
-
-interface Category {
-  id: number;
-  name: string;
-  position: number;
-  questions: Question[];
-}
 
 @Component({
   selector: 'app-form',
@@ -64,10 +46,10 @@ export class FormComponent {
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
-    private http: HttpClient,
+    private formService: FormService,
     private formResponseService: FormResponseService
   ) {
-    this.getData().subscribe((data) => {
+    this.formService.getData().subscribe((data) => {
       data.sort((a: any, b: any) => {
         return a.position - b.position;
       });
@@ -82,9 +64,7 @@ export class FormComponent {
     });
   }
 
-  getData(): Observable<Category[]> {
-    return this.http.get<Category[]>('./assets/data/form.json');
-  }
+ 
 
   // Retorna a pergunta atual com base no índice da pergunta atual
   get currentQuestion() {
