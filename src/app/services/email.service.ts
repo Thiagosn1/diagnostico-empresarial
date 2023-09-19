@@ -16,7 +16,8 @@ export class EmailService {
     const body = {
       "email": email
     };
-    return this.http.post('http://localhost:4200/api/requirelogin', body);
+    return this.http.post('http://localhost:3000/requirelogin', body);
+    //return this.http.post('http://localhost:4200/api/requirelogin', body);
   }
   
 
@@ -26,6 +27,7 @@ export class EmailService {
       "email": this.email,
       "loginCode": token
     };
-    return this.http.post('http://localhost:4200/api/login', body);
+    return this.http.post('http://localhost:3000/login', body);
+    //return this.http.post('http://localhost:4200/api/login', body);
   }  
 }

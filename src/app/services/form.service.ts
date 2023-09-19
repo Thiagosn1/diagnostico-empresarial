@@ -12,5 +12,6 @@ export class FormService {
   // Método para obter dados da api
   getData(): Observable<Category[]> {
     return this.http.get<Category[]>('http://localhost:3000/formulario');
+    //return this.http.get<Category[]>('http://localhost:4200/api/categories'); 
   }
 }
