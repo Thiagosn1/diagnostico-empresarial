@@ -6,8 +6,9 @@
 
         <p>
           Este relatório apresenta os resultados do nosso Diagnóstico
-          Empresarial. As respostas foram coletadas por meio de um questionário
-          e estão representadas no gráfico de radar ao lado.
+          Empresarial. As respostas foram coletadas por meio do formulário
+          respondido anteriormente e estão representadas no gráfico de radar ao
+          lado.
         </p>
 
         <p>
@@ -41,10 +42,14 @@
       </div>
     </div>
     <div class="card-buttons">
-      <button class="botao-orcamento" *ngIf="quantidadePessoas === 1">
+      <button class="botao-orcamento" *ngIf="mostrarBotaoOrcamento">
         Solicitar Orçamento
       </button>
-      <button *ngIf="quantidadePessoas > 1" routerLink="/dashboard">
+      <button
+        class="botao-gestor"
+        *ngIf="mostrarBotaoGestor"
+        routerLink="/dashboard"
+      >
         Painel do Gestor
       </button>
     </div>

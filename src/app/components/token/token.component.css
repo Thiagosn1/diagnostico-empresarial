@@ -77,4 +77,19 @@ label {
   border-radius: .25rem;
 }
 
+.reenviar {
+  margin-top: 10px;
+  background-color: transparent;
+  color: #0064fb;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.reenviar:hover {
+  color: #0046b2;
+}
+
+
 @media screen and (min-width :768px) { .form-container {width :70%;} }

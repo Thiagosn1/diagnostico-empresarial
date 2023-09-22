@@ -41,4 +41,20 @@ export class TokenComponent {
       );
     }
   }
+
+  // Função para lidar com o reenvio do código
+  reenviarToken() {
+    this.emailService.reenviarToken().subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  // Verifica se o e-mail está presente no serviço
+  hasEmail(): boolean {
+    return !!this.emailService.email;
+  }
 }

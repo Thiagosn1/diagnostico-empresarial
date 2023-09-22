@@ -10,6 +10,8 @@ import { QuantidadePessoasService } from 'src/app/services/quantidade.pessoas.se
 })
 export class RelatorioSimplesComponent implements OnInit {
   quantidadePessoas: number = 0;
+  mostrarBotaoOrcamento: boolean = false;
+  mostrarBotaoGestor: boolean = false;
 
   public radarChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -53,8 +55,8 @@ export class RelatorioSimplesComponent implements OnInit {
       this.updateRadarChartData(response);
     });
     this.qtdPessoasService.quantidadePessoas$.subscribe(qtd => {
-      console.log('Received new quantidadePessoas:', qtd);
-      this.quantidadePessoas = qtd;
+      this.quantidadePessoas = Number(qtd);
+      this.atualizarVisibilidadeBotoes();
     });    
   }
 
@@ -85,5 +87,10 @@ export class RelatorioSimplesComponent implements OnInit {
 
     // Atualize radarChartData com os novos dados
     this.radarChartData = newRadarChartData;
+  }
+
+  atualizarVisibilidadeBotoes() {
+    this.mostrarBotaoOrcamento = this.quantidadePessoas === 1;
+    this.mostrarBotaoGestor = this.quantidadePessoas > 1;
   }
 }
