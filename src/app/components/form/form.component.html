@@ -23,7 +23,7 @@
   <div class="answer-buttons">
     <button
       *ngFor="let index of answers; let i = index"
-      [style.backgroundColor]="getGradientColor(i)"
+      [style.backgroundColor]="gradientColor(i)"
       (click)="selectAnswer(i)"
       [disabled]="transitioning"
       [matTooltip]="

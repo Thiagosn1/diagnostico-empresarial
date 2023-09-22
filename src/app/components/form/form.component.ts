@@ -43,22 +43,16 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class FormComponent implements AfterViewInit {
   @ViewChildren(MatTooltip) tooltips!: QueryList<MatTooltip>;
 
-  ngAfterViewInit() {
-    this.tooltips.forEach((tooltip) => {
-      tooltip.show();
-    });
-  }
-
+  categories: Category[] = [];
   responses: any = {};
+
   answers = Array.from({ length: 11 }, (_, i) => i);
   transitioning = false;
   showQuestion = true;
   currentQuestionIndex = 0;
   currentCategoryIndex = 0;
-  categories: Category[] = [];
   totalNQuestions = 0;
   currentNQuestions = 0;
-
   completedCategories: boolean[] = new Array(this.categories.length).fill(
     false
   );
@@ -84,6 +78,12 @@ export class FormComponent implements AfterViewInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.tooltips.forEach((tooltip) => {
+      tooltip.show();
+    });
+  }
+
   // Retorna a pergunta atual com base no índice da pergunta atual
   get currentQuestion() {
     return this.categories[this.currentCategoryIndex].questions[
@@ -96,8 +96,15 @@ export class FormComponent implements AfterViewInit {
     return this.categories[this.currentCategoryIndex].name;
   }
 
+  // Calcula a porcentagem de progresso com base no índice da pergunta atual e no tamanho total das perguntas
+  get progressPercentage() {
+    const totalQuestions = this.totalNQuestions;
+    const completedQuestions = this.currentNQuestions;
+    return Math.round((completedQuestions / totalQuestions) * 100);
+  }
+
   // Retorna a cor do gradiente com base no índice fornecido
-  getGradientColor(index: number) {
+  gradientColor(index: number) {
     return `hsl(${(120 * index) / 10}, 100%, 50%)`;
   }
 
@@ -111,28 +118,7 @@ export class FormComponent implements AfterViewInit {
     this.responses[currentCategory].push(index);
     this.transitionToNextQuestion();
     this.currentNQuestions++;
-
     this.ensureTooltipsAreShown();
-  }
-
-  async transitionToNextQuestion() {
-    this.transitioning = true;
-    this.showQuestion = false;
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    this.nextQuestion();
-    this.showQuestion = true;
-    this.transitioning = false;
-  }
-
-  async showSuccessMessageAndNavigate() {
-    this.formResponseService.changeResponse(this.responses);
-    this.snackBar.open('Concluído com sucesso', '', {
-      duration: 3000, // Duração do snack bar (em milissegundos)
-      panelClass: ['success-snackbar'], // Classe CSS para estilizar o snack bar
-    });
-
-    await new Promise((resolve) => setTimeout(resolve, 3000)); // Aguarde a duração do snack bar
-    this.router.navigate(['/relatorio']);
   }
 
   // Avança para a próxima pergunta
@@ -156,25 +142,41 @@ export class FormComponent implements AfterViewInit {
     }
   }
 
-  // Calcula a porcentagem de progresso com base no índice da pergunta atual e no tamanho total das perguntas
-  get progressPercentage() {
-    const totalQuestions = this.totalNQuestions;
-    const completedQuestions = this.currentNQuestions;
-    return Math.round((completedQuestions / totalQuestions) * 100);
-  }
-
+  // Mostra tooltip com base no índice fornecido
   showTooltip(index: number) {
     if (index === 0 || index === 10) {
-      // Delay é necessário para contornar a possível ordem dos eventos
       setTimeout(() => {
         this.tooltips.toArray()[index].show();
       });
     }
   }
 
+  // Garante que todos os tooltips sejam exibidos
   ensureTooltipsAreShown() {
     this.tooltips.forEach((tooltip) => {
       tooltip.show();
     });
+  }
+
+  // Função para fazer a transição para a próxima pergunta
+  async transitionToNextQuestion() {
+    this.transitioning = true;
+    this.showQuestion = false;
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    this.nextQuestion();
+    this.showQuestion = true;
+    this.transitioning = false;
+  }
+
+  // Função para exibir uma mensagem de sucesso e navegar para outra rota
+  async showSuccessMessageAndNavigate() {
+    this.formResponseService.changeResponse(this.responses);
+    this.snackBar.open('Concluído com sucesso', '', {
+      duration: 3000, // Duração do snack bar (em milissegundos)
+      panelClass: ['success-snackbar'], // Classe CSS para estilizar o snack bar
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // Aguarde a duração do snack bar
+    this.router.navigate(['/relatorio']);
   }
 }
