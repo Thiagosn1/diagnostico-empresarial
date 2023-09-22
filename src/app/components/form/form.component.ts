@@ -1,11 +1,23 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { trigger, state, style, animate, transition} from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 import { FormResponseService } from 'src/app/services/form.response.service';
 import { FormService } from 'src/app/services/form.service';
-import { Category} from 'src/app/models/form.model';
-
+import { Category } from 'src/app/models/form.model';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-form',
@@ -17,18 +29,26 @@ import { Category} from 'src/app/models/form.model';
       transition(':enter', [style({ opacity: 0 }), animate(300)]),
       transition(':leave', [animate(300, style({ opacity: 0 }))]),
     ]),
-    trigger('slideLeftRight', [
+    trigger('slideRightLeft', [
       state('left', style({ transform: 'translateX(-100%)' })),
       state('right', style({ transform: 'translateX(100%)' })),
       state('center', style({ transform: 'translateX(0)' })),
       state('center-delayed', style({ transform: 'translateX(0)' })),
-      transition('* => center', [animate('800ms ease-out')]),
-      transition('* => center-delayed', [animate('800ms ease-out')]),
-      transition('center => *', [animate('800ms ease-in')]),
+      transition('* => center', [animate('900ms ease-out')]),
+      transition('* => center-delayed', [animate('900ms ease-out')]),
+      transition('center => *', [animate('900ms ease-in')]),
     ]),
   ],
 })
-export class FormComponent {
+export class FormComponent implements AfterViewInit {
+  @ViewChildren(MatTooltip) tooltips!: QueryList<MatTooltip>;
+
+  ngAfterViewInit() {
+    this.tooltips.forEach((tooltip) => {
+      tooltip.show();
+    });
+  }
+
   responses: any = {};
   answers = Array.from({ length: 11 }, (_, i) => i);
   transitioning = false;
@@ -64,8 +84,6 @@ export class FormComponent {
     });
   }
 
- 
-
   // Retorna a pergunta atual com base no índice da pergunta atual
   get currentQuestion() {
     return this.categories[this.currentCategoryIndex].questions[
@@ -93,6 +111,8 @@ export class FormComponent {
     this.responses[currentCategory].push(index);
     this.transitionToNextQuestion();
     this.currentNQuestions++;
+
+    this.ensureTooltipsAreShown();
   }
 
   async transitionToNextQuestion() {
@@ -141,5 +161,20 @@ export class FormComponent {
     const totalQuestions = this.totalNQuestions;
     const completedQuestions = this.currentNQuestions;
     return Math.round((completedQuestions / totalQuestions) * 100);
+  }
+
+  showTooltip(index: number) {
+    if (index === 0 || index === 10) {
+      // Delay é necessário para contornar a possível ordem dos eventos
+      setTimeout(() => {
+        this.tooltips.toArray()[index].show();
+      });
+    }
+  }
+
+  ensureTooltipsAreShown() {
+    this.tooltips.forEach((tooltip) => {
+      tooltip.show();
+    });
   }
 }

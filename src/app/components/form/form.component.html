@@ -14,7 +14,7 @@
   <div class="category">{{ currentCategory }}</div>
   <div
     class="question-wrapper"
-    [@slideLeftRight]="showQuestion ? 'center-delayed' : 'left'"
+    [@slideRightLeft]="showQuestion ? 'center-delayed' : 'right'"
   >
     <div class="question" *ngIf="showQuestion" [@fadeInOut]="currentQuestion">
       {{ currentQuestion }}
@@ -28,7 +28,11 @@
       [disabled]="transitioning"
       [matTooltip]="
         i === 0 ? 'Discordo totalmente' : i === 10 ? 'Concordo totalmente' : ''
-      ">
+      "
+      [matTooltipShowDelay]="0"
+      (mouseout)="showTooltip(i)"
+      (mouseout)="ensureTooltipsAreShown()"
+    >
       {{ index }}
     </button>
   </div>
