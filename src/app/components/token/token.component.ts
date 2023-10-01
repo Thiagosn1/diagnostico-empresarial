@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmailService } from '../../services/email.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class TokenComponent {
   token = '';
   tokenError = '';
 
-  constructor(private router: Router, private emailService: EmailService) {}
+  constructor(private router: Router, private emailService: EmailService, private route: ActivatedRoute) {}
 
   validarToken() {
     const isValid = this.token.length === 6;
@@ -33,7 +33,14 @@ export class TokenComponent {
       this.emailService.enviarToken(this.token).subscribe(
         (response) => {
           console.log(response);
-          this.router.navigate(['/cadastro']);
+          // Verifique se a URL atual contém '/admin'
+          if (this.router.url.includes('/admin')) {
+            // Se a URL atual contém '/admin', navegue para o dashboard do admin
+            this.router.navigate(['/admin/dashboard']);
+          } else {
+            // Caso contrário, navegue para '/cadastro'
+            this.router.navigate(['/cadastro']);
+          }
         },
         (error) => {
           console.error(error);

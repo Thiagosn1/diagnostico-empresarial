@@ -36,6 +36,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
+import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { RelatorioSimplesComponent } from './components/relatorio-simples/relato
     FormComponent,
     CadastroEmpresaComponent,
     RelatorioSimplesComponent,
+    DashboardAdminComponent
   ],
   imports: [
     AppRoutingModule,
