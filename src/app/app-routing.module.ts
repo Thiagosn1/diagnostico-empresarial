@@ -22,28 +22,14 @@ const routes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'formulario', component: FormComponent },
   { path: 'relatorio', component: RelatorioSimplesComponent },
-
-  // Rotas para gestor
   {
-    path: 'gestor',
+    path: 'dashboard',
+    component: DashboardComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'token', component: TokenComponent },
-      { path: 'cadastro', component: CadastroEmpresaComponent },
-      { path: 'info', component: InfoComponent },
-      { path: 'formulario', component: FormComponent },
-      { path: 'relatorio', component: RelatorioSimplesComponent },
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        children: [
-          { path: '', component: HomeDashComponent },
-          { path: 'home', component: HomeDashComponent },
-          { path: 'funcionario', component: FuncionarioComponent },
-          { path: 'relatorio', component: RelatorioComponent },
-        ],
-      },
+      { path: '', component: HomeDashComponent },
+      { path: 'home', component: HomeDashComponent },
+      { path: 'funcionario', component: FuncionarioComponent },
+      { path: 'relatorio', component: RelatorioComponent },
     ],
   },
 

@@ -102,3 +102,13 @@ mat-cell:last-child, mat-header-cell:last-child {
 .preenchimento-email {
   padding: 0 10px;
 }
+
+.input-email-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-email {
+  margin-right: 10px;
+}

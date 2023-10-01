@@ -4,21 +4,21 @@
       <mat-card-title>Funcionários</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-table [dataSource]="employees">
+      <mat-table [dataSource]="funcionarios">
         <ng-container matColumnDef="email">
           <mat-header-cell *matHeaderCellDef class="preenchimento-email"> Email </mat-header-cell>
-          <mat-cell *matCellDef="let employee" class="preenchimento-email"> {{employee.email}} </mat-cell>
+          <mat-cell *matCellDef="let funcionario" class="preenchimento-email"> {{funcionario.email}} </mat-cell>
         </ng-container>
 
 
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-          <mat-cell class="centralizado" *matCellDef="let employee"> {{employee.status}} </mat-cell>
+          <mat-cell class="centralizado" *matCellDef="let funcionario"> {{funcionario.status}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">
           <mat-header-cell class="largura-acao" *matHeaderCellDef> Ações </mat-header-cell>
-          <mat-cell *matCellDef="let employee" class="centralizado">
+          <mat-cell *matCellDef="let funcionario" class="centralizado">
             <a href="#" class="imagem-espacada">
               <img ngSrc="assets/reenviar.png" alt="Reenviar" height="512" width="512" />
             </a>
@@ -31,21 +31,10 @@
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
       </mat-table>
-      <button class="button" (click)="openConvidarFuncionarioDialog()">Convidar funcionário</button>
+      <div class="input-email-container">
+        <input type="email" class="input-email" placeholder="Digite o e-mail aqui">
+        <button class="button">Convidar funcionário</button>
+      </div>
     </mat-card-content>
   </mat-card>
-
-  <ng-template #convidarFuncionarioDialog>
-    <mat-card-title>Convidar funcionário</mat-card-title>
-    <div mat-dialog-content>
-      <p>Informe o email do funcionário.</p>
-      <mat-form-field>
-        <input matInput [(ngModel)]="email" />
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Cancelar</button>
-      <button mat-button [mat-dialog-close]="email" cdkFocusInitial>Confirmar</button>
-    </div>
-  </ng-template>
 </div>
