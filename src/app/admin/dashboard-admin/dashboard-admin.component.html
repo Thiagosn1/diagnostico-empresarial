@@ -3,11 +3,11 @@
       <div class="user-info">
         <img ngSrc="./assets/user.png" class="user-image" alt="User" height="512" width="512"/>
         <h3 class="user-name">Admin</h3>
-        <p class="user-email">email@example.com</p>
+        <p class="user-email">{{ email }}</p>
       </div>
       <div class="nav-list-container">
         <mat-nav-list class="nav-list">
-          <a mat-list-item routerLink="/dashboard/home" routerLinkActive="active" class="menu-item">
+          <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="active" class="menu-item">
             <span class="menu-item-content">
               <mat-icon>home</mat-icon>
               Home

@@ -26,7 +26,6 @@
   margin-top: 30px;
   width: 123px;
   height: 123px;
-  border-radius: 50%;
   object-fit: cover;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
 }
@@ -84,7 +83,6 @@ img {
   width: 35px;
   height: 35px;
   display: block;
-  margin-right: 20px;
 }
 
 .nav-list-container {
