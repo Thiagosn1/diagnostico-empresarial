@@ -1,0 +1,43 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.table-scroll {
+  max-height: 70vh; /* Ajuste conforme necessário */
+  overflow-y: auto; /* Permite rolagem vertical */
+  border-radius: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate; /* Esta propriedade é necessária para as bordas entre células */
+  border-spacing: 0 1px; /* Adiciona um espaçamento de 1px entre as linhas */
+}
+
+th.mat-header-cell {
+  background-color: #f2f2f2; /* Adiciona uma cor de fundo para o cabeçalho */
+  position: sticky;
+  top: 0; /* Fixa o cabeçalho no topo da div de rolagem */
+  z-index: 1; /* Garante que o cabeçalho fique acima das outras células */
+}
+
+td.mat-cell {
+  padding: 8px;
+}
+
+/* Estilização para as bordas verticais */
+th.mat-header-cell:not(:last-child),
+td.mat-cell:not(:last-child) {
+  border-right: 2px solid #000;
+}
+
+.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}

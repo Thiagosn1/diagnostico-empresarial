@@ -12,6 +12,7 @@ import { FormComponent } from './components/form/form.component';
 import { CadastroEmpresaComponent } from './components/cadastro-empresa/cadastro-empresa.component';
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
+import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 
 const routes: Routes = [
   // Rotas para usuário comum
@@ -49,7 +50,7 @@ const routes: Routes = [
         component: DashboardAdminComponent,
         children: [
           { path: '', component: HomeDashComponent },
-          { path: 'home', component: HomeDashComponent },
+          { path: 'usuarios', component: UsuariosComponent },
           { path: 'funcionario', component: FuncionarioComponent },
           { path: 'relatorio', component: RelatorioComponent },
         ],

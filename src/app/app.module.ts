@@ -37,6 +37,7 @@ import {HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
+import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin
     FormComponent,
     CadastroEmpresaComponent,
     RelatorioSimplesComponent,
-    DashboardAdminComponent
+    DashboardAdminComponent,
+    UsuariosComponent
   ],
   imports: [
     AppRoutingModule,
