@@ -13,4 +13,16 @@ export class UserService {
   obterUsuarios(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
+
+  tornarAdmin(id: number): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, { tipo: 'admin' });
+  }
+
+  removerAdmin(id: number): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, { tipo: 'comum' });
+  }
+
+  excluirUsuario(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }

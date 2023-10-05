@@ -1,14 +1,26 @@
+/* CSS para o contêiner pai */
+.parent-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* CSS para o seu contêiner de tabela */
 .table-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh; /* Ajustado para 80vh */
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #FFF;
 }
 
 .table-scroll {
   max-height: 70vh; /* Ajuste conforme necessário */
   overflow-y: auto; /* Permite rolagem vertical */
-  border-radius: 20px;
 }
 
 table {
@@ -40,4 +52,10 @@ td.mat-cell:not(:last-child) {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 0 1em;  /* Ajuste o padding conforme necessário */
+  margin-bottom: 1em;  /* Ajuste a margem conforme necessário */
 }

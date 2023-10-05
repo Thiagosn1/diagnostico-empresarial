@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UsuariosComponent implements OnInit {
   displayedColumns: string[] = ['email', 'tipo', 'acao'];
-  dataSource = new MatTableDataSource(); // Atualizado para MatTableDataSource
+  dataSource = new MatTableDataSource();
 
   constructor(private userService: UserService) {}
 
@@ -21,8 +21,8 @@ export class UsuariosComponent implements OnInit {
     this.userService.obterUsuarios().subscribe(
       (data) => {
         console.log('Dados recebidos:', data);
-        this.dataSource.data = data; // Atualizado para usar os dados diretamente
-        this.dataSource._updateChangeSubscription(); // Força a atualização da tabela
+        this.dataSource.data = data;
+        this.dataSource._updateChangeSubscription();
       },
       (error) => {
         console.error('Erro ao carregar usuários:', error);
@@ -30,7 +30,29 @@ export class UsuariosComponent implements OnInit {
     );
   }
 
-  promoverAdmin(usuario: any): void {
-  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  tornarAdmin(usuario: any): void {
+    this.userService.tornarAdmin(usuario.id).subscribe(
+      () => this.carregarUsuarios(),
+      (error) => console.error('Erro ao tornar usuário admin:', error)
+    );
+  }
+
+  removerAdmin(usuario: any): void {
+    this.userService.removerAdmin(usuario.id).subscribe(
+      () => this.carregarUsuarios(),
+      (error) => console.error('Erro ao remover admin:', error)
+    );
+  }
+
+  excluirUsuario(usuario: any): void {
+    this.userService.excluirUsuario(usuario.id).subscribe(
+      () => this.carregarUsuarios(),
+      (error) => console.error('Erro ao excluir usuário:', error)
+    );
   }
 }
