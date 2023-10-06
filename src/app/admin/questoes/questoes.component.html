@@ -1,0 +1,66 @@
+<div class="parent-container">
+  <div class="table-container">
+    <mat-form-field class="search-bar">
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar" />
+    </mat-form-field>
+
+    <div class="table-scroll">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let question">{{ question.id }}</td>
+        </ng-container>
+
+        <!-- Questão Column -->
+        <ng-container matColumnDef="questao">
+          <th mat-header-cell *matHeaderCellDef>Questão</th>
+          <td mat-cell *matCellDef="let question">
+            <input
+              *ngIf="editingQuestionId === question.id"
+              class="full-width-input"
+              [(ngModel)]="question.description"
+            />
+            <span *ngIf="editingQuestionId !== question.id">{{
+              question.description
+            }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Categoria Column -->
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef>Categoria</th>
+          <td mat-cell *matCellDef="let question">
+            {{ getCategoryName(question.categoryId) }}
+          </td>
+        </ng-container>
+
+        <!-- Ação Column -->
+        <ng-container matColumnDef="acao">
+          <th mat-header-cell *matHeaderCellDef class="center-text">Ação</th>
+          <td mat-cell *matCellDef="let question" class="center-text">
+            <button
+              *ngIf="editingQuestionId !== question.id"
+              mat-button
+              (click)="startEditing(question)"
+            >
+              Renomear
+            </button>
+            <div *ngIf="editingQuestionId === question.id">
+              <button mat-button (click)="stopEditing(question)">OK</button>
+            </div>
+            <button
+              mat-button
+              (click)="excluirQuestao(question.categoryId, question.id)"
+            >
+              Excluir
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

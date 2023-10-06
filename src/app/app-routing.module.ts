@@ -13,6 +13,8 @@ import { CadastroEmpresaComponent } from './components/cadastro-empresa/cadastro
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
+import { QuestoesComponent } from './admin/questoes/questoes.component';
+import { CategoriasComponent } from './admin/categorias/categorias.component';
 
 const routes: Routes = [
   // Rotas para usuário comum
@@ -51,8 +53,8 @@ const routes: Routes = [
         children: [
           { path: '', component: HomeDashComponent },
           { path: 'usuarios', component: UsuariosComponent },
-          { path: 'funcionario', component: FuncionarioComponent },
-          { path: 'relatorio', component: RelatorioComponent },
+          { path: 'categorias', component: CategoriasComponent },
+          { path: 'questoes', component: QuestoesComponent },
         ],
       },
     ],

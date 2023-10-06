@@ -38,6 +38,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
+import { QuestoesComponent } from './admin/questoes/questoes.component';
+import { CategoriasComponent } from './admin/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { UsuariosComponent } from './admin/usuarios/usuarios.component';
     CadastroEmpresaComponent,
     RelatorioSimplesComponent,
     DashboardAdminComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    QuestoesComponent,
+    CategoriasComponent
   ],
   imports: [
     AppRoutingModule,
