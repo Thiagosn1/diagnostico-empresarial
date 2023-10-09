@@ -48,4 +48,16 @@ export class FormService {
       })
     );
   }
+
+  // Método para renomear uma categoria
+  atualizarCategoria(category: Category): Observable<Category> {
+    const url = `${this.apiUrl}/${category.id}`;
+    return this.http.put<Category>(url, category);
+  }
+
+  // Método para excluir uma categoria
+  excluirCategoria(categoryId: number): Observable<any> {
+    const url = `${this.apiUrl}/${categoryId}`;
+    return this.http.delete(url);
+  }
 }
