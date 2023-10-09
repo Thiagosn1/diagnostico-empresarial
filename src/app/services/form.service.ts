@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, switchMap, take } from 'rxjs';
 import { Category, Question } from '../models/form.model';
 
 @Injectable({
@@ -20,14 +20,32 @@ export class FormService {
   atualizarQuestao(
     categoryId: number,
     question: Question
-  ): Observable<Question> {
-    const url = `${this.apiUrl}/${categoryId}/questions/${question.id}`;
-    return this.http.put<Question>(url, question);
+  ): Observable<Category> {
+    const url = `${this.apiUrl}/${categoryId}`;
+    return this.http.get<Category>(url).pipe(
+      take(1),
+      switchMap((category) => {
+        const updatedQuestions = category.questions.map((q) =>
+          q.id === question.id ? question : q
+        );
+        const updatedCategory = { ...category, questions: updatedQuestions };
+        return this.http.put<Category>(url, updatedCategory);
+      })
+    );
   }
 
   // Método para excluir uma questão
   excluirQuestao(categoryId: number, questionId: number): Observable<any> {
-    const url = `${this.apiUrl}/${categoryId}/questions/${questionId}`;
-    return this.http.delete(url);
+    const url = `${this.apiUrl}/${categoryId}`;
+    return this.http.get<Category>(url).pipe(
+      take(1),
+      switchMap((category) => {
+        const updatedQuestions = category.questions.filter(
+          (q) => q.id !== questionId
+        );
+        const updatedCategory = { ...category, questions: updatedQuestions };
+        return this.http.put(url, updatedCategory);
+      })
+    );
   }
 }

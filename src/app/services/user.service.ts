@@ -19,7 +19,7 @@ export class UserService {
   }
 
   removerAdmin(id: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, { tipo: 'comum' });
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, { tipo: 'padrão' });
   }
 
   excluirUsuario(id: number): Observable<any> {

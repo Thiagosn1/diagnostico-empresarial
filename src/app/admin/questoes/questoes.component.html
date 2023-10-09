@@ -6,13 +6,11 @@
 
     <div class="table-scroll">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>ID</th>
           <td mat-cell *matCellDef="let question">{{ question.id }}</td>
         </ng-container>
 
-        <!-- Questão Column -->
         <ng-container matColumnDef="questao">
           <th mat-header-cell *matHeaderCellDef>Questão</th>
           <td mat-cell *matCellDef="let question">
@@ -27,15 +25,15 @@
           </td>
         </ng-container>
 
-        <!-- Categoria Column -->
         <ng-container matColumnDef="categoria">
-          <th mat-header-cell *matHeaderCellDef>Categoria</th>
-          <td mat-cell *matCellDef="let question">
+          <th mat-header-cell *matHeaderCellDef class="center-text">
+            Categoria
+          </th>
+          <td mat-cell *matCellDef="let question" class="center-text">
             {{ getCategoryName(question.categoryId) }}
           </td>
         </ng-container>
 
-        <!-- Ação Column -->
         <ng-container matColumnDef="acao">
           <th mat-header-cell *matHeaderCellDef class="center-text">Ação</th>
           <td mat-cell *matCellDef="let question" class="center-text">

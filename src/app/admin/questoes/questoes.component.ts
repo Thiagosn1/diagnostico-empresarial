@@ -11,15 +11,15 @@ import { FormService } from 'src/app/services/form.service';
 export class QuestoesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'questao', 'categoria', 'acao'];
   dataSource = new MatTableDataSource<Question>();
-  categories: Category[] = []; // Adicione esta linha
+  categories: Category[] = [];
   nomeCategoria: string = '';
-  editingQuestionId: number | null = null; // ID da questão sendo editada
+  editingQuestionId: number | null = null;
 
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
     this.carregarDados();
-    this.carregarCategorias(); // Adicione esta linha
+    this.carregarCategorias();
   }
 
   carregarDados(): void {
