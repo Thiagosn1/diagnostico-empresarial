@@ -19,11 +19,13 @@ export class CategoriasComponent implements OnInit {
     this.carregarDados();
   }
 
+  // Método para aplicar o filtro na tabela conforme o usuário digita
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Método para carregar os dados das categorias do serviço
   carregarDados(): void {
     this.formService.getData().subscribe(
       (categories) => {
@@ -35,10 +37,17 @@ export class CategoriasComponent implements OnInit {
     );
   }
 
-  startEditing(category: Category): void {
-    this.editingCategoryId = category.id;
+  // Método para alternar entre o modo de edição e visualização ao clicar nos botões Renomear/Confirmar
+  toggleEditing(category: Category): void {
+    if (this.editingCategoryId === category.id) {
+      this.stopEditing(category);
+      this.editingCategoryId = null;
+    } else {
+      this.editingCategoryId = category.id;
+    }
   }
 
+  // Método para parar a edição e atualizar a categoria
   stopEditing(category: Category): void {
     this.editingCategoryId = null;
     this.formService.atualizarCategoria(category).subscribe(
@@ -47,6 +56,7 @@ export class CategoriasComponent implements OnInit {
     );
   }
 
+  // Método para excluir uma categoria
   excluirCategoria(categoryId: number): void {
     this.formService.excluirCategoria(categoryId).subscribe(
       (response) => {

@@ -1,6 +1,7 @@
 <div class="parent-container">
   <div class="table-container">
     <mat-form-field class="search-bar">
+      <mat-icon matPrefix>search</mat-icon>
       <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar" />
     </mat-form-field>
 
@@ -45,7 +46,7 @@
               Renomear
             </button>
             <div *ngIf="editingQuestionId === question.id">
-              <button mat-button (click)="stopEditing(question)">OK</button>
+              <button mat-button (click)="stopEditing(question)">Confirmar</button>
             </div>
             <button
               mat-button
