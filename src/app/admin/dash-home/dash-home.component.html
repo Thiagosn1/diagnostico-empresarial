@@ -1,6 +1,15 @@
-<div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap class="card-container">
-  <mat-card class="card small-card">Card 1</mat-card>
-  <mat-card class="card small-card">Card 2</mat-card>
-  <mat-card class="card small-card">Card 3</mat-card>
+<div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap class="card-container" fxLayoutAlign="center center">
+  <mat-card class="card small-card">
+    <span class="card-title">Usuários</span>
+    <span class="card-value">{{ userCount }}</span>
+  </mat-card>
+  <mat-card class="card small-card">
+    <span class="card-title">Categorias</span>
+    <span class="card-value">{{ categoryCount }}</span>
+  </mat-card>
+  <mat-card class="card small-card">
+    <span class="card-title">Questões</span>
+    <span class="card-value">{{ questionCount }}</span>
+  </mat-card>
+  <mat-card class="card full-width-card"> </mat-card>
 </div>
-<mat-card class="card full-width-card"> Card 4 </mat-card>

@@ -1,8 +1,30 @@
+:host {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
   padding: 16px;
   box-sizing: border-box;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.card-value {
+  font-size: 2.5em;
 }
 
 .card-container {
@@ -15,15 +37,18 @@
 .small-card {
   width: 280px;
   height: 193px;
-  margin-top: 22px;
   margin-bottom: 22px;
+  text-align: center;
+}
+
+.small-card span {
+  display: block;
 }
 
 .full-width-card {
   width: 902px;
   padding: 16px;
   box-sizing: border-box;
-  margin-top: 16px;
   height: 50vh;
 }
 
@@ -32,16 +57,4 @@
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
-}
-
-@media (min-width: 1400px) {
-  .small-card {
-    margin-top: 60px;
-    width: 350px;
-    height: 240px;
-  }
-
-  .full-width-card {
-    width: calc((360px * 3) + (16px * 2));
-  }
 }
