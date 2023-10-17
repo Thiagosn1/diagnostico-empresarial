@@ -27,43 +27,39 @@ mat-card-content {
   padding: 0;
 }
 
-img {
-  width: 35px;
-  height: 35px;
-}
-
 mat-form-field {
   width: 100%;
   margin-top: 20px;
 }
 
 .button {
+  margin-left: 10px;
+  border: none;
   width: 200px;
-  height: 48px;
-  margin: 25px auto 0 auto;
+  height: 40px;
   display: block;
   background-color: #0064fb;
-  border-radius:50px;
-  color:#ffffff;
-  font-weight:700;
-  font-size:16px;
-  line-height:24px;
-  transition: box-shadow .3s ease-in-out, background-color .3s ease-in-out;
-  cursor:pointer;
+  border-radius: 40px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .button:hover {
-  box-shadow:0 3px 3px rgba(0,0,0,.25);
-  background-color:#0046b2;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+  background-color: #0046b2;
 }
 
 mat-dialog-content {
-  font-size:16px;
-  margin-bottom:20px;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 mat-header-cell {
-  justify-content:center;
+  justify-content: center;
 }
 
 mat-table {
@@ -72,20 +68,24 @@ mat-table {
   overflow: hidden;
 }
 
-mat-cell, mat-header-cell {
+mat-cell,
+mat-header-cell {
   border-right: 1px solid #e0e0e0;
 }
 
-
-mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
+mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
   padding: 0;
 }
 
-mat-cell:last-child, mat-header-cell:last-child {
+mat-cell:last-child,
+mat-header-cell:last-child {
   border-right: none;
 }
 
-.mdc-data-table__cell, .mdc-data-table__header-cell {
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
   padding: 0;
 }
 
@@ -105,10 +105,20 @@ mat-cell:last-child, mat-header-cell:last-child {
 
 .input-email-container {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Ajustado de space-between para center */
   align-items: center;
+  width: 100%; 
+  padding: 0 20px; /* Adicionado padding para garantir algum espaço nas bordas */
 }
 
 .input-email {
-  margin-right: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 25px;
+  height: 40px;
+  width: 50%; /* Ajustado para definir uma largura específica */
+  margin-right: 10px; /* Espaço entre o input e o botão */
+}
+
+.mat-icon {
+  color: black !important;
 }

@@ -6,24 +6,31 @@
     <mat-card-content>
       <mat-table [dataSource]="funcionarios">
         <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef class="preenchimento-email"> Email </mat-header-cell>
-          <mat-cell *matCellDef="let funcionario" class="preenchimento-email"> {{funcionario.email}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef class="preenchimento-email">
+            Email
+          </mat-header-cell>
+          <mat-cell *matCellDef="let funcionario" class="preenchimento-email">
+            {{ funcionario.email }}
+          </mat-cell>
         </ng-container>
-
 
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-          <mat-cell class="centralizado" *matCellDef="let funcionario"> {{funcionario.status}} </mat-cell>
+          <mat-cell class="centralizado" *matCellDef="let funcionario">
+            {{ funcionario.status }}
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <mat-header-cell class="largura-acao" *matHeaderCellDef> Ações </mat-header-cell>
+          <mat-header-cell class="largura-acao" *matHeaderCellDef>
+            Ações
+          </mat-header-cell>
           <mat-cell *matCellDef="let funcionario" class="centralizado">
             <a href="#" class="imagem-espacada">
-              <img ngSrc="assets/reenviar.png" alt="Reenviar" height="512" width="512" />
+              <mat-icon>send</mat-icon>
             </a>
             <a href="#">
-              <img ngSrc="assets/remover.png" alt="Remover" height="512" width="512" />
+              <mat-icon>delete</mat-icon>
             </a>
           </mat-cell>
         </ng-container>
@@ -32,7 +39,11 @@
         <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
       </mat-table>
       <div class="input-email-container">
-        <input type="email" class="input-email" placeholder="Digite o e-mail aqui">
+        <input
+          type="email"
+          class="input-email"
+          placeholder="Digite o e-mail aqui"
+        />
         <button class="button">Convidar funcionário</button>
       </div>
     </mat-card-content>
