@@ -4,8 +4,9 @@
   <span class="spacer"></span>
 </mat-toolbar>
 <div class="form-container">
-  <label for="email-input">Digite seu e-mail</label>
+  <label for="email-input">Digite seu email</label>
   <input class="input" id="email-input" type="email" [(ngModel)]="email" name="email" required/>
   <button class="button" (click)="enviarEmail()">OK</button>
   <div *ngIf="emailError" class="error">{{ emailError }}</div>
+  <div *ngIf="emailSuccess" class="success">{{ emailSuccess }}</div>
 </div>
