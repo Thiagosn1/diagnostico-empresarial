@@ -1,20 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, switchMap, take } from 'rxjs';
 import { Category, Question } from '../models/form.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
   private apiUrl = 'http://localhost:3000/formulario';
+  //private apiUrl = 'http://localhost:4200/api/categories';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Método para obter dados da api
   getData(): Observable<Category[]> {
     return this.http.get<Category[]>(this.apiUrl);
   }
+  // Método para obter dados da api
+  /* getData(): Observable<Category[]> {
+    const token = this.authService.getToken();
+    console.log('Token obtido:', token);
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http.get<Category[]>(this.apiUrl, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<Category[]>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
+    }
+  } */
 
   // Método para renomear uma questão
   atualizarQuestao(

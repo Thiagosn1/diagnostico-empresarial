@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +16,22 @@ export class EmailService {
     const userType = window.location.pathname.includes('/admin')
       ? 'admin'
       : 'comum';
-    const user = { email, tipo: userType };
-    // Primeiro, adicione o usuário à lista de usuários
-    return this.http.post('http://localhost:3000/usuarios', user).pipe(
-      // Em seguida, envie o email para requirelogin para obter o código de login
-      switchMap(() =>
-        this.http.post('http://localhost:3000/requirelogin', { email })
-        //this.http.post('http://localhost:4200/api/requirelogin', { email })
-      )
-    );
+    const user = {
+      email: this.email,
+      tipo: userType,
+      name: null,
+      authority: 'DEFAULT',
+      businessUsers: null,
+      businesses: null,
+    };
+
+    const postUser = this.http.post('http://localhost:3000/usuarios', user);
+    const postRequireLogin = this.http.post('http://localhost:3000/requirelogin', user);
+    //const postRequireLogin = this.http.post('http://localhost:4200/api/requirelogin', user);
+
+    return forkJoin([postUser, postRequireLogin]);
+    //return postRequireLogin;
+    //return postUser;
   }
 
   // Método para enviar o token para a API
@@ -34,7 +41,7 @@ export class EmailService {
       loginCode: token,
     };
     return this.http.post('http://localhost:3000/login', body);
-    //return this.http.post('http://localhost:4200/api/login', body);
+    //return this.http.post('http://localhost:4200/api/login', body, { observe: 'response' });
   }
 
   // Método para reenviar o código para o email
@@ -42,7 +49,6 @@ export class EmailService {
     const body = {
       email: this.email,
     };
-    // Substitua o URL pelo endpoint correto para reenviar o código
     return this.http.post('http://localhost:3000/requirelogin', body);
     //return this.http.post('http://localhost:4200/api/requirelogin', body);
   }

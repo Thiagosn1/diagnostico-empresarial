@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EmailService } from '../../services/email.service';
+import { HttpResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-token-form',
@@ -11,7 +13,11 @@ export class TokenComponent {
   token = '';
   tokenError = '';
 
-  constructor(private router: Router, private emailService: EmailService, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private emailService: EmailService,
+    private authService: AuthService
+  ) {}
 
   validarToken() {
     const isValid = this.token.length === 6;
@@ -33,12 +39,9 @@ export class TokenComponent {
       this.emailService.enviarToken(this.token).subscribe(
         (response) => {
           console.log(response);
-          // Verifique se a URL atual contém '/admin'
           if (this.router.url.includes('/admin')) {
-            // Se a URL atual contém '/admin', navegue para o dashboard do admin
             this.router.navigate(['/admin/dashboard']);
           } else {
-            // Caso contrário, navegue para '/cadastro'
             this.router.navigate(['/cadastro']);
           }
         },
@@ -48,6 +51,32 @@ export class TokenComponent {
       );
     }
   }
+
+  /* enviarToken() {
+    this.validarToken();
+    if (!this.tokenError) {
+      this.emailService.enviarToken(this.token).subscribe(
+        (response: HttpResponse<any>) => {
+          console.log(response);
+          const authHeader = response.headers.get('Authorization');
+          if (authHeader !== null) {
+            this.authService.setToken(authHeader);
+            console.log('Authorization:', authHeader);
+          } else {
+            console.error('Authorization header not found');
+          }
+          if (this.router.url.includes('/admin')) {
+            this.router.navigate(['/admin/dashboard']);
+          } else {
+            this.router.navigate(['/cadastro']);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+  } */
 
   // Função para lidar com o reenvio do código
   reenviarToken() {

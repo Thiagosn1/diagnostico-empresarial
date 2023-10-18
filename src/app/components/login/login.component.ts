@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EmailService } from '../../services/email.service';
 
 @Component({
@@ -11,11 +11,7 @@ export class LoginComponent {
   email = '';
   emailError = '';
 
-  constructor(
-    private router: Router,
-    private emailService: EmailService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private emailService: EmailService) {}
 
   validarEmail() {
     const re = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
@@ -35,12 +31,9 @@ export class LoginComponent {
       this.emailService.enviarEmail(this.email).subscribe(
         (response) => {
           console.log(response);
-          // Verifique se a URL atual contém '/admin'
           if (this.router.url.includes('/admin')) {
-            // Se a URL atual contém '/admin', navegue para '/admin/token'
             this.router.navigate(['/admin/token']);
           } else {
-            // Caso contrário, navegue para '/token'
             this.router.navigate(['/token']);
           }
         },
