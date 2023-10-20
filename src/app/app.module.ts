@@ -21,7 +21,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { FuncionarioComponent } from './components/dashboard/components/cadastro/funcionario/funcionario.component';
+import { FuncionarioComponent } from './components/dashboard/components/funcionario/funcionario.component';
 import { RelatorioComponent } from './components/dashboard/components/relatorio/relatorio.component';
 import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { MatButtonModule } from '@angular/material/button';

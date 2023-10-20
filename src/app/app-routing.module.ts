@@ -3,7 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
-import { FuncionarioComponent } from './components/dashboard/components/cadastro/funcionario/funcionario.component';
+import { FuncionarioComponent } from './components/dashboard/components/funcionario/funcionario.component';
 import { RelatorioComponent } from './components/dashboard/components/relatorio/relatorio.component';
 import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';

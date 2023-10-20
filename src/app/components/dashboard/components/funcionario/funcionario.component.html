@@ -26,12 +26,21 @@
             Ações
           </mat-header-cell>
           <mat-cell *matCellDef="let funcionario" class="centralizado">
-            <a href="#" class="imagem-espacada">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="reenviarConvite(funcionario.id, funcionario.email)"
+              *ngIf="funcionario.status === 'Convite Expirado'"
+            >
               <mat-icon>send</mat-icon>
-            </a>
-            <a href="#">
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removerFuncionario(funcionario.id)"
+            >
               <mat-icon>delete</mat-icon>
-            </a>
+            </button>
           </mat-cell>
         </ng-container>
 
@@ -43,9 +52,19 @@
           type="email"
           class="input-email"
           placeholder="Digite o e-mail aqui"
+          [(ngModel)]="email"
+          (keyup.enter)="convidarFuncionario()"
         />
-        <button class="button">Convidar funcionário</button>
+        <button class="button" (click)="convidarFuncionario()">
+          Convidar funcionário
+        </button>
       </div>
     </mat-card-content>
   </mat-card>
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="success">
+    {{ successMessage }}
+  </div>
 </div>
