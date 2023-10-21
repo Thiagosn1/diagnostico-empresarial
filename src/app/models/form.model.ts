@@ -2,6 +2,7 @@ export interface Question {
   id: number;
   description: string;
   position: number;
+  positive: boolean;
   categoryId: number;
 }
 

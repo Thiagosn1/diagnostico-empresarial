@@ -6,7 +6,7 @@ import { QuantidadePessoasService } from 'src/app/services/quantidade.pessoas.se
 @Component({
   selector: 'app-relatorio-simples',
   templateUrl: './relatorio-simples.component.html',
-  styleUrls: ['./relatorio-simples.component.css']
+  styleUrls: ['./relatorio-simples.component.css'],
 })
 export class RelatorioSimplesComponent implements OnInit {
   quantidadePessoas: number = 0;
@@ -20,12 +20,12 @@ export class RelatorioSimplesComponent implements OnInit {
         min: 0,
         max: 10,
         ticks: {
-          stepSize: 1
-        }
-      }
-    }
+          stepSize: 1,
+        },
+      },
+    },
   };
-  
+
   public radarChartLabels: string[] = [
     'Administrativo',
     'Comercial',
@@ -48,16 +48,19 @@ export class RelatorioSimplesComponent implements OnInit {
   };
   public radarChartType: ChartType = 'radar';
 
-  constructor(private formResponseService: FormResponseService, private qtdPessoasService: QuantidadePessoasService) {}
+  constructor(
+    private formResponseService: FormResponseService,
+    private qtdPessoasService: QuantidadePessoasService
+  ) {}
 
   ngOnInit() {
-    this.formResponseService.currentResponse.subscribe(response => {
+    this.formResponseService.currentResponse.subscribe((response) => {
       this.updateRadarChartData(response);
     });
-    this.qtdPessoasService.quantidadePessoas$.subscribe(qtd => {
+    this.qtdPessoasService.quantidadePessoas$.subscribe((qtd) => {
       this.quantidadePessoas = Number(qtd);
       this.atualizarVisibilidadeBotoes();
-    });    
+    });
   }
 
   updateRadarChartData(response: any) {
@@ -77,7 +80,8 @@ export class RelatorioSimplesComponent implements OnInit {
       const answers = response[category];
       if (answers) {
         // Calcule a média das respostas para cada categoria
-        const average = answers.reduce((a: number, b: number) => a + b, 0) / answers.length;
+        const sum = answers.reduce((a: number, b: number) => a + b, 0);
+        const average = sum / answers.length;
         newRadarChartData.datasets[0].data.push(average);
       } else {
         // Se não houver respostas para uma categoria, adicione um valor padrão (por exemplo, 0)

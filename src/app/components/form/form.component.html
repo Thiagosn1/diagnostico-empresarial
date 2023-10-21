@@ -21,20 +21,19 @@
     </div>
   </div>
   <div class="answer-buttons">
-    <button
-      *ngFor="let index of answers; let i = index"
-      [style.backgroundColor]="gradientColor(i)"
-      (click)="selectAnswer(i)"
-      [disabled]="transitioning"
-      [matTooltip]="
-        i === 0 ? 'Discordo totalmente' : i === 10 ? 'Concordo totalmente' : ''
-      "
-      [matTooltipShowDelay]="0"
-      (mouseout)="showTooltip(i)"
-      (mouseout)="ensureTooltipsAreShown()"
-    >
-      {{ index }}
-    </button>
+    <div *ngFor="let index of answers; let i = index" class="button-container">
+      <button
+        [style.backgroundColor]="gradientColor(i)"
+        (click)="selectAnswer(i)"
+        [disabled]="transitioning"
+        matTooltip="{{ getTooltipText(i) }}"
+        matTooltipShowDelay="0"
+        matTooltipHideDelay="999999999"
+      >
+        {{ getDisplayValue(i) }}
+      </button>
+    </div>
   </div>
+
   <div class="progress-text">{{ progressPercentage }}%</div>
 </div>

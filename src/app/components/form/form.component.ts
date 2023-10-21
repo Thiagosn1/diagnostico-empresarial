@@ -79,9 +79,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tooltips.forEach((tooltip) => {
-      tooltip.show();
-    });
+    this.showTooltips();
   }
 
   // Retorna a pergunta atual com base no índice da pergunta atual
@@ -104,21 +102,30 @@ export class FormComponent implements AfterViewInit {
   }
 
   // Retorna a cor do gradiente com base no índice fornecido
-  gradientColor(index: number) {
-    return `hsl(${(120 * index) / 10}, 100%, 50%)`;
+  gradientColor(index: number): string {
+    const positive = this.isCurrentQuestionPositive();
+    const adjustedIndex = positive ? index : 10 - index;
+    return `hsl(${(120 * adjustedIndex) / 10}, 100%, 50%)`;
+  }
+
+  isCurrentQuestionPositive(): boolean {
+    return this.categories[this.currentCategoryIndex].questions[
+      this.currentQuestionIndex
+    ].positive;
   }
 
   // Esta função é chamada quando o usuário selecionar uma resposta
-  selectAnswer(index: number) {
-    console.log('Resposta selecionada:', index);
+  selectAnswer(index: number): void {
+    const positive = this.isCurrentQuestionPositive();
+    const recordedAnswer = positive ? index : 10 - index; // Inverta a resposta se a questão for negativa
+    console.log('Resposta selecionada:', recordedAnswer); // Agora mostrará 10 se você clicar no botão que mostra 10 (quando a pergunta é negativa)
     const currentCategory = this.categories[this.currentCategoryIndex].name;
     if (!this.responses[currentCategory]) {
       this.responses[currentCategory] = [];
     }
-    this.responses[currentCategory].push(index);
+    this.responses[currentCategory].push(recordedAnswer);
     this.transitionToNextQuestion();
     this.currentNQuestions++;
-    this.ensureTooltipsAreShown();
   }
 
   // Avança para a próxima pergunta
@@ -142,20 +149,28 @@ export class FormComponent implements AfterViewInit {
     }
   }
 
-  // Mostra tooltip com base no índice fornecido
-  showTooltip(index: number) {
-    if (index === 0 || index === 10) {
-      setTimeout(() => {
-        this.tooltips.toArray()[index].show();
-      });
-    }
-  }
-
-  // Garante que todos os tooltips sejam exibidos
-  ensureTooltipsAreShown() {
+  showTooltips() {
     this.tooltips.forEach((tooltip) => {
       tooltip.show();
     });
+  }
+
+  getDisplayValue(index: number): number {
+    return this.isCurrentQuestionPositive() ? index : 10 - index;
+  }
+
+  getTooltipText(index: number): string {
+    if (index === 0) {
+      return this.isCurrentQuestionPositive()
+        ? 'Discordo totalmente'
+        : 'Concordo totalmente';
+    } else if (index === 10) {
+      return this.isCurrentQuestionPositive()
+        ? 'Concordo totalmente'
+        : 'Discordo totalmente';
+    } else {
+      return '';
+    }
   }
 
   // Função para fazer a transição para a próxima pergunta
@@ -166,6 +181,7 @@ export class FormComponent implements AfterViewInit {
     this.nextQuestion();
     this.showQuestion = true;
     this.transitioning = false;
+    this.showTooltips();
   }
 
   // Função para exibir uma mensagem de sucesso e navegar para outra rota

@@ -94,6 +94,11 @@ button:hover {
   color: white;
 }
 
+.button-container {
+  position: relative;
+  display: inline-block;
+}
+
 @media screen and (max-width: 1400px) {
   .question-container {
     min-height: 90vh;
