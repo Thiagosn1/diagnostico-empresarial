@@ -40,7 +40,7 @@ export class LoginComponent {
             } else {
               this.router.navigate(['/token']);
             }
-          }, 3000);
+          }, 2000);
         },
         (error) => {
           console.error(error);

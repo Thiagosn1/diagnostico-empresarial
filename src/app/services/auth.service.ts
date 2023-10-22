@@ -4,13 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private authToken: string | null = null;
 
   setToken(token: string): void {
-    this.authToken = token;
+    localStorage.setItem('authToken', token);
   }
 
   getToken(): string | null {
-    return this.authToken;
+    return localStorage.getItem('authToken');
   }
 }

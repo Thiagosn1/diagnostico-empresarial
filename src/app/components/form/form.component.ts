@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -46,7 +45,7 @@ export class FormComponent implements AfterViewInit {
   categories: Category[] = [];
   responses: any = {};
 
-  answers = Array.from({ length: 11 }, (_, i) => i);
+  answers = Array.from({ length: 10 }, (_, i) => i + 1);
   transitioning = false;
   showQuestion = true;
   currentQuestionIndex = 0;
@@ -63,16 +62,12 @@ export class FormComponent implements AfterViewInit {
     private formService: FormService,
     private formResponseService: FormResponseService
   ) {
+    // Carrega as categorias e questões
     this.formService.getData().subscribe((data) => {
-      data.sort((a: any, b: any) => {
-        return a.position - b.position;
-      });
-
+      data.sort((a: any, b: any) => a.position - b.position);
       data.forEach((c: any) => {
         this.totalNQuestions += c.questions.length;
-        c.questions.sort((a: any, b: any) => {
-          return a.position - b.position;
-        });
+        c.questions.sort((a: any, b: any) => a.position - b.position);
       });
       this.categories = data;
     });
@@ -94,31 +89,55 @@ export class FormComponent implements AfterViewInit {
     return this.categories[this.currentCategoryIndex].name;
   }
 
-  // Calcula a porcentagem de progresso com base no índice da pergunta atual e no tamanho total das perguntas
+  // Calcula a porcentagem de progresso com base no número de perguntas respondidas e no total de perguntas
   get progressPercentage() {
     const totalQuestions = this.totalNQuestions;
     const completedQuestions = this.currentNQuestions;
     return Math.round((completedQuestions / totalQuestions) * 100);
   }
 
-  // Retorna a cor do gradiente com base no índice fornecido
-  gradientColor(index: number): string {
-    const positive = this.isCurrentQuestionPositive();
-    const adjustedIndex = positive ? index : 10 - index;
-    return `hsl(${(120 * adjustedIndex) / 10}, 100%, 50%)`;
-  }
-
+  // Determina se a questão atual é positiva
   isCurrentQuestionPositive(): boolean {
     return this.categories[this.currentCategoryIndex].questions[
       this.currentQuestionIndex
     ].positive;
   }
 
+  // Retorna o valor a ser exibido no botão
+  getDisplayValue(index: number): number {
+    return this.isCurrentQuestionPositive() ? index + 1 : 10 - index;
+  }
+
+  // Exibe todos os tooltips
+  showTooltips() {
+    this.tooltips.forEach((tooltip) => {
+      tooltip.show();
+    });
+  }
+
+  // Retorna o texto do tooltip com base no índice do botão
+  getTooltipText(index: number): string {
+    if (index === 0) {
+      return 'Discordo totalmente';
+    } else if (index === 9) {
+      return 'Concordo totalmente';
+    } else {
+      return '';
+    }
+  }
+
+  // Retorna a cor do gradiente com base no índice fornecido
+  gradientColor(index: number): string {
+    const positive = this.isCurrentQuestionPositive();
+    const adjustedIndex = positive ? index + 0 : 9 - index;
+    return `hsl(${(120 * adjustedIndex) / 9}, 100%, 50%)`;
+  }
+
   // Esta função é chamada quando o usuário selecionar uma resposta
   selectAnswer(index: number): void {
     const positive = this.isCurrentQuestionPositive();
-    const recordedAnswer = positive ? index : 10 - index; // Inverta a resposta se a questão for negativa
-    console.log('Resposta selecionada:', recordedAnswer); // Agora mostrará 10 se você clicar no botão que mostra 10 (quando a pergunta é negativa)
+    const recordedAnswer = positive ? index + 1 : 10 - index;
+    console.log('Resposta selecionada:', recordedAnswer);
     const currentCategory = this.categories[this.currentCategoryIndex].name;
     if (!this.responses[currentCategory]) {
       this.responses[currentCategory] = [];
@@ -130,6 +149,7 @@ export class FormComponent implements AfterViewInit {
 
   // Avança para a próxima pergunta
   nextQuestion() {
+    // Verifica se há mais perguntas na categoria atual ou avança para a próxima categoria
     if (
       this.categories[this.currentCategoryIndex].questions.length - 1 >
         this.currentQuestionIndex &&
@@ -137,39 +157,15 @@ export class FormComponent implements AfterViewInit {
     ) {
       this.currentQuestionIndex++;
     } else {
-      // Marca a categoria atual como concluída antes de atualizar a categoria
+      // Marca a categoria atual como concluída antes de avançar para a próxima
       this.completedCategories[this.currentCategoryIndex] = true;
       this.currentCategoryIndex++;
       this.currentQuestionIndex = 0;
       if (this.categories.length == this.currentCategoryIndex) {
-        // Marca a categoria atual como concluída antes de atualizar a categoria
+        // Marca a categoria atual como concluída antes de avançar para a próxima
         this.completedCategories[this.currentCategoryIndex - 1] = true;
         this.showSuccessMessageAndNavigate(); // Exibe a mensagem de sucesso e navega para o dashboard
       }
-    }
-  }
-
-  showTooltips() {
-    this.tooltips.forEach((tooltip) => {
-      tooltip.show();
-    });
-  }
-
-  getDisplayValue(index: number): number {
-    return this.isCurrentQuestionPositive() ? index : 10 - index;
-  }
-
-  getTooltipText(index: number): string {
-    if (index === 0) {
-      return this.isCurrentQuestionPositive()
-        ? 'Discordo totalmente'
-        : 'Concordo totalmente';
-    } else if (index === 10) {
-      return this.isCurrentQuestionPositive()
-        ? 'Concordo totalmente'
-        : 'Discordo totalmente';
-    } else {
-      return '';
     }
   }
 
