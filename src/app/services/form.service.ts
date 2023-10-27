@@ -8,8 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class FormService {
-  private apiUrl = 'http://localhost:3000/formulario';
-  //private apiUrl = 'http://localhost:4200/api/categories';
+  apiUrl = 'http://localhost:4200/api/categories';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -17,6 +16,7 @@ export class FormService {
   getData(): Observable<Category[]> {
     return this.http.get<Category[]>(this.apiUrl);
   }
+  
   // Método para obter dados da api
   /* getData(): Observable<Category[]> {
     const token = this.authService.getToken();

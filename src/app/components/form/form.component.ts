@@ -17,6 +17,7 @@ import { FormResponseService } from 'src/app/services/form.response.service';
 import { FormService } from 'src/app/services/form.service';
 import { Category } from 'src/app/models/form.model';
 import { MatTooltip } from '@angular/material/tooltip';
+import { AnswerService } from 'src/app/services/answers.service';
 
 @Component({
   selector: 'app-form',
@@ -60,6 +61,7 @@ export class FormComponent implements AfterViewInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private formService: FormService,
+    private answerService: AnswerService,
     private formResponseService: FormResponseService
   ) {
     // Carrega as categorias e questões
@@ -70,6 +72,26 @@ export class FormComponent implements AfterViewInit {
         c.questions.sort((a: any, b: any) => a.position - b.position);
       });
       this.categories = data;
+
+      // Verifique se os índices da pergunta e da categoria, o número atual de perguntas respondidas e as categorias concluídas estão no armazenamento local
+      const savedCategoryIndex = localStorage.getItem('currentCategoryIndex');
+      const savedQuestionIndex = localStorage.getItem('currentQuestionIndex');
+      const savedNQuestions = localStorage.getItem('currentNQuestions');
+      const savedCompletedCategories = localStorage.getItem(
+        'completedCategories'
+      );
+
+      if (
+        savedCategoryIndex !== null &&
+        savedQuestionIndex !== null &&
+        savedNQuestions !== null &&
+        savedCompletedCategories !== null
+      ) {
+        this.currentCategoryIndex = Number(savedCategoryIndex);
+        this.currentQuestionIndex = Number(savedQuestionIndex);
+        this.currentNQuestions = Number(savedNQuestions);
+        this.completedCategories = JSON.parse(savedCompletedCategories);
+      }
     });
   }
 
@@ -135,48 +157,105 @@ export class FormComponent implements AfterViewInit {
 
   // Esta função é chamada quando o usuário selecionar uma resposta
   selectAnswer(index: number): void {
+    // Obtenha a categoria e a pergunta atual
+    const currentCategory = this.categories[this.currentCategoryIndex];
+    const currentQuestion =
+      currentCategory.questions[this.currentQuestionIndex];
+
+    // Calcule a resposta com base no índice selecionado e na positividade da pergunta
     const positive = this.isCurrentQuestionPositive();
     const recordedAnswer = positive ? index + 1 : 10 - index;
+
     console.log('Resposta selecionada:', recordedAnswer);
-    const currentCategory = this.categories[this.currentCategoryIndex].name;
-    if (!this.responses[currentCategory]) {
-      this.responses[currentCategory] = [];
+
+    // Adicione a resposta ao objeto de respostas
+    if (!this.responses[currentCategory.name]) {
+      this.responses[currentCategory.name] = [];
     }
-    this.responses[currentCategory].push(recordedAnswer);
-    this.transitionToNextQuestion();
-    this.currentNQuestions++;
+
+    // Verifique se a pergunta atual já foi respondida
+    if (
+      this.responses[currentCategory.name].length > this.currentQuestionIndex
+    ) {
+      console.log('A pergunta atual já foi respondida.');
+      return;
+    }
+
+    this.responses[currentCategory.name].push(recordedAnswer);
+
+    // Salve os índices da pergunta e da categoria, o número atual de perguntas respondidas e as categorias concluídas no armazenamento local
+    localStorage.setItem(
+      'currentCategoryIndex',
+      String(this.currentCategoryIndex)
+    );
+    localStorage.setItem(
+      'currentQuestionIndex',
+      String(this.currentQuestionIndex)
+    );
+    localStorage.setItem('currentNQuestions', String(this.currentNQuestions));
+    localStorage.setItem(
+      'completedCategories',
+      JSON.stringify(this.completedCategories)
+    );
+
+    // Salve a resposta na API
+    const answer = {
+      questionID: currentQuestion.id,
+      categoryID: currentCategory.id,
+      value: recordedAnswer,
+    };
+
+    this.answerService.saveAnswer(answer).subscribe(
+      (response) => {
+        console.log('Resposta salva com sucesso:', response);
+
+        // Transição para a próxima pergunta
+        this.transitionToNextQuestion();
+
+        // Incremente o número atual de perguntas respondidas
+        this.currentNQuestions++;
+      },
+      (error) => {
+        console.error('Erro ao salvar a resposta:', error);
+      }
+    );
   }
 
   // Avança para a próxima pergunta
   nextQuestion() {
-    // Verifica se há mais perguntas na categoria atual ou avança para a próxima categoria
-    if (
-      this.categories[this.currentCategoryIndex].questions.length - 1 >
-        this.currentQuestionIndex &&
-      this.categories.length - 1 >= this.currentCategoryIndex
-    ) {
+    const currentCategory = this.categories[this.currentCategoryIndex];
+  
+    // Se ainda há perguntas na categoria atual, vá para a próxima pergunta
+    if (this.currentQuestionIndex < currentCategory.questions.length - 1) {
       this.currentQuestionIndex++;
     } else {
-      // Marca a categoria atual como concluída antes de avançar para a próxima
+      // Caso contrário, marque a categoria atual como concluída
       this.completedCategories[this.currentCategoryIndex] = true;
+  
+      // E avance para a próxima categoria
       this.currentCategoryIndex++;
       this.currentQuestionIndex = 0;
-      if (this.categories.length == this.currentCategoryIndex) {
-        // Marca a categoria atual como concluída antes de avançar para a próxima
-        this.completedCategories[this.currentCategoryIndex - 1] = true;
-        this.showSuccessMessageAndNavigate(); // Exibe a mensagem de sucesso e navega para o dashboard
+  
+      // Se todas as categorias foram concluídas, exiba a mensagem de sucesso e navegue para o dashboard
+      if (this.currentCategoryIndex == this.categories.length) {
+        this.showSuccessMessageAndNavigate();
       }
     }
   }
+  
 
   // Função para fazer a transição para a próxima pergunta
   async transitionToNextQuestion() {
     this.transitioning = true;
     this.showQuestion = false;
+
     await new Promise((resolve) => setTimeout(resolve, 300));
+
     this.nextQuestion();
+
     this.showQuestion = true;
     this.transitioning = false;
+
     this.showTooltips();
   }
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/usuarios';
+  private apiUrl = 'http://localhost:4200/api/users';
 
   constructor(private http: HttpClient) {}
 
@@ -15,11 +15,11 @@ export class UserService {
   }
 
   tornarAdmin(id: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, { tipo: 'admin' });
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, { authority: 'ROOT' });
   }
 
   removerAdmin(id: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, { tipo: 'padrão' });
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, { authority: 'DEFAULT' });
   }
 
   excluirUsuario(id: number): Observable<any> {

@@ -7,18 +7,11 @@ import { EmailService } from 'src/app/services/email.service';
   styleUrls: ['./dashboard-admin.component.css'],
 })
 export class DashboardAdminComponent implements OnInit {
-  cadastroMenuVisible = false;
-  arrowRotation = 270;
   public email: string = '';
 
   constructor(private emailService: EmailService) {}
 
   ngOnInit(): void {
     this.email = this.emailService.email;
-  }  
-
-  toggleCadastroMenu(): void {
-    this.cadastroMenuVisible = !this.cadastroMenuVisible;
-    this.arrowRotation = this.arrowRotation === 270 ? 0 : 270;
   }
 }

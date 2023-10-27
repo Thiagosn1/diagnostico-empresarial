@@ -1,17 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin, map, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmailService {
-  email = '';
+  private apiUrl = 'http://localhost:4200/api';
+
+  email: string = '';
 
   constructor(private http: HttpClient) {}
 
+  // Método para verificar se o email já existe na API
+  verificarEmail(email: string): Observable<boolean> {
+    return this.http
+      .get<any[]>(`${this.apiUrl}/users`)
+      .pipe(map((users) => users.some((user) => user.email === email)));
+  }
+
   // Método para enviar o email para a API
-  enviarEmail(email: string) {
+  enviarEmail(email: string): Observable<any> {
+    this.email = email;
+    const userType = window.location.pathname.includes('/admin')
+      ? 'ROOT'
+      : 'DEFAULT';
+    const body = {
+      email: this.email,
+      name: null,
+      authority: userType,
+      businessUsers: null,
+      businesses: null,
+    };
+    return this.verificarEmail(this.email).pipe(
+      switchMap(exists => {
+        if (!exists) {
+          const requireLogin$ = this.http.post(`${this.apiUrl}/requirelogin`, body);
+          const users$ = this.http.post(`${this.apiUrl}/users`, body);
+          return forkJoin([requireLogin$, users$]).pipe(
+            tap(response => {
+              console.log(response);
+            })
+          );
+        } else {
+          console.log('O usuário já existe');
+          return of(null);
+        }
+      })
+    );
+  }
+
+  /* enviarEmail(email: string) {
     this.email = email;
     const userType = window.location.pathname.includes('/admin')
       ? 'admin'
@@ -32,24 +71,28 @@ export class EmailService {
     return forkJoin([postUser, postRequireLogin]);
     //return postRequireLogin;
     //return postUser;
-  }
+  } */
 
   // Método para enviar o token para a API
-  enviarToken(token: string) {
+  enviarToken(token: string): Observable<any> {
+    const body = {
+      email: this.email,
+      loginCode: token
+    };
+    return this.http.post(`${this.apiUrl}/login`, body, /* { observe: 'response' } */);
+  }
+
+
+  /* enviarToken(token: string): Observable<any> {
     const body = {
       email: this.email,
       loginCode: token,
     };
-    return this.http.post('http://localhost:3000/login', body);
-    //return this.http.post('http://localhost:4200/api/login', body, { observe: 'response' });
-  }
+    return this.http.post('${this.apiUrl}/login', body, //{ observe: 'response' });
+  } */
 
   // Método para reenviar o código para o email
   reenviarToken() {
-    const body = {
-      email: this.email,
-    };
-    return this.http.post('http://localhost:3000/requirelogin', body);
-    //return this.http.post('http://localhost:4200/api/requirelogin', body);
+    return this.enviarEmail(this.email);
   }
 }

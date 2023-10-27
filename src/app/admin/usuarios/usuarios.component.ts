@@ -20,7 +20,6 @@ export class UsuariosComponent implements OnInit {
   carregarUsuarios(): void {
     this.userService.obterUsuarios().subscribe(
       (data) => {
-        console.log('Dados recebidos:', data);
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },

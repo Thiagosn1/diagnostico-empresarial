@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class TokenComponent {
   token = '';
   tokenError = '';
+  tokenSuccess = '';
 
   constructor(
     private router: Router,
@@ -27,7 +28,7 @@ export class TokenComponent {
         'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
       setTimeout(() => {
         this.tokenError = '';
-      }, 3000);
+      }, 2000);
     } else {
       this.tokenError = '';
     }
@@ -80,6 +81,11 @@ export class TokenComponent {
 
   // Função para lidar com o reenvio do código
   reenviarToken() {
+    this.tokenSuccess = 'Reenviando código para o email...';
+    setTimeout(() => {
+      this.tokenSuccess = '';
+    }, 2000);
+
     this.emailService.reenviarToken().subscribe(
       (response) => {
         console.log(response);

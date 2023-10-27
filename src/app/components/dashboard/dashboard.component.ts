@@ -12,9 +12,4 @@ export class DashboardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  toggleCadastroMenu(): void {
-    this.cadastroMenuVisible = !this.cadastroMenuVisible;
-    this.arrowRotation = this.arrowRotation === 270 ? 0 : 270;
-  }
 }

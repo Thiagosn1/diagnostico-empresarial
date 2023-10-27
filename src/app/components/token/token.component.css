@@ -87,3 +87,11 @@ label {
 .reenviar:hover {
   color: #0046b2;
 }
+
+.success {
+  color: white;
+  background-color: green;
+  padding: 0.625rem;
+  margin-top: 0.625rem;
+  border-radius: 1rem;
+}

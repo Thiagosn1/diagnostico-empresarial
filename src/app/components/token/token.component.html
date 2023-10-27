@@ -6,9 +6,20 @@
 <div class="form-container">
   <label for="token-input">Digite o código que foi enviado no seu email</label>
   <mat-form-field>
-    <input class="input" matInput id="token-input" type="password" [(ngModel)]="token" name="token" required/>
+    <input
+      class="input"
+      matInput
+      id="token-input"
+      type="password"
+      [(ngModel)]="token"
+      name="token"
+      required
+    />
   </mat-form-field>
   <button class="button" (click)="enviarToken()">OK</button>
-  <button class="reenviar" (click)="reenviarToken()" [disabled]="!hasEmail()">Reenviar código</button>
-  <div *ngIf="tokenError" class="error">{{tokenError}}</div>
+  <button class="reenviar" (click)="reenviarToken()" [disabled]="!hasEmail()">
+    Reenviar código
+  </button>
+  <div *ngIf="tokenError" class="error">{{ tokenError }}</div>
+  <div *ngIf="tokenSuccess" class="success">{{ tokenSuccess }}</div>
 </div>
