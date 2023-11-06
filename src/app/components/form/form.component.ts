@@ -224,25 +224,24 @@ export class FormComponent implements AfterViewInit {
   // Avança para a próxima pergunta
   nextQuestion() {
     const currentCategory = this.categories[this.currentCategoryIndex];
-  
+
     // Se ainda há perguntas na categoria atual, vá para a próxima pergunta
     if (this.currentQuestionIndex < currentCategory.questions.length - 1) {
       this.currentQuestionIndex++;
     } else {
       // Caso contrário, marque a categoria atual como concluída
       this.completedCategories[this.currentCategoryIndex] = true;
-  
+
       // E avance para a próxima categoria
       this.currentCategoryIndex++;
       this.currentQuestionIndex = 0;
-  
+
       // Se todas as categorias foram concluídas, exiba a mensagem de sucesso e navegue para o dashboard
       if (this.currentCategoryIndex == this.categories.length) {
         this.showSuccessMessageAndNavigate();
       }
     }
   }
-  
 
   // Função para fazer a transição para a próxima pergunta
   async transitionToNextQuestion() {

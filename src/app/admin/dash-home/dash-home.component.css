@@ -29,8 +29,14 @@
 
 .card-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.top-cards {
+  display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 30px;
 }
 
@@ -46,10 +52,10 @@
 }
 
 .full-width-card {
-  width: 902px;
+  min-width: 280px;
+  min-height: 193px;
   padding: 16px;
   box-sizing: border-box;
-  height: 50vh;
 }
 
 .form-button {
@@ -57,4 +63,8 @@
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.center {
+  text-align: center;
 }

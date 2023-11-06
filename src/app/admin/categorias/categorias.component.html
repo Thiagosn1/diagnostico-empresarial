@@ -2,7 +2,7 @@
   <div class="table-container">
     <mat-form-field class="search-bar">
       <mat-icon matPrefix>search</mat-icon>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar" />
+      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Filtrar" />
     </mat-form-field>
 
     <div class="table-scroll">
@@ -34,14 +34,14 @@
             <div class="icon-container">
               <button
                 mat-icon-button
-                (click)="toggleEditing(category)"
+                (click)="alternarEdicao(category)"
                 *ngIf="editingCategoryId !== category.id"
               >
                 <mat-icon>edit</mat-icon>
               </button>
               <button
                 mat-icon-button
-                (click)="toggleEditing(category)"
+                (click)="alternarEdicao(category)"
                 *ngIf="editingCategoryId === category.id"
               >
                 <mat-icon>check</mat-icon>
