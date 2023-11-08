@@ -34,7 +34,7 @@ export class TokenComponent {
     }
   }
 
-  enviarToken() {
+  /* enviarToken() {
     this.validarToken();
     if (!this.tokenError) {
       this.emailService.enviarToken(this.token).subscribe(
@@ -51,9 +51,9 @@ export class TokenComponent {
         }
       );
     }
-  }
+  } */
 
-  /* enviarToken() {
+  enviarToken() {
     this.validarToken();
     if (!this.tokenError) {
       this.emailService.enviarToken(this.token).subscribe(
@@ -77,7 +77,7 @@ export class TokenComponent {
         }
       );
     }
-  } */
+  }
 
   // Função para lidar com o reenvio do código
   reenviarToken() {

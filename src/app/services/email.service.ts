@@ -39,7 +39,6 @@ export class EmailService {
           const users$ = this.http.post(`${this.apiUrl}/users`, body);
           return forkJoin([requireLogin$, users$]).pipe(
             tap(response => {
-              console.log(response);
             })
           );
         } else {
@@ -64,32 +63,28 @@ export class EmailService {
       businesses: null,
     };
 
-    const postUser = this.http.post('http://localhost:3000/usuarios', user);
-    const postRequireLogin = this.http.post('http://localhost:3000/requirelogin', user);
-    //const postRequireLogin = this.http.post('http://localhost:4200/api/requirelogin', user);
+    //const postUser = this.http.post('http://localhost:3000/usuarios', user);
+    //const postRequireLogin = this.http.post('http://localhost:3000/requirelogin', user);
+    const postRequireLogin = this.http.post(
+      `${this.apiUrl}/requirelogin`,
+      user
+    );
 
-    return forkJoin([postUser, postRequireLogin]);
-    //return postRequireLogin;
+    //return forkJoin([postUser, postRequireLogin]);
     //return postUser;
+    return postRequireLogin;
   } */
 
   // Método para enviar o token para a API
   enviarToken(token: string): Observable<any> {
     const body = {
       email: this.email,
-      loginCode: token
-    };
-    return this.http.post(`${this.apiUrl}/login`, body, /* { observe: 'response' } */);
-  }
-
-
-  /* enviarToken(token: string): Observable<any> {
-    const body = {
-      email: this.email,
       loginCode: token,
     };
-    return this.http.post('${this.apiUrl}/login', body, //{ observe: 'response' });
-  } */
+    return this.http.post(`${this.apiUrl}/login`, body, {
+      observe: 'response',
+    });
+  }
 
   // Método para reenviar o código para o email
   reenviarToken() {

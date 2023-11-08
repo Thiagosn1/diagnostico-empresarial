@@ -26,6 +26,7 @@ export class UsuariosComponent implements OnInit {
   carregarUsuarios(): void {
     this.userService.obterUsuarios().subscribe(
       (data) => {
+        console.log('Usuários carregados:', data); // Mostra os usuários no console
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },

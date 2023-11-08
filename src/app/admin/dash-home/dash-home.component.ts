@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Form } from '@angular/forms';
 import { FormService } from 'src/app/services/form.service';
+import { BusinessesService } from 'src/app/services/businesses.service';
 
 @Component({
   selector: 'app-dash-home',
@@ -13,11 +14,13 @@ export class DashHomeComponent implements OnInit {
   userCount: number = 0;
   categoryCount: number = 0;
   questionCount: number = 0;
+  businessesCount: number = 0;
   timeline: any[] = [];
   displayedColumns: string[] = ['date', 'description'];
 
   constructor(
     private userService: UserService,
+    private businessesService: BusinessesService,
     private formService: FormService,
     private timelineService: TimelineService
   ) {}
@@ -32,6 +35,11 @@ export class DashHomeComponent implements OnInit {
     this.userService.obterUsuarios().subscribe(
       (users) => (this.userCount = users.length),
       (error) => console.error('Erro ao carregar usuários:', error)
+    );
+
+    this.businessesService.obterEmpresas().subscribe(
+      (business) => (this.businessesCount = business.length),
+      (error) => console.error('Erro ao carregar empresas:', error)
     );
 
     this.formService.getData().subscribe(

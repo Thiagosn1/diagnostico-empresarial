@@ -1,0 +1,43 @@
+<div class="parent-container">
+  <div class="table-container">
+    <mat-form-field class="search-bar">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar" />
+    </mat-form-field>
+
+    <div class="table-scroll">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let businesses">{{ businesses.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cnpj">
+          <th mat-header-cell *matHeaderCellDef>CNPJ</th>
+          <td mat-cell *matCellDef="let businesses">
+            {{ businesses.cnpjCpf }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acao">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="text-center">Ação</div>
+          </th>
+          <td mat-cell *matCellDef="let businesses">
+            <div class="text-center">
+              <button mat-icon-button (click)="atualizarEmpresa(businesses)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="excluirEmpresa(businesses)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

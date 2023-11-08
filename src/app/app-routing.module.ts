@@ -16,6 +16,7 @@ import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { QuestoesComponent } from './admin/questoes/questoes.component';
 import { CategoriasComponent } from './admin/categorias/categorias.component';
 import { DashHomeComponent } from './admin/dash-home/dash-home.component';
+import { EmpresasComponent } from './admin/empresas/empresas.component';
 
 const routes: Routes = [
   // Rotas para usuário comum
@@ -54,6 +55,7 @@ const routes: Routes = [
         children: [
           { path: '', component: DashHomeComponent },
           { path: 'usuarios', component: UsuariosComponent },
+          { path: 'empresas', component: EmpresasComponent },
           { path: 'categorias', component: CategoriasComponent },
           { path: 'questoes', component: QuestoesComponent },
         ],

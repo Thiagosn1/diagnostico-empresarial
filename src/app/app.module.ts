@@ -41,6 +41,7 @@ import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { QuestoesComponent } from './admin/questoes/questoes.component';
 import { CategoriasComponent } from './admin/categorias/categorias.component';
 import { DashHomeComponent } from './admin/dash-home/dash-home.component';
+import { EmpresasComponent } from './admin/empresas/empresas.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { DashHomeComponent } from './admin/dash-home/dash-home.component';
     UsuariosComponent,
     QuestoesComponent,
     CategoriasComponent,
-    DashHomeComponent
+    DashHomeComponent,
+    EmpresasComponent
   ],
   imports: [
     AppRoutingModule,
