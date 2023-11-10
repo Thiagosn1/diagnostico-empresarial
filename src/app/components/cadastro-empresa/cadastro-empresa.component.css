@@ -16,7 +16,7 @@
   padding: 16px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
 mat-card-title {
@@ -48,13 +48,10 @@ button:hover {
   background-color: #0046b2;
 }
 
-@media (max-width: 1400px) {
-  .empresa-container {
-    min-height: 60vh;
-  }
-
-  mat-form-field {
-    margin-top: 5px;
-    font-size: 0.9em;
-  }
+.mensagem-erro {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 1rem;
 }

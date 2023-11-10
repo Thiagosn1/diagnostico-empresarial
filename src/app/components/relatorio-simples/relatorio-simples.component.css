@@ -7,8 +7,8 @@
 }
 
 .card {
-  width: 60%;
-  height: 72%;
+  width: 80%;
+  height: 80%;
   padding: 16px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -35,7 +35,7 @@
 }
 
 .right-column {
-  width: 55%;
+  width: 50%;
 }
 
 .card-buttons {
@@ -80,4 +80,19 @@
 
 .botao-gestor:hover {
   background-color: #004c99;
+}
+
+@media (min-width: 1920px) {
+  .card {
+    width: 60%;
+    height: 72%;
+  }
+
+  .left-column {
+    width: 45%;
+  }
+
+  .right-column {
+    width: 55%;
+  }
 }

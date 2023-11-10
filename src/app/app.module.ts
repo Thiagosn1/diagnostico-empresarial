@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
@@ -67,7 +66,7 @@ import { EmpresasComponent } from './admin/empresas/empresas.component';
     QuestoesComponent,
     CategoriasComponent,
     DashHomeComponent,
-    EmpresasComponent
+    EmpresasComponent,
   ],
   imports: [
     AppRoutingModule,

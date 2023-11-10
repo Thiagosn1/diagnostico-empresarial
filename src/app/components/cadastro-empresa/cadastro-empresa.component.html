@@ -11,8 +11,8 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>CNPJ</mat-label>
-          <input matInput name="cnpj" ngModel cnpj required />
-        </mat-form-field>
+          <input matInput name="cnpj" ngModel (input)="formatarCNPJ($event)" (keypress)="permitirApenasNumeros($event)" maxlength="18" required />
+        </mat-form-field>        
         <mat-form-field appearance="fill">
           <mat-label>A empresa existe há quanto tempo?</mat-label>
           <input matInput name="tempoExistenciaEmpresa" ngModel required />
@@ -25,4 +25,5 @@
       </form>
     </mat-card-content>
   </mat-card>
+  <div class="mensagem-erro" *ngIf="mensagemErro">{{ mensagemErro }}</div>
 </div>
