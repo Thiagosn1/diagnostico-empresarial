@@ -25,7 +25,6 @@ export class CadastroEmpresaComponent {
       const business = {
         name: formValue.nomeEmpresa,
         cnpjCpf: formValue.cnpj,
-        businessUsers: null,
       };
 
       this.businessesService.criarEmpresa(business).subscribe((res) => {

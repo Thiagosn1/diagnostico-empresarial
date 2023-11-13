@@ -20,7 +20,7 @@ export class EmailService {
   }
 
   // Método para enviar o email para a API
-  enviarEmail(email: string): Observable<any> {
+  /* enviarEmail(email: string): Observable<any> {
     this.email = email;
     const userType = window.location.pathname.includes('/admin')
       ? 'ROOT'
@@ -47,9 +47,9 @@ export class EmailService {
         }
       })
     );
-  }
+  } */
 
-  /* enviarEmail(email: string) {
+  enviarEmail(email: string) {
     this.email = email;
     const userType = window.location.pathname.includes('/admin')
       ? 'admin'
@@ -65,15 +65,11 @@ export class EmailService {
 
     //const postUser = this.http.post('http://localhost:3000/usuarios', user);
     //const postRequireLogin = this.http.post('http://localhost:3000/requirelogin', user);
-    const postRequireLogin = this.http.post(
-      `${this.apiUrl}/requirelogin`,
-      user
-    );
-
+    const postRequireLogin = this.http.post(`${this.apiUrl}/requirelogin`, user);
+    return postRequireLogin;
     //return forkJoin([postUser, postRequireLogin]);
     //return postUser;
-    return postRequireLogin;
-  } */
+  }
 
   // Método para enviar o token para a API
   enviarToken(token: string): Observable<any> {

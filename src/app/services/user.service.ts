@@ -7,15 +7,15 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:4200/api/users';
+  private apiUrl = 'http://localhost:4200/api/admin/users';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  obterUsuarios(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
-  }
-
   /* obterUsuarios(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  } */
+
+  obterUsuarios(): Observable<any> {
     const token = this.authService.getToken();
     console.log('Token obtido:', token);
     if (token) {
@@ -28,7 +28,7 @@ export class UserService {
         subscriber.complete();
       });
     }
-  } */
+  }
 
   atualizarUsuario(id: number, user: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, user);
