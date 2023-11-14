@@ -10,7 +10,7 @@ import { format } from 'date-fns';
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit {
-  displayedColumns: string[] = ['email', 'tipo', 'acao'];
+  displayedColumns: string[] = ['id', 'email', 'tipo', 'acao'];
   dataSource = new MatTableDataSource();
 
   constructor(
@@ -25,8 +25,10 @@ export class UsuariosComponent implements OnInit {
   // Carrega os usuários
   carregarUsuarios(): void {
     this.userService.obterUsuarios().subscribe(
-      (data) => {
+      (data: any[]) => {
+        // Adicione o tipo 'any[]' aqui
         console.log('Usuários carregados:', data); // Mostra os usuários no console
+        data.sort((a: any, b: any) => a.id - b.id); // Adicione o tipo 'any' para 'a' e 'b'
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },

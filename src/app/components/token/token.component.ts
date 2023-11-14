@@ -20,6 +20,7 @@ export class TokenComponent {
     private authService: AuthService
   ) {}
 
+  // Método para validar o token
   validarToken() {
     const isValid = this.token.length === 6;
 
@@ -34,25 +35,7 @@ export class TokenComponent {
     }
   }
 
-  /* enviarToken() {
-    this.validarToken();
-    if (!this.tokenError) {
-      this.emailService.enviarToken(this.token).subscribe(
-        (response) => {
-          console.log(response);
-          if (this.router.url.includes('/admin')) {
-            this.router.navigate(['/admin/dashboard']);
-          } else {
-            this.router.navigate(['/cadastro']);
-          }
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
-  } */
-
+  // Método para enviar o token
   enviarToken() {
     this.validarToken();
     if (!this.tokenError) {
@@ -79,7 +62,7 @@ export class TokenComponent {
     }
   }
 
-  // Função para lidar com o reenvio do código
+  // Método para reenviar o token
   reenviarToken() {
     this.tokenSuccess = 'Reenviando código para o email...';
     setTimeout(() => {

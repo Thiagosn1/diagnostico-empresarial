@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, switchMap, take } from 'rxjs';
 import { Category, Question } from '../models/form.model';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { AuthService } from './auth.service';
 export class FormService {
   apiUrl = 'http://localhost:4200/api/admin/categories';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
 
   /* // Método para obter dados da api
   getData(): Observable<Category[]> {
@@ -68,7 +69,11 @@ export class FormService {
     console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get<Category[]>(this.apiUrl, { headers });
+      let apiUrl = 'http://localhost:4200/api/categories';
+      if (this.router.url.includes('/admin')) {
+        apiUrl = 'http://localhost:4200/api/admin/categories';
+      }
+      return this.http.get<Category[]>(apiUrl, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<Category[]>((subscriber) => {

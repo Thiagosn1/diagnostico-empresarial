@@ -10,8 +10,9 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./empresas.component.css'],
 })
 export class EmpresasComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'cnpj', 'acao'];
+  displayedColumns: string[] = ['nome', 'cnpj', 'managerId', 'acao'];
   dataSource = new MatTableDataSource();
+  editingBusinessId: number | null = null;
 
   constructor(
     private businessesService: BusinessesService,
@@ -22,7 +23,7 @@ export class EmpresasComponent implements OnInit {
     this.carregarEmpresas();
   }
 
-  // Carrega as empresas
+  // Método para carregar as empresas
   carregarEmpresas(): void {
     this.businessesService.obterEmpresas().subscribe(
       (data) => {
@@ -36,13 +37,23 @@ export class EmpresasComponent implements OnInit {
     );
   }
 
-  // Aplica o filtro na tabela
+  // Método para aplicar o filtro na tabela conforme o usuário digita
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Atualiza uma empresa
+  // Método para alternar entre o modo de edição e visualização ao clicar nos botões Renomear/Confirmar
+  toggleEditing(business: any): void {
+    if (this.editingBusinessId === business.id) {
+      this.atualizarEmpresa(business);
+      this.editingBusinessId = null;
+    } else {
+      this.editingBusinessId = business.id;
+    }
+  }
+
+  // Método para atualizar a empresa
   atualizarEmpresa(empresa: any): void {
     this.businessesService.atualizarEmpresa(empresa.id, empresa).subscribe(
       () => {
@@ -55,7 +66,7 @@ export class EmpresasComponent implements OnInit {
     );
   }
 
-  // Exclui a empresa
+  // Método para excluir a empresa
   excluirEmpresa(empresa: any): void {
     this.businessesService.excluirEmpresa(empresa.id).subscribe(
       () => {
@@ -68,7 +79,7 @@ export class EmpresasComponent implements OnInit {
     );
   }
 
-  // Salva a alteração na linha do tempo
+  // Método para salvar a alteração na linha do tempo
   salvarAlteracaoNaTimeline(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {

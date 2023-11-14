@@ -13,21 +13,6 @@ export class UserService {
 
   /* obterUsuarios(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
-  } */
-
-  obterUsuarios(): Observable<any> {
-    const token = this.authService.getToken();
-    console.log('Token obtido:', token);
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get<any>(this.apiUrl, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
   }
 
   atualizarUsuario(id: number, user: any): Observable<any> {
@@ -46,5 +31,70 @@ export class UserService {
 
   excluirUsuario(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  } */
+
+  obterUsuarios(): Observable<any> {
+    const token = this.authService.getToken();
+    console.log('Token obtido:', token);
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http.get<any>(this.apiUrl, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<any>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
+    }
+  }
+
+  tornarAdmin(id: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http.put<any>(
+        `${this.apiUrl}/setauthority/${id}`,
+        { text: 'ROOT' },
+        { headers }
+      );
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<any>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
+    }
+  }
+
+  removerAdmin(id: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http.put<any>(
+        `${this.apiUrl}/setauthority/${id}`,
+        { text: 'DEFAULT' },
+        { headers }
+      );
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<any>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
+    }
+  }
+
+  excluirUsuario(id: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<any>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
+    }
   }
 }

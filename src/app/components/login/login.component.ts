@@ -14,6 +14,7 @@ export class LoginComponent {
 
   constructor(private router: Router, private emailService: EmailService) {}
 
+  // Método para validar o email
   validarEmail() {
     const re = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     if (!re.test(this.email)) {
@@ -26,6 +27,7 @@ export class LoginComponent {
     }
   }
 
+  // Método para enviar o email
   enviarEmail() {
     this.validarEmail();
     if (!this.emailError) {

@@ -20,6 +20,7 @@ export class CadastroEmpresaComponent {
     private qtdPessoasService: QuantidadePessoasService
   ) {}
 
+  // Método para submeter o formulário
   onSubmit(formValue: any, form: NgForm) {
     if (form.valid && cnpjValidator.isValid(formValue.cnpj)) {
       const business = {
@@ -46,26 +47,27 @@ export class CadastroEmpresaComponent {
     }
   }
 
+  // Método para formatar o CNPJ
   formatarCNPJ(event: any) {
     let cnpj = event.target.value;
-    cnpj = cnpj.replace(/\D/g, ''); // Remove tudo o que não é dígito
+    cnpj = cnpj.replace(/\D/g, '');
     if (cnpj.length > 14) {
-      cnpj = cnpj.slice(0, 14); // Limita a entrada a 14 dígitos
+      cnpj = cnpj.slice(0, 14);
     }
-    cnpj = cnpj.replace(/^(\d{2})(\d)/, '$1.$2'); // Coloca ponto entre o segundo e o terceiro dígitos
-    cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3'); // Coloca ponto entre o quinto e o sexto dígitos
-    cnpj = cnpj.replace(/\.(\d{3})(\d)/, '.$1/$2'); // Coloca uma barra entre o oitavo e o nono dígitos
-    cnpj = cnpj.replace(/(\d{4})(\d)/, '$1-$2'); // Coloca um hífen depois do bloco de quatro dígitos
+    cnpj = cnpj.replace(/^(\d{2})(\d)/, '$1.$2');
+    cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    cnpj = cnpj.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    cnpj = cnpj.replace(/(\d{4})(\d)/, '$1-$2');
     event.target.value = cnpj;
   }
 
+  // Método para permitir apenas números no input
   permitirApenasNumeros(event: any) {
-    const pattern = /[0-9\.\-\/]/; // Padrão de caracteres permitidos (números, ponto, hífen e barra)
+    const pattern = /[0-9\.\-\/]/;
     let inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar)) {
-      // Se o caractere digitado não estiver no padrão permitido
-      event.preventDefault(); // Cancela o evento
+      event.preventDefault();
     }
   }
 }

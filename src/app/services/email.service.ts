@@ -10,65 +10,34 @@ export class EmailService {
 
   email: string = '';
 
-  constructor(private http: HttpClient) {}
-
-  // Método para verificar se o email já existe na API
-  verificarEmail(email: string): Observable<boolean> {
-    return this.http
-      .get<any[]>(`${this.apiUrl}/users`)
-      .pipe(map((users) => users.some((user) => user.email === email)));
+  constructor(private http: HttpClient) {
+    this.email = localStorage.getItem('email') || '';
   }
 
   // Método para enviar o email para a API
-  /* enviarEmail(email: string): Observable<any> {
-    this.email = email;
-    const userType = window.location.pathname.includes('/admin')
-      ? 'ROOT'
-      : 'DEFAULT';
-    const body = {
-      email: this.email,
-      name: null,
-      authority: userType,
-      businessUsers: null,
-      businesses: null,
-    };
-    return this.verificarEmail(this.email).pipe(
-      switchMap(exists => {
-        if (!exists) {
-          const requireLogin$ = this.http.post(`${this.apiUrl}/requirelogin`, body);
-          const users$ = this.http.post(`${this.apiUrl}/users`, body);
-          return forkJoin([requireLogin$, users$]).pipe(
-            tap(response => {
-            })
-          );
-        } else {
-          console.log('O usuário já existe');
-          return of(null);
-        }
-      })
-    );
-  } */
-
   enviarEmail(email: string) {
+    this.setEmail(email);
     this.email = email;
-    const userType = window.location.pathname.includes('/admin')
-      ? 'admin'
-      : 'comum';
+
     const user = {
       email: this.email,
-      tipo: userType,
       name: null,
       authority: 'DEFAULT',
       businessUsers: null,
       businesses: null,
     };
 
-    //const postUser = this.http.post('http://localhost:3000/usuarios', user);
-    //const postRequireLogin = this.http.post('http://localhost:3000/requirelogin', user);
-    const postRequireLogin = this.http.post(`${this.apiUrl}/requirelogin`, user);
+    const postRequireLogin = this.http.post(
+      `${this.apiUrl}/requirelogin`,
+      user
+    );
     return postRequireLogin;
-    //return forkJoin([postUser, postRequireLogin]);
-    //return postUser;
+  }
+
+  // Método para salvar o email no localStorage
+  setEmail(value: string) {
+    this.email = value;
+    localStorage.setItem('email', value);
   }
 
   // Método para enviar o token para a API

@@ -53,11 +53,13 @@ export class QuestoesComponent implements OnInit {
     );
   }
 
+  // Método para filtrar as questões
   aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Método para recuperar o nome da categoria
   getCategoryName(categoryId: number): string {
     const category = this.categories.find(
       (category) => category.id === categoryId
@@ -65,6 +67,7 @@ export class QuestoesComponent implements OnInit {
     return category ? category.name : '';
   }
 
+  // Método para iniciar a edição
   startEditing(question: Question): void {
     this.editingQuestionId = question.id;
   }

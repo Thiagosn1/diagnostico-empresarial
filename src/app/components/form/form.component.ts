@@ -200,7 +200,7 @@ export class FormComponent implements AfterViewInit {
 
     // Salve a resposta na API
     const answer = {
-      questionID: currentQuestion.id,
+      questionId: currentQuestion.id,
       categoryID: currentCategory.id,
       value: recordedAnswer,
     };

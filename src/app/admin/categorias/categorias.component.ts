@@ -34,7 +34,7 @@ export class CategoriasComponent implements OnInit {
   carregarDados(): void {
     this.formService.getData().subscribe(
       (categories) => {
-        this.dataSource.data = categories;
+        this.dataSource.data = categories.sort((a, b) => a.id - b.id);
       },
       (error) => {
         console.error('Erro ao carregar dados:', error);

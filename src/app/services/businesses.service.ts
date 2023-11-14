@@ -7,26 +7,11 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class BusinessesService {
-  private apiUrl = 'http://localhost:4200/api/businesses';
+  private apiUrl = 'http://localhost:4200/api/admin/businesses';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  /* criarEmpresa(business: any) {
-    return this.http.post(this.apiUrl, business);
-  }
-
-  obterEmpresas(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
-  }
-
-  excluirEmpresa(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
-  }
-
-  atualizarEmpresa(id: number, empresa: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, empresa);
-  } */
-
+  // Método para criar uma empresa
   criarEmpresa(business: any) {
     const token = this.authService.getToken();
     console.log('Token obtido:', token);
@@ -42,6 +27,7 @@ export class BusinessesService {
     }
   }
 
+  // Método para obter as empresas
   obterEmpresas(): Observable<any> {
     const token = this.authService.getToken();
     console.log('Token obtido:', token);
@@ -57,7 +43,7 @@ export class BusinessesService {
     }
   }
 
-  // Exclui uma empresa pelo ID
+  // Método para excluir uma empresa
   excluirEmpresa(id: number): Observable<any> {
     const token = this.authService.getToken();
     console.log('Token obtido:', token);
@@ -73,7 +59,7 @@ export class BusinessesService {
     }
   }
 
-  // Atualiza uma empresa
+  // Método para atualizar uma empresa
   atualizarEmpresa(id: number, empresa: any): Observable<any> {
     const token = this.authService.getToken();
     console.log('Token obtido:', token);
