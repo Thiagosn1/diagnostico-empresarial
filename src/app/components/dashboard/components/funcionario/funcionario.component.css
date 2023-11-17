@@ -1,39 +1,26 @@
-.funcionario-container {
+.parent-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .funcionario-card {
-  width: 700px;
+  width: fit-content;
   padding: 20px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-}
-
-mat-card-title {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-mat-card-header {
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-mat-card-content {
-  padding: 0;
-}
-
-mat-form-field {
-  width: 100%;
   margin-top: 20px;
+  background-color: #ffffff;
+}
+
+.search-bar {
+  width: 100%;
+  margin-bottom: 1em;
 }
 
 .button {
-  margin-left: 10px;
   border: none;
   width: 200px;
   height: 40px;
@@ -43,7 +30,6 @@ mat-form-field {
   color: #ffffff;
   font-weight: 700;
   font-size: 16px;
-  line-height: 24px;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -53,54 +39,22 @@ mat-form-field {
   background-color: #0046b2;
 }
 
-mat-dialog-content {
+.mat-dialog-content {
   font-size: 16px;
   margin-bottom: 20px;
 }
 
-mat-header-cell {
-  justify-content: center;
+.mat-icon {
+  color: black !important;
 }
 
-mat-table {
-  border: 1px solid #e0e0e0;
-  border-radius: 20px;
-  overflow: hidden;
+.text-center {
+  text-align: center;
 }
 
-mat-cell,
-mat-header-cell {
-  border-right: 1px solid #e0e0e0;
-}
-
-mat-cell:last-of-type,
-mat-header-cell:last-of-type,
-mat-footer-cell:last-of-type {
-  padding: 0;
-}
-
-mat-cell:last-child,
-mat-header-cell:last-child {
-  border-right: none;
-}
-
-.mdc-data-table__cell,
-.mdc-data-table__header-cell {
-  padding: 0;
-}
-
-.centralizado {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imagem-espacada {
-  margin-right: 10px;
-}
-
-.preenchimento-email {
-  padding: 0 10px;
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .input-email-container {
@@ -119,10 +73,6 @@ mat-header-cell:last-child {
   margin-right: 10px;
 }
 
-.mat-icon {
-  color: black !important;
-}
-
 .error {
   color: white;
   background-color: red;
@@ -138,3 +88,5 @@ mat-header-cell:last-child {
   margin-top: 0.625rem;
   border-radius: 1rem;
 }
+
+/* Adicione os estilos restantes, se houverem, de acordo com a sua folha de estilos original */

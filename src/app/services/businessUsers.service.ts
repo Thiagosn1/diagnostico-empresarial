@@ -16,9 +16,11 @@ export class BusinessUsersService {
     console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get<any>('http://localhost:4200/api/businesses', {
-        headers,
-      });
+      return this.http
+        .get<any>('http://localhost:4200/api/businesses', {
+          headers,
+        })
+        .pipe(map((res) => res[0]?.businessUsers || []));
     } else {
       console.error('Nenhum token de autenticação disponível');
       return of([]);
@@ -78,24 +80,6 @@ export class BusinessUsersService {
       const headers = new HttpHeaders().set('Authorization', token);
       const url = `${this.apiUrl}/${id}`;
       return this.http.delete(url, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
-  }
-
-  expirarConvite(id: number): Observable<any> {
-    const token = this.authService.getToken();
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      const url = `${this.apiUrl}/${id}`;
-      const body = {
-        status: 'Convite Expirado',
-      };
-      return this.http.put(url, body, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {

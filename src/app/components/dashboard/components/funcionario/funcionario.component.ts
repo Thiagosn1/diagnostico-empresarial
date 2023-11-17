@@ -8,10 +8,7 @@ import { BusinessUsersService } from 'src/app/services/businessUsers.service';
   styleUrls: ['./funcionario.component.css'],
 })
 export class FuncionarioComponent implements OnInit {
-  columnsToDisplay = [
-    'email',
-    'actions',
-  ];
+  columnsToDisplay = ['id', 'email', 'status', 'actions'];
   dataSource = new MatTableDataSource();
   userEmail = '';
   errorMessage = '';
@@ -25,11 +22,17 @@ export class FuncionarioComponent implements OnInit {
 
   carregarFuncionarios(): void {
     this.businessUsersService.obterFuncionarios().subscribe(
-      (data) => {
-        //data.sort((a: any, b: any) => a.id - b.id); 
-        this.dataSource.data = data;
+      (data: any[]) => {
+        data.sort((a: any, b: any) => a.id - b.id);
+        this.dataSource.data = data.map((businessUsers) => {
+          return {
+            ...businessUsers,
+            invitationAccepted: businessUsers.invitationAccepted
+              ? 'Convite Aceito'
+              : 'Convite não Aceito',
+          };
+        });
         this.dataSource._updateChangeSubscription();
-        console.log(data);
       },
       (error) => {
         console.error('Error:', error);
@@ -37,25 +40,34 @@ export class FuncionarioComponent implements OnInit {
     );
   }
 
+  // Aplica o filtro na tabela
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   convidarFuncionario(): void {
-    if (this.userEmail) {
-      console.log(this.userEmail)
+    let validarEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (this.userEmail && validarEmail.test(this.userEmail)) {
+      console.log(this.userEmail);
       this.businessUsersService.convidarFuncionario(this.userEmail).subscribe(
         () => {
           this.successMessage = 'Convite enviado';
-          this.userEmail = ''; // Limpando o campo de email após o convite ser enviado.
-          this.carregarFuncionarios();  
-          setTimeout(() => (this.successMessage = ''), 3000); // Limpar mensagem de sucesso após 3 segundos.
+          
+          this.carregarFuncionarios();
+          this.userEmail = '';
+          setTimeout(() => (this.successMessage = ''), 3000);
         },
         (error) => {
           console.error('Error:', error);
           this.errorMessage = 'Erro ao enviar convite';
-          setTimeout(() => (this.errorMessage = ''), 3000); // Limpar mensagem de erro após 3 segundos.
+          setTimeout(() => (this.errorMessage = ''), 3000);
         }
       );
     } else {
       this.errorMessage = 'Por favor, insira um email válido';
-      setTimeout(() => (this.errorMessage = ''), 3000); // Limpar mensagem de erro após 3 segundos.
+      setTimeout(() => (this.errorMessage = ''), 3000);
     }
   }
 
