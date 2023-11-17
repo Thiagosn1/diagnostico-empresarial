@@ -4,40 +4,41 @@
       <mat-card-title>Funcionários</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-table [dataSource]="funcionarios">
+      <mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="email">
           <mat-header-cell *matHeaderCellDef class="preenchimento-email">
             Email
           </mat-header-cell>
-          <mat-cell *matCellDef="let funcionario" class="preenchimento-email">
-            {{ funcionario.email }}
+          <mat-cell *matCellDef="let businessUsers" class="preenchimento-email">
+            {{ businessUsers.userEmail }}
           </mat-cell>
+          
         </ng-container>
 
-        <ng-container matColumnDef="status">
+        <!-- <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
           <mat-cell class="centralizado" *matCellDef="let funcionario">
             {{ funcionario.status }}
           </mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="actions">
           <mat-header-cell class="largura-acao" *matHeaderCellDef>
             Ações
           </mat-header-cell>
-          <mat-cell *matCellDef="let funcionario" class="centralizado">
+          <mat-cell *matCellDef="let businessUsers" class="centralizado">
             <button
               mat-icon-button
               color="primary"
-              (click)="reenviarConvite(funcionario.id, funcionario.email)"
-              *ngIf="funcionario.status === 'Convite Expirado'"
+              (click)="reenviarConvite(businessUsers.id, businessUsers.userEmail)"
+              *ngIf="businessUsers.status === 'Convite Expirado'"
             >
               <mat-icon>send</mat-icon>
             </button>
             <button
               mat-icon-button
               color="warn"
-              (click)="removerFuncionario(funcionario.id)"
+              (click)="removerFuncionario(businessUsers.id)"
             >
               <mat-icon>delete</mat-icon>
             </button>
@@ -52,7 +53,7 @@
           type="email"
           class="input-email"
           placeholder="Digite o e-mail aqui"
-          [(ngModel)]="email"
+          [(ngModel)]="userEmail"
           (keyup.enter)="convidarFuncionario()"
         />
         <button class="button" (click)="convidarFuncionario()">

@@ -57,7 +57,6 @@ export class CategoriasComponent implements OnInit {
     this.editingCategoryId = null;
     this.formService.atualizarCategoria(category).subscribe(
       () => {
-        console.log('Categoria atualizada com sucesso');
         this.salvarAlteracaoNaLinhaDoTempo(
           `Categoria ${category.name} atualizada`
         );
@@ -70,7 +69,6 @@ export class CategoriasComponent implements OnInit {
   excluirCategoria(categoryId: number): void {
     this.formService.excluirCategoria(categoryId).subscribe(
       () => {
-        console.log('Categoria excluída com sucesso');
         this.salvarAlteracaoNaLinhaDoTempo(`Categoria ${categoryId} excluída`);
       },
       (error) => {

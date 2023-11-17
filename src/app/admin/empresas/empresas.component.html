@@ -7,6 +7,13 @@
 
     <div class="table-scroll" *ngIf="dataSource.data.length > 0">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="text-center">ID</th>
+          <td mat-cell *matCellDef="let businesses" class="text-center">
+            {{ businesses.id }}
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="nome">
           <th mat-header-cell *matHeaderCellDef class="text-center">Nome</th>
           <td mat-cell *matCellDef="let businesses">
@@ -33,11 +40,7 @@
 
         <ng-container matColumnDef="managerId">
           <th mat-header-cell *matHeaderCellDef>Manager ID</th>
-          <td
-            mat-cell
-            *matCellDef="let businesses"
-            class="text-center"
-          >
+          <td mat-cell *matCellDef="let businesses" class="text-center">
             {{ businesses.managerId }}
           </td>
         </ng-container>

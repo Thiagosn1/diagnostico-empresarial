@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class BusinessesService {
     console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.post(this.apiUrl, business, { headers });
+      let apiUrl = 'http://localhost:4200/api/businesses';
+      return this.http.post(apiUrl, business, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {

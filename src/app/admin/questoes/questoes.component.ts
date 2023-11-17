@@ -33,6 +33,7 @@ export class QuestoesComponent implements OnInit {
       (categories) => {
         let questions: Question[] = [];
         categories.forEach((category) => questions.push(...category.questions));
+        questions.sort((a, b) => a.id - b.id);
         this.dataSource.data = questions;
       },
       (error) => {
@@ -77,7 +78,6 @@ export class QuestoesComponent implements OnInit {
     this.editingQuestionId = null;
     this.formService.atualizarQuestao(question.categoryId, question).subscribe(
       () => {
-        console.log('Questão atualizada com sucesso');
         this.salvarAlteracaoNaTimeline(
           `Questão ${
             question.id
@@ -94,7 +94,6 @@ export class QuestoesComponent implements OnInit {
   excluirQuestao(categoryId: number, questionId: number): void {
     this.formService.excluirQuestao(categoryId, questionId).subscribe(
       () => {
-        console.log('Questão excluída com sucesso');
         this.salvarAlteracaoNaTimeline(
           `Questão ${questionId} excluída na categoria ${this.getCategoryName(
             categoryId

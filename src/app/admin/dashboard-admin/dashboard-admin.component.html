@@ -70,7 +70,12 @@
           </span>
         </a>
         <div class="logout-container">
-          <a mat-list-item routerLink="/" class="menu-item">
+          <a
+            mat-list-item
+            routerLink="/"
+            class="menu-item"
+            (click)="onLogout()"
+          >
             <span class="menu-item-content">
               <mat-icon>exit_to_app</mat-icon>
               Sair

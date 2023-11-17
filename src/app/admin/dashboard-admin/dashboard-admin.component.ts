@@ -12,6 +12,21 @@ export class DashboardAdminComponent implements OnInit {
   constructor(private emailService: EmailService) {}
 
   ngOnInit(): void {
-    this.email = this.emailService.email;
+    this.emailService.buscarEmail().subscribe(
+      (data) => {
+        if (data) {
+          console.log(data);
+          this.email = data.email;
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar o email:', error);
+      }
+    );
+  }
+
+  // Método para limpar o localStorage e deslogar o usuário
+  onLogout(): void {
+    localStorage.clear();
   }
 }

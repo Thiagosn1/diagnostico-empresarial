@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 
 @Component({
   selector: 'app-funcionario',
@@ -9,24 +10,26 @@ import { FuncionarioService } from 'src/app/services/funcionario.service';
 export class FuncionarioComponent implements OnInit {
   columnsToDisplay = [
     'email',
-    'status',
     'actions',
   ];
-  funcionarios: any[] = [];
-  email = '';
+  dataSource = new MatTableDataSource();
+  userEmail = '';
   errorMessage = '';
   successMessage = '';
 
-  constructor(private funcionarioService: FuncionarioService) {}
+  constructor(private businessUsersService: BusinessUsersService) {}
 
   ngOnInit(): void {
-    this.fetchFuncionarios();
+    this.carregarFuncionarios();
   }
 
-  fetchFuncionarios(): void {
-    this.funcionarioService.getFuncionarios().subscribe(
+  carregarFuncionarios(): void {
+    this.businessUsersService.obterFuncionarios().subscribe(
       (data) => {
-        this.funcionarios = data;
+        //data.sort((a: any, b: any) => a.id - b.id); 
+        this.dataSource.data = data;
+        this.dataSource._updateChangeSubscription();
+        console.log(data);
       },
       (error) => {
         console.error('Error:', error);
@@ -35,12 +38,13 @@ export class FuncionarioComponent implements OnInit {
   }
 
   convidarFuncionario(): void {
-    if (this.email) {
-      this.funcionarioService.convidarFuncionario(this.email).subscribe(
+    if (this.userEmail) {
+      console.log(this.userEmail)
+      this.businessUsersService.convidarFuncionario(this.userEmail).subscribe(
         () => {
-          this.fetchFuncionarios();
-          this.email = ''; // Limpando o campo de email após o convite ser enviado.
           this.successMessage = 'Convite enviado';
+          this.userEmail = ''; // Limpando o campo de email após o convite ser enviado.
+          this.carregarFuncionarios();  
           setTimeout(() => (this.successMessage = ''), 3000); // Limpar mensagem de sucesso após 3 segundos.
         },
         (error) => {
@@ -56,9 +60,9 @@ export class FuncionarioComponent implements OnInit {
   }
 
   reenviarConvite(id: number, email: string): void {
-    this.funcionarioService.reenviarConvite(id, email).subscribe(
+    this.businessUsersService.reenviarConvite(id, email).subscribe(
       () => {
-        this.fetchFuncionarios();
+        this.carregarFuncionarios();
         this.successMessage = 'Convite reenviado';
         setTimeout(() => (this.successMessage = ''), 3000); // Limpar mensagem de sucesso após 3 segundos.
       },
@@ -71,9 +75,9 @@ export class FuncionarioComponent implements OnInit {
   }
 
   removerFuncionario(id: number): void {
-    this.funcionarioService.removerFuncionario(id).subscribe(
+    this.businessUsersService.removerFuncionario(id).subscribe(
       () => {
-        this.fetchFuncionarios();
+        this.carregarFuncionarios();
       },
       (error) => {
         console.error('Error:', error);

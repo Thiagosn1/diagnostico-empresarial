@@ -127,8 +127,12 @@ export class FormComponent implements AfterViewInit {
 
   // Retorna o valor a ser exibido no botão
   getDisplayValue(index: number): number {
-    return this.isCurrentQuestionPositive() ? index + 1 : 10 - index;
+    return index + 1;
   }
+
+  /* getDisplayValue(index: number): number {
+    return this.isCurrentQuestionPositive() ? index + 1 : 10 - index;
+  } */
 
   // Exibe todos os tooltips
   showTooltips() {
@@ -139,6 +143,26 @@ export class FormComponent implements AfterViewInit {
 
   // Retorna o texto do tooltip com base no índice do botão
   getTooltipText(index: number): string {
+    if (this.isCurrentQuestionPositive()) {
+      if (index === 0) {
+        return 'Discordo totalmente';
+      } else if (index === 9) {
+        return 'Concordo totalmente';
+      } else {
+        return '';
+      }
+    } else {
+      if (index === 0) {
+        return 'Concordo totalmente';
+      } else if (index === 9) {
+        return 'Discordo totalmente';
+      } else {
+        return '';
+      }
+    }
+  }
+
+  /* getTooltipText(index: number): string {
     if (index === 0) {
       return 'Discordo totalmente';
     } else if (index === 9) {
@@ -146,14 +170,18 @@ export class FormComponent implements AfterViewInit {
     } else {
       return '';
     }
-  }
+  } */
 
   // Retorna a cor do gradiente com base no índice fornecido
   gradientColor(index: number): string {
+    return `hsl(${(120 * index) / 9}, 100%, 50%)`;
+  }
+
+  /* gradientColor(index: number): string {
     const positive = this.isCurrentQuestionPositive();
     const adjustedIndex = positive ? index + 0 : 9 - index;
     return `hsl(${(120 * adjustedIndex) / 9}, 100%, 50%)`;
-  }
+  } */
 
   // Esta função é chamada quando o usuário selecionar uma resposta
   selectAnswer(index: number): void {
@@ -163,8 +191,10 @@ export class FormComponent implements AfterViewInit {
       currentCategory.questions[this.currentQuestionIndex];
 
     // Calcule a resposta com base no índice selecionado e na positividade da pergunta
-    const positive = this.isCurrentQuestionPositive();
-    const recordedAnswer = positive ? index + 1 : 10 - index;
+
+    // const positive = this.isCurrentQuestionPositive();
+    const recordedAnswer = index + 1;
+    // const recordedAnswer = positive ? index + 1 : 10 - index;
 
     console.log('Resposta selecionada:', recordedAnswer);
 
@@ -201,11 +231,10 @@ export class FormComponent implements AfterViewInit {
     // Salve a resposta na API
     const answer = {
       questionId: currentQuestion.id,
-      categoryID: currentCategory.id,
       value: recordedAnswer,
     };
 
-    this.answerService.saveAnswer(answer).subscribe(
+    this.answerService.salvarResposta(answer).subscribe(
       (response) => {
         console.log('Resposta salva com sucesso:', response);
 

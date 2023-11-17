@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,21 +12,17 @@ export class EmailService {
 
   email: string = '';
 
-  constructor(private http: HttpClient) {
-    this.email = localStorage.getItem('email') || '';
-  }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   // Método para enviar o email para a API
   enviarEmail(email: string) {
-    this.setEmail(email);
     this.email = email;
-
     const user = {
       email: this.email,
-      name: null,
-      authority: 'DEFAULT',
-      businessUsers: null,
-      businesses: null,
     };
 
     const postRequireLogin = this.http.post(
@@ -34,10 +32,23 @@ export class EmailService {
     return postRequireLogin;
   }
 
-  // Método para salvar o email no localStorage
-  setEmail(value: string) {
-    this.email = value;
-    localStorage.setItem('email', value);
+  // Método para buscar o email do usuário
+  buscarEmail(): Observable<any> {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      let apiUrl = 'http://localhost:4200/api/users';
+      if (this.router.url.includes('/admin')) {
+        apiUrl = 'http://localhost:4200/api/admin/users';
+      }
+      return this.http.get(apiUrl, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable((subscriber) => {
+        subscriber.next(null);
+        subscriber.complete();
+      });
+    }
   }
 
   // Método para enviar o token para a API

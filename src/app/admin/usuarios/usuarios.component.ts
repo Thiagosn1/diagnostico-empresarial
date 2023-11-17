@@ -10,7 +10,8 @@ import { format } from 'date-fns';
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'email', 'tipo', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'tipo', 'acao'];
+  editingUserId: number | null = null;
   dataSource = new MatTableDataSource();
 
   constructor(
@@ -26,9 +27,7 @@ export class UsuariosComponent implements OnInit {
   carregarUsuarios(): void {
     this.userService.obterUsuarios().subscribe(
       (data: any[]) => {
-        // Adicione o tipo 'any[]' aqui
-        console.log('Usuários carregados:', data); // Mostra os usuários no console
-        data.sort((a: any, b: any) => a.id - b.id); // Adicione o tipo 'any' para 'a' e 'b'
+        data.sort((a: any, b: any) => a.id - b.id); 
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },
@@ -44,11 +43,32 @@ export class UsuariosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Método para alternar entre o modo de edição e visualização ao clicar nos botões Renomear/Confirmar
+  toggleEditing(user: any): void {
+    if (this.editingUserId === user.id) {
+      this.atualizarUsuario(user);
+      this.editingUserId = null;
+    } else {
+      this.editingUserId = user.id;
+    }
+  }
+
+  // Método para atualizar um usuário
+  atualizarUsuario(user: any): void {
+    this.userService.atualizarUsuario(user.id, user).subscribe(
+      () => {
+        const descricao = `O usuário ${user.name} foi atualizado`;
+        this.salvarAlteracaoNaTimeline(descricao);
+        this.carregarUsuarios();
+      },
+      (error) => console.error('Erro ao atualizar usuário:', error)
+    );
+  }
+
   // Torna o usuário um administrador
   tornarAdmin(usuario: any): void {
     this.userService.tornarAdmin(usuario.id).subscribe(
       () => {
-        console.log('Usuário tornou-se admin:', usuario);
         const descricao = `${usuario.email} tornou-se administrador`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
@@ -61,7 +81,6 @@ export class UsuariosComponent implements OnInit {
   removerAdmin(usuario: any): void {
     this.userService.removerAdmin(usuario.id).subscribe(
       () => {
-        console.log('Admin removido do usuário:', usuario);
         const descricao = `${usuario.email} deixou de ser administrador`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
@@ -74,7 +93,6 @@ export class UsuariosComponent implements OnInit {
   excluirUsuario(usuario: any): void {
     this.userService.excluirUsuario(usuario.id).subscribe(
       () => {
-        console.log('Usuário excluído:', usuario);
         const descricao = `${usuario.email} foi excluído`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();

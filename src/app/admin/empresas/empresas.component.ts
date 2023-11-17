@@ -10,7 +10,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./empresas.component.css'],
 })
 export class EmpresasComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'cnpj', 'managerId', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'cnpj', 'managerId', 'acao'];
   dataSource = new MatTableDataSource();
   editingBusinessId: number | null = null;
 
@@ -27,7 +27,6 @@ export class EmpresasComponent implements OnInit {
   carregarEmpresas(): void {
     this.businessesService.obterEmpresas().subscribe(
       (data) => {
-        console.log('Empresas carregadas:', data);
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },
@@ -57,7 +56,6 @@ export class EmpresasComponent implements OnInit {
   atualizarEmpresa(empresa: any): void {
     this.businessesService.atualizarEmpresa(empresa.id, empresa).subscribe(
       () => {
-        console.log('Empresa atualizada:', empresa);
         const descricao = `A empresa ${empresa.name} foi atualizada`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarEmpresas();
@@ -70,7 +68,6 @@ export class EmpresasComponent implements OnInit {
   excluirEmpresa(empresa: any): void {
     this.businessesService.excluirEmpresa(empresa.id).subscribe(
       () => {
-        console.log('Empresa excluída:', empresa);
         const descricao = `A empresa ${empresa.name} foi excluída`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarEmpresas();
