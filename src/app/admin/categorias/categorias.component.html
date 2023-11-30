@@ -5,6 +5,24 @@
       <input matInput (keyup)="aplicarFiltro($event)" placeholder="Filtrar" />
     </mat-form-field>
 
+    <div class="add-category-container">
+      <mat-form-field class="category-input">
+        <input
+          matInput
+          [(ngModel)]="nomeNovaCategoria"
+          placeholder="Nome da categoria"
+        />
+      </mat-form-field>
+      <button
+        class="button"
+        mat-raised-button
+        color="primary"
+        (click)="adicionarCategoria()"
+      >
+        Adicionar categoria
+      </button>
+    </div>
+
     <div class="table-scroll">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
@@ -58,4 +76,5 @@
       </table>
     </div>
   </div>
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
 </div>

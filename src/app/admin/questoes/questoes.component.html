@@ -5,6 +5,50 @@
       <input matInput (keyup)="aplicarFiltro($event)" placeholder="Filtrar" />
     </mat-form-field>
 
+    <button class="button" mat-raised-button (click)="mostrarFormulario = true">
+      Adicionar questão
+    </button>
+
+    <div *ngIf="mostrarFormulario">
+      <form [formGroup]="formQuestao" (ngSubmit)="adicionarQuestao()">
+        <mat-form-field>
+          <mat-label>Questão</mat-label>
+          <input matInput formControlName="description" required />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Status da Questão</mat-label>
+          <mat-select formControlName="positive" required>
+            <mat-option [value]="true">Positiva</mat-option>
+            <mat-option [value]="false">Negativa</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="categoryId" required>
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ getCategoryName(category.id) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" [disabled]="!formQuestao.valid">
+          Adicionar
+        </button>
+        <button
+          mat-raised-button
+          type="button"
+          (click)="mostrarFormulario = false"
+        >
+          Cancelar
+        </button>
+      </form>
+    </div>
+
     <div class="table-scroll">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
@@ -51,10 +95,7 @@
                   <mat-icon>check</mat-icon>
                 </button>
               </div>
-              <button
-                mat-icon-button
-                (click)="excluirQuestao(question.categoryId, question.id)"
-              >
+              <button mat-icon-button (click)="excluirQuestao(question.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

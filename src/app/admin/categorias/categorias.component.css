@@ -1,5 +1,6 @@
 .parent-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -14,11 +15,6 @@
   border-radius: 20px;
   background-color: #fff;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.table-scroll {
-  max-height: 70vh;
-  overflow-y: auto;
 }
 
 table {
@@ -65,4 +61,48 @@ mat-form-field {
   border: none;
   background-color: transparent;
   outline: none;
+}
+
+.add-category-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category-input {
+  margin-right: 10px;
+}
+
+.table-scroll {
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.button {
+  margin-bottom: 20px;
+  border: none;
+  width: 200px;
+  height: 40px;
+  display: block;
+  background-color: #0064fb !important;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+  background-color: #0046b2;
+}
+
+.erro {
+  color: white;
+  background-color: red;
+  padding: 0.625rem;
+  margin-top: 0.625rem;
+  border-radius: 1rem;
 }

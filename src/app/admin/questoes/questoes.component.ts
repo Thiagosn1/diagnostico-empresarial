@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { format } from 'date-fns';
 import { Category, Question } from 'src/app/models/form.model';
@@ -14,17 +15,24 @@ export class QuestoesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'questao', 'categoria', 'acao'];
   dataSource = new MatTableDataSource<Question>();
   categories: Category[] = [];
-  nomeCategoria: string = '';
   editingQuestionId: number | null = null;
+  mostrarFormulario = false;
+  formQuestao!: FormGroup;
 
   constructor(
     private formService: FormService,
+    private formBuilder: FormBuilder,
     private timelineService: TimelineService
   ) {}
 
   ngOnInit(): void {
     this.carregarDados();
     this.carregarCategorias();
+    this.formQuestao = this.formBuilder.group({
+      description: ['', Validators.required],
+      positive: ['', Validators.required],
+      categoryId: ['', Validators.required],
+    });
   }
 
   // Método para carregar os dados
@@ -73,10 +81,10 @@ export class QuestoesComponent implements OnInit {
     this.editingQuestionId = question.id;
   }
 
-  // Método para parar a edição
+  // Método para parar a edição e atualizar a questão
   stopEditing(question: Question): void {
     this.editingQuestionId = null;
-    this.formService.atualizarQuestao(question.categoryId, question).subscribe(
+    this.formService.atualizarQuestao(question).subscribe(
       () => {
         this.salvarAlteracaoNaTimeline(
           `Questão ${
@@ -90,13 +98,31 @@ export class QuestoesComponent implements OnInit {
     );
   }
 
+  // Método para adicionar uma questão
+  adicionarQuestao(): void {
+    if (this.formQuestao.valid) {
+      const questao = this.formQuestao.value;
+      this.formService.adicionarQuestao(questao).subscribe(
+        () => {
+          this.mostrarFormulario = false;
+          this.carregarDados();
+          this.formQuestao.reset();
+        },
+        (error) => {
+          console.error('Erro ao adicionar questão:', error);
+        }
+      );
+    }
+  }
+
   // Método para excluir uma questão
-  excluirQuestao(categoryId: number, questionId: number): void {
-    this.formService.excluirQuestao(categoryId, questionId).subscribe(
+  excluirQuestao(question: Question): void {
+    this.formService.excluirQuestao(question.id).subscribe(
       () => {
+        this.carregarDados();
         this.salvarAlteracaoNaTimeline(
-          `Questão ${questionId} excluída na categoria ${this.getCategoryName(
-            categoryId
+          `Questão ${question.id} excluída na categoria ${this.getCategoryName(
+            question.categoryId
           )}`
         );
       },

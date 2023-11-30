@@ -46,7 +46,7 @@ export class FormComponent implements AfterViewInit {
   categories: Category[] = [];
   responses: any = {};
 
-  answers = Array.from({ length: 10 }, (_, i) => i + 1);
+  answers = Array.from({ length: 11 }, (_, i) => i + 1);
   transitioning = false;
   showQuestion = true;
   currentQuestionIndex = 0;
@@ -127,7 +127,7 @@ export class FormComponent implements AfterViewInit {
 
   // Retorna o valor a ser exibido no botão
   getDisplayValue(index: number): number {
-    return index + 1;
+    return index;
   }
 
   /* getDisplayValue(index: number): number {
@@ -146,7 +146,7 @@ export class FormComponent implements AfterViewInit {
     if (this.isCurrentQuestionPositive()) {
       if (index === 0) {
         return 'Discordo totalmente';
-      } else if (index === 9) {
+      } else if (index === 10) {
         return 'Concordo totalmente';
       } else {
         return '';
@@ -154,7 +154,7 @@ export class FormComponent implements AfterViewInit {
     } else {
       if (index === 0) {
         return 'Concordo totalmente';
-      } else if (index === 9) {
+      } else if (index === 10) {
         return 'Discordo totalmente';
       } else {
         return '';
@@ -174,7 +174,7 @@ export class FormComponent implements AfterViewInit {
 
   // Retorna a cor do gradiente com base no índice fornecido
   gradientColor(index: number): string {
-    return `hsl(${(120 * index) / 9}, 100%, 50%)`;
+    return `hsl(${(120 * index) / 10}, 100%, 50%)`;
   }
 
   /* gradientColor(index: number): string {
@@ -193,7 +193,7 @@ export class FormComponent implements AfterViewInit {
     // Calcule a resposta com base no índice selecionado e na positividade da pergunta
 
     // const positive = this.isCurrentQuestionPositive();
-    const recordedAnswer = index + 1;
+    const recordedAnswer = index;
     // const recordedAnswer = positive ? index + 1 : 10 - index;
 
     console.log('Resposta selecionada:', recordedAnswer);
@@ -237,11 +237,7 @@ export class FormComponent implements AfterViewInit {
     this.answerService.salvarResposta(answer).subscribe(
       (response) => {
         console.log('Resposta salva com sucesso:', response);
-
-        // Transição para a próxima pergunta
         this.transitionToNextQuestion();
-
-        // Incremente o número atual de perguntas respondidas
         this.currentNQuestions++;
       },
       (error) => {

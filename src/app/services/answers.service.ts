@@ -1,29 +1,70 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Observable, catchError, map, mergeMap, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnswerService {
-  private apiUrl = 'http://localhost:4200/api/answers';
+  private apiUrl = 'http://localhost:4200/api';
+  private answersUrl = `${this.apiUrl}/answers`;
+  private businessUsersUrl = `${this.apiUrl}/businessusers`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Salvar as respostas na API
-  salvarResposta(answer: any): Observable<any> {
+  // Buscar businessUserId
+  buscarBusinessUserId(): Observable<any> {
     const token = this.authService.getToken();
     console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.post<any>(this.apiUrl, answer, { headers });
+      return this.http.get<any[]>(this.businessUsersUrl, { headers }).pipe(
+        map((businessUsers) => {
+          if (businessUsers && businessUsers.length > 0) {
+            return businessUsers[0].id;
+          } else {
+            throw new Error('Nenhum businessUser encontrado');
+          }
+        }),
+        catchError((error) => {
+          console.error('Erro ao buscar o businessUserId:', error);
+          return throwError('Erro ao buscar o businessUserId');
+        })
+      );
     } else {
       console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
+      return of(null);
     }
+  }
+
+  // Salvar resposta na api
+  salvarResposta(answer: any): Observable<any> {
+    return this.buscarBusinessUserId().pipe(
+      mergeMap((businessUserId) => {
+        const token = this.authService.getToken();
+        console.log('Token obtido:', token);
+        if (businessUserId !== null && token) {
+          const answerWithBusinessUserId = { ...answer, businessUserId };
+          const headers = new HttpHeaders().set('Authorization', token);
+          return this.http.post<any>(
+            this.answersUrl,
+            answerWithBusinessUserId,
+            { headers }
+          );
+        } else {
+          console.error(
+            'Nenhum businessUserId encontrado ou token de autenticação disponível'
+          );
+          return throwError(
+            'Nenhum businessUserId encontrado ou token de autenticação disponível'
+          );
+        }
+      }),
+      catchError((error) => {
+        console.error('Erro ao salvar a resposta com businessUserId:', error);
+        return throwError('Erro ao salvar a resposta com businessUserId');
+      })
+    );
   }
 }

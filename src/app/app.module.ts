@@ -31,9 +31,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CadastroEmpresaComponent } from './components/cadastro-empresa/cadastro-empresa.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatDialogModule} from "@angular/material/dialog";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule } from '@angular/common/http';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
@@ -41,6 +40,9 @@ import { QuestoesComponent } from './admin/questoes/questoes.component';
 import { CategoriasComponent } from './admin/categorias/categorias.component';
 import { DashHomeComponent } from './admin/dash-home/dash-home.component';
 import { EmpresasComponent } from './admin/empresas/empresas.component';
+import {MatSelectModule} from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { EmpresasComponent } from './admin/empresas/empresas.component';
     MatDialogModule,
     FormsModule,
     HttpClientModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     MatTooltipModule
   ],
   providers: [],

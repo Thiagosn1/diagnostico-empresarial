@@ -14,6 +14,8 @@ export class CategoriasComponent implements OnInit {
   displayedColumns: string[] = ['id', 'categoria', 'acao'];
   dataSource = new MatTableDataSource<Category>();
   editingCategoryId: number | null = null;
+  nomeNovaCategoria: string = '';
+  erro: string = '';
 
   constructor(
     private formService: FormService,
@@ -65,11 +67,36 @@ export class CategoriasComponent implements OnInit {
     );
   }
 
+  // Método para adicionar uma categoria
+  adicionarCategoria(): void {
+    if (!this.nomeNovaCategoria.trim()) {
+      this.erro = 'O nome da categoria não pode estar vazio.';
+      setTimeout(() => this.erro = '', 2000);
+      return;
+    }
+  
+    this.formService.adicionarCategoria(this.nomeNovaCategoria).subscribe(
+      () => {
+        console.log('Categoria adicionada com sucesso');
+        this.salvarAlteracaoNaLinhaDoTempo(`Categoria ${this.nomeNovaCategoria} adicionada`);
+        this.nomeNovaCategoria = '';
+        this.carregarDados();
+      },
+      (error) => {
+        console.error('Erro ao adicionar categoria:', error);
+        this.erro = 'Erro ao adicionar categoria.';
+        setTimeout(() => this.erro = '', 2000);
+      }
+    );
+  }
+  
+
   // Método para excluir uma categoria
   excluirCategoria(categoryId: number): void {
     this.formService.excluirCategoria(categoryId).subscribe(
       () => {
         this.salvarAlteracaoNaLinhaDoTempo(`Categoria ${categoryId} excluída`);
+        this.carregarDados();
       },
       (error) => {
         console.error('Erro ao excluir categoria:', error);
