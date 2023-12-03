@@ -52,3 +52,12 @@ td.mat-cell:not(:last-child) {
   padding: 0 1em;
   margin-bottom: 1em;
 }
+
+@media (max-width: 768px) {
+  .table-container {
+    width: 50vh;
+  }
+  .table-scroll {
+    width: 50vh;
+  }
+}

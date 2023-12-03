@@ -102,7 +102,9 @@ export class FormService {
     console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      const category = { name: name };
+      const category = {
+        name: name,
+      };
       return this.http.post<Category>(this.apiUrl, category, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');

@@ -191,11 +191,7 @@ export class FormComponent implements AfterViewInit {
       currentCategory.questions[this.currentQuestionIndex];
 
     // Calcule a resposta com base no índice selecionado e na positividade da pergunta
-
-    // const positive = this.isCurrentQuestionPositive();
     const recordedAnswer = index;
-    // const recordedAnswer = positive ? index + 1 : 10 - index;
-
     console.log('Resposta selecionada:', recordedAnswer);
 
     // Adicione a resposta ao objeto de respostas
@@ -212,21 +208,6 @@ export class FormComponent implements AfterViewInit {
     }
 
     this.responses[currentCategory.name].push(recordedAnswer);
-
-    // Salve os índices da pergunta e da categoria, o número atual de perguntas respondidas e as categorias concluídas no armazenamento local
-    localStorage.setItem(
-      'currentCategoryIndex',
-      String(this.currentCategoryIndex)
-    );
-    localStorage.setItem(
-      'currentQuestionIndex',
-      String(this.currentQuestionIndex)
-    );
-    localStorage.setItem('currentNQuestions', String(this.currentNQuestions));
-    localStorage.setItem(
-      'completedCategories',
-      JSON.stringify(this.completedCategories)
-    );
 
     // Salve a resposta na API
     const answer = {

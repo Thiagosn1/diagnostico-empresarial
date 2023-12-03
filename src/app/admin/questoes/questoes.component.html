@@ -5,7 +5,7 @@
       <input matInput (keyup)="aplicarFiltro($event)" placeholder="Filtrar" />
     </mat-form-field>
 
-    <button class="button" mat-raised-button (click)="mostrarFormulario = true">
+    <button class="button" (click)="mostrarFormulario = true">
       Adicionar questão
     </button>
 
@@ -36,11 +36,11 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button type="submit" [disabled]="!formQuestao.valid">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formQuestao.valid">
           Adicionar
         </button>
         <button
-          mat-raised-button
+          mat-raised-button color="warn"
           type="button"
           (click)="mostrarFormulario = false"
         >

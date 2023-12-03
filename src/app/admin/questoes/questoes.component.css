@@ -11,15 +11,15 @@
   justify-content: center;
   align-items: center;
   width: 90vh;
-  height: 80vh;
-  padding: 20px;
+  height: 75vh;
+  padding: 0 20px;
   border-radius: 20px;
   background-color: #fff;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .table-scroll {
-  max-height: 70vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
@@ -78,16 +78,17 @@ mat-form-field {
 }
 
 .button {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: none;
-  width: 200px !important;
-  height: 100px !important;
+  width: 170px;
+  height: 55px;
   display: block;
   background-color: #0064fb !important;
-  border-radius: 20px;
+  border-radius: 15px;
   color: #ffffff !important;
   font-weight: 700;
   font-size: 16px;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   cursor: pointer;
 }
+

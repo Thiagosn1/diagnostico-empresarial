@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +13,7 @@ export class EmailService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   // Método para enviar o email para a API
@@ -37,11 +35,7 @@ export class EmailService {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/users';
-      if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://localhost:4200/api/admin/users';
-      }
-      return this.http.get(apiUrl, { headers });
+      return this.http.get(`${this.apiUrl}/users`, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable((subscriber) => {

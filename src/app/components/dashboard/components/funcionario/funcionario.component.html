@@ -1,5 +1,17 @@
 <div class="parent-container">
   <div class="funcionario-card">
+    <div class="input-email-container">
+      <input
+        type="email"
+        class="input-email"
+        placeholder="Digite o e-mail aqui"
+        [(ngModel)]="userEmail"
+        (keyup.enter)="convidarFuncionario()"
+      />
+      <button class="button" (click)="convidarFuncionario()">
+        Convidar funcionário
+      </button>
+    </div>
     <mat-form-field class="search-bar">
       <mat-icon matPrefix>search</mat-icon>
       <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar" />
@@ -60,18 +72,6 @@
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
       </table>
-    </div>
-    <div class="input-email-container">
-      <input
-        type="email"
-        class="input-email"
-        placeholder="Digite o e-mail aqui"
-        [(ngModel)]="userEmail"
-        (keyup.enter)="convidarFuncionario()"
-      />
-      <button class="button" (click)="convidarFuncionario()">
-        Convidar funcionário
-      </button>
     </div>
   </div>
   <div *ngIf="errorMessage" class="error">

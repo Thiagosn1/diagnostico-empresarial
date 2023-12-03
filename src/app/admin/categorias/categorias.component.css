@@ -42,12 +42,6 @@ td.mat-cell {
   height: 100%;
 }
 
-.search-bar {
-  width: 100%;
-  padding: 0 1em;
-  margin-bottom: 1em;
-}
-
 mat-form-field {
   width: 100%;
   border: none;
@@ -83,10 +77,10 @@ mat-form-field {
   margin-bottom: 20px;
   border: none;
   width: 200px;
-  height: 40px;
+  height: 55px;
   display: block;
   background-color: #0064fb !important;
-  border-radius: 20px;
+  border-radius: 15px;
   color: #ffffff;
   font-weight: 700;
   font-size: 16px;

@@ -11,10 +11,11 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./categorias.component.css'],
 })
 export class CategoriasComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'categoria', 'acao'];
+  displayedColumns: string[] = ['posicao', 'categoria', 'acao'];
   dataSource = new MatTableDataSource<Category>();
   editingCategoryId: number | null = null;
   nomeNovaCategoria: string = '';
+  novaPosicao!: number;
   erro: string = '';
 
   constructor(
@@ -36,7 +37,9 @@ export class CategoriasComponent implements OnInit {
   carregarDados(): void {
     this.formService.getData().subscribe(
       (categories) => {
-        this.dataSource.data = categories.sort((a, b) => a.id - b.id);
+        this.dataSource.data = categories.sort(
+          (a, b) => a.position - b.position
+        );
       },
       (error) => {
         console.error('Erro ao carregar dados:', error);
@@ -71,25 +74,26 @@ export class CategoriasComponent implements OnInit {
   adicionarCategoria(): void {
     if (!this.nomeNovaCategoria.trim()) {
       this.erro = 'O nome da categoria não pode estar vazio.';
-      setTimeout(() => this.erro = '', 2000);
+      setTimeout(() => (this.erro = ''), 2000);
       return;
     }
-  
+
     this.formService.adicionarCategoria(this.nomeNovaCategoria).subscribe(
       () => {
         console.log('Categoria adicionada com sucesso');
-        this.salvarAlteracaoNaLinhaDoTempo(`Categoria ${this.nomeNovaCategoria} adicionada`);
+        this.salvarAlteracaoNaLinhaDoTempo(
+          `Categoria ${this.nomeNovaCategoria} adicionada`
+        );
         this.nomeNovaCategoria = '';
         this.carregarDados();
       },
       (error) => {
         console.error('Erro ao adicionar categoria:', error);
         this.erro = 'Erro ao adicionar categoria.';
-        setTimeout(() => this.erro = '', 2000);
+        setTimeout(() => (this.erro = ''), 2000);
       }
     );
   }
-  
 
   // Método para excluir uma categoria
   excluirCategoria(categoryId: number): void {
