@@ -13,7 +13,7 @@ export class BusinessUsersService {
 
   obterFuncionarios(): Observable<any[]> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http

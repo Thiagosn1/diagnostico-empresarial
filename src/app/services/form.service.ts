@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, switchMap, take, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Category, Question } from '../models/form.model';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,6 @@ export class FormService {
   // Método para obter dados da api
   getData(): Observable<Category[]> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       let apiUrl = 'http://localhost:4200/api/categories';
@@ -41,7 +40,6 @@ export class FormService {
   // Método para atualizar a descrição de uma questão
   atualizarQuestao(question: Question): Observable<Question> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       const url = `${this.apiUrlQuestions}/${question.id}`;
@@ -62,7 +60,6 @@ export class FormService {
   // Método para adicionar uma questão
   adicionarQuestao(questao: any): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.post(this.apiUrlQuestions, questao, { headers });
@@ -76,17 +73,12 @@ export class FormService {
   }
 
   // Método para excluir uma questão
-  excluirQuestao(questionsId: number): Observable<any> {
+  excluirQuestao(questionId: number): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      const url = `${this.apiUrlQuestions}/${questionsId}`;
-      return this.http.delete(url, { headers }).pipe(
-        tap((response) => {
-          console.log('Resposta da API para excluirQuestao:', response);
-        })
-      );
+      const url = `${this.apiUrlQuestions}/${questionId}`;
+      return this.http.delete(url, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {
@@ -99,7 +91,6 @@ export class FormService {
   // Método para adicionar uma categoria
   adicionarCategoria(name: string): Observable<Category> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       const category = {
@@ -118,7 +109,6 @@ export class FormService {
   // Método para renomear uma categoria
   atualizarCategoria(category: Category): Observable<Category> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       const url = `${this.apiUrl}/${category.id}`;
@@ -135,7 +125,6 @@ export class FormService {
   // Método para excluir uma categoria
   excluirCategoria(categoryId: number): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       const url = `${this.apiUrl}/${categoryId}`;

@@ -57,7 +57,7 @@ export class UsuariosComponent implements OnInit {
   atualizarUsuario(user: any): void {
     this.userService.atualizarUsuario(user.id, user).subscribe(
       () => {
-        const descricao = `O usuário ${user.name} foi atualizado`;
+        const descricao = `O usuário ${user.email} foi atualizado`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
       },

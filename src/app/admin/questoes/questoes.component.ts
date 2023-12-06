@@ -12,7 +12,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./questoes.component.css'],
 })
 export class QuestoesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'questao', 'categoria', 'acao'];
+  displayedColumns: string[] = ['questao', 'categoria', 'status', 'acao'];
   dataSource = new MatTableDataSource<Question>();
   categories: Category[] = [];
   editingQuestionId: number | null = null;
@@ -39,10 +39,23 @@ export class QuestoesComponent implements OnInit {
   carregarDados(): void {
     this.formService.getData().subscribe(
       (categories) => {
-        let questions: Question[] = [];
-        categories.forEach((category) => questions.push(...category.questions));
-        questions.sort((a, b) => a.id - b.id);
-        this.dataSource.data = questions;
+        let questions: { question: Question; categoryPosition: number }[] = [];
+        categories.forEach((category) => {
+          category.questions.forEach((question) => {
+            questions.push({
+              question: question,
+              categoryPosition: category.position,
+            });
+          });
+        });
+        questions.sort((a, b) => {
+          if (a.categoryPosition === b.categoryPosition) {
+            return a.question.position - b.question.position;
+          } else {
+            return a.categoryPosition - b.categoryPosition;
+          }
+        });
+        this.dataSource.data = questions.map((q) => q.question);
       },
       (error) => {
         console.error('Erro ao carregar dados:', error);
@@ -54,7 +67,7 @@ export class QuestoesComponent implements OnInit {
   carregarCategorias(): void {
     this.formService.getData().subscribe(
       (categories) => {
-        this.categories = categories;
+        this.categories = categories.sort((a, b) => a.position - b.position);
       },
       (error) => {
         console.error('Erro ao carregar categorias:', error);
@@ -115,16 +128,29 @@ export class QuestoesComponent implements OnInit {
     }
   }
 
-  // Método para excluir uma questão
-  excluirQuestao(question: Question): void {
-    this.formService.excluirQuestao(question.id).subscribe(
+  /* // Método para excluir uma questão
+  excluirQuestao(questions: Question): void {
+    this.formService.excluirQuestao(questions.id).subscribe(
       () => {
         this.carregarDados();
         this.salvarAlteracaoNaTimeline(
-          `Questão ${question.id} excluída na categoria ${this.getCategoryName(
-            question.categoryId
+          `Questão ${questions.id} excluída na categoria ${this.getCategoryName(
+            questions.categoryId
           )}`
         );
+      },
+      (error) => {
+        console.error('Erro ao excluir questão:', error);
+      }
+    );
+  } */
+
+  // Método para excluir uma questão
+  excluirQuestao(questionId: number): void {
+    this.formService.excluirQuestao(questionId).subscribe(
+      () => {
+        this.salvarAlteracaoNaTimeline(`Questão ${questionId} excluída`);
+        this.carregarDados();
       },
       (error) => {
         console.error('Erro ao excluir questão:', error);

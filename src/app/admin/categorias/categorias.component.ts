@@ -80,7 +80,6 @@ export class CategoriasComponent implements OnInit {
 
     this.formService.adicionarCategoria(this.nomeNovaCategoria).subscribe(
       () => {
-        console.log('Categoria adicionada com sucesso');
         this.salvarAlteracaoNaLinhaDoTempo(
           `Categoria ${this.nomeNovaCategoria} adicionada`
         );

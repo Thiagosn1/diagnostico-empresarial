@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TimelineService {
-  private apiUrl = 'http://localhost:4200/api';
+  //private apiUrl = 'http://localhost:4200/api';
+  private apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 

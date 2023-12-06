@@ -16,7 +16,7 @@ export class AnswerService {
   // Buscar businessUserId
   buscarBusinessUserId(): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.get<any[]>(this.businessUsersUrl, { headers }).pipe(
@@ -43,7 +43,7 @@ export class AnswerService {
     return this.buscarBusinessUserId().pipe(
       mergeMap((businessUserId) => {
         const token = this.authService.getToken();
-        console.log('Token obtido:', token);
+
         if (businessUserId !== null && token) {
           const answerWithBusinessUserId = { ...answer, businessUserId };
           const headers = new HttpHeaders().set('Authorization', token);

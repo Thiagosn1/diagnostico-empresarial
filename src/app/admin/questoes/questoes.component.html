@@ -36,11 +36,17 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="!formQuestao.valid">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!formQuestao.valid"
+        >
           Adicionar
         </button>
         <button
-          mat-raised-button color="warn"
+          mat-raised-button
+          color="warn"
           type="button"
           (click)="mostrarFormulario = false"
         >
@@ -51,11 +57,6 @@
 
     <div class="table-scroll">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let question">{{ question.id }}</td>
-        </ng-container>
-
         <ng-container matColumnDef="questao">
           <th mat-header-cell *matHeaderCellDef>Questão</th>
           <td mat-cell *matCellDef="let question">
@@ -76,6 +77,13 @@
           </th>
           <td mat-cell *matCellDef="let question" class="center-text">
             {{ getCategoryName(question.categoryId) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="center-text">Status</th>
+          <td mat-cell *matCellDef="let question" class="center-text">
+            {{ question.positive ? "Positiva" : "Negativa" }}
           </td>
         </ng-container>
 

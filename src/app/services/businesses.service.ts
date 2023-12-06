@@ -15,7 +15,7 @@ export class BusinessesService {
   // Método para criar uma empresa
   criarEmpresa(business: any) {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       let apiUrl = 'http://localhost:4200/api/businesses';
@@ -32,7 +32,7 @@ export class BusinessesService {
   // Método para obter as empresas
   obterEmpresas(): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.get<any>(this.apiUrl, { headers });
@@ -48,7 +48,7 @@ export class BusinessesService {
   // Método para excluir uma empresa
   excluirEmpresa(id: number): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
@@ -64,7 +64,7 @@ export class BusinessesService {
   // Método para atualizar uma empresa
   atualizarEmpresa(id: number, empresa: any): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.put<any>(`${this.apiUrl}/${id}`, empresa, { headers });

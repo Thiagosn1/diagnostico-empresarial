@@ -11,10 +11,7 @@ export class EmailService {
 
   email: string = '';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Método para enviar o email para a API
   enviarEmail(email: string) {

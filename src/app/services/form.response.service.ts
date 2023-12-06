@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormResponseService {
   // Cria um BehaviorSubject que armazenará as respostas do formulário
@@ -10,7 +10,7 @@ export class FormResponseService {
   // Expõe o BehaviorSubject como um Observable para que outros componentes possam se inscrever
   currentResponse = this.responseSource.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   // Atualiza o BehaviorSubject com as novas respostas do formulário
   changeResponse(response: any) {

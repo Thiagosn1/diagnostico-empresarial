@@ -15,7 +15,6 @@ export class DashboardAdminComponent implements OnInit {
     this.emailService.buscarEmail().subscribe(
       (data) => {
         if (data) {
-          console.log(data);
           this.email = data.email;
         }
       },

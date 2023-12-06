@@ -13,7 +13,7 @@ export class UserService {
 
   obterUsuarios(): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.get<any>(this.apiUrl, { headers });
@@ -29,7 +29,7 @@ export class UserService {
   // Método para atualizar um usuario
   atualizarUsuario(id: number, user: any): Observable<any> {
     const token = this.authService.getToken();
-    console.log('Token obtido:', token);
+
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http.put<any>(`${this.apiUrl}/${id}`, user, { headers });
