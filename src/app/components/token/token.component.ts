@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { EmailService } from '../../services/email.service';
 import { HttpResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
+import { BusinessesService } from 'src/app/services/businesses.service';
 
 @Component({
   selector: 'app-token-form',
@@ -17,28 +18,16 @@ export class TokenComponent {
   constructor(
     private router: Router,
     private emailService: EmailService,
-    private authService: AuthService
+    private authService: AuthService,
+    private businessesService: BusinessesService
   ) {}
-
-  // Método para validar o token
-  validarToken() {
-    const isValid = this.token.length === 6;
-
-    if (!isValid) {
-      this.tokenError =
-        'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
-      setTimeout(() => {
-        this.tokenError = '';
-      }, 2000);
-    } else {
-      this.tokenError = '';
-    }
-  }
 
   // Método para enviar o token
   enviarToken() {
-    this.validarToken();
-    if (!this.tokenError) {
+    if (this.token.length !== 6) {
+      this.tokenError =
+        'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
+    } else {
       this.emailService.enviarToken(this.token).subscribe(
         (response: HttpResponse<any>) => {
           console.log(response);
@@ -46,17 +35,24 @@ export class TokenComponent {
           if (authHeader !== null) {
             this.authService.setToken(authHeader);
             console.log('Authorization:', authHeader);
-          } else {
-            console.error('Authorization header not found');
-          }
-          if (this.router.url.includes('/admin')) {
-            this.router.navigate(['/admin/dashboard']);
-          } else {
-            this.router.navigate(['/cadastro']);
+            this.businessesService.obterEmpresas().subscribe((empresas) => {
+              if (empresas.length > 0) {
+                this.router.navigate(['/dashboard']);
+              } else {
+                this.router.navigate(['/cadastro']);
+              }
+            });
           }
         },
         (error) => {
           console.error(error);
+          if (
+            error.error.title === 'Falha ao autenticar usuario' ||
+            error.error.title === 'Seu Código expirou' ||
+            error.error.title === 'Seu c�digo expirou'
+          ) {
+            this.tokenError = error.error.title;
+          }
         }
       );
     }

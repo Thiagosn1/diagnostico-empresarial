@@ -1,5 +1,19 @@
 <div class="parent-container">
   <div class="funcionario-card">
+    <div class="empresa-info">
+      <div *ngIf="!editandoEmpresa">
+        <h2>{{ nomeEmpresa }}</h2>
+        <p>{{ cnpjEmpresa }}</p>
+      </div>
+      <div *ngIf="editandoEmpresa">
+        <input [(ngModel)]="nomeEmpresa" />
+        <input [(ngModel)]="cnpjEmpresa" />
+      </div>
+      <button class="button editar-empresa" (click)="editarEmpresa()">
+        {{ editandoEmpresa ? "Confirmar" : "Editar empresa" }}
+      </button>
+    </div>
+
     <div class="input-email-container">
       <input
         type="email"
@@ -37,6 +51,15 @@
           <th mat-header-cell *matHeaderCellDef class="text-center">Status</th>
           <td mat-cell *matCellDef="let businessUsers" class="text-center">
             {{ businessUsers.invitationAccepted }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="answers">
+          <th mat-header-cell *matHeaderCellDef class="text-center">
+            Respostas
+          </th>
+          <td mat-cell *matCellDef="let businessUsers" class="text-center">
+            {{ businessUsers.answers.length }}
           </td>
         </ng-container>
 

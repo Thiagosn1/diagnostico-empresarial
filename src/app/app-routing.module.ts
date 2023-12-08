@@ -3,7 +3,6 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
-import { FuncionarioComponent } from './components/dashboard/components/funcionario/funcionario.component';
 import { RelatorioComponent } from './components/dashboard/components/relatorio/relatorio.component';
 import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -17,6 +16,7 @@ import { QuestoesComponent } from './admin/questoes/questoes.component';
 import { CategoriasComponent } from './admin/categorias/categorias.component';
 import { DashHomeComponent } from './admin/dash-home/dash-home.component';
 import { EmpresasComponent } from './admin/empresas/empresas.component';
+import { EmpresaComponent } from './components/dashboard/components/empresa/empresa.component';
 
 const routes: Routes = [
   // Rotas para usuário comum
@@ -33,7 +33,8 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeDashComponent },
       { path: 'home', component: HomeDashComponent },
-      { path: 'funcionario', component: FuncionarioComponent },
+      { path: 'empresa', component: EmpresaComponent },
+      { path: 'info', component: InfoComponent },
       { path: 'relatorio', component: RelatorioComponent },
     ],
   },

@@ -20,7 +20,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { FuncionarioComponent } from './components/dashboard/components/funcionario/funcionario.component';
 import { RelatorioComponent } from './components/dashboard/components/relatorio/relatorio.component';
 import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,10 +28,10 @@ import { InfoComponent } from './components/info/info.component';
 import { FormComponent } from './components/form/form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CadastroEmpresaComponent } from './components/cadastro-empresa/cadastro-empresa.component';
-import {MatTableModule} from "@angular/material/table";
-import {MatDialogModule} from "@angular/material/dialog";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
@@ -40,9 +39,9 @@ import { QuestoesComponent } from './admin/questoes/questoes.component';
 import { CategoriasComponent } from './admin/categorias/categorias.component';
 import { DashHomeComponent } from './admin/dash-home/dash-home.component';
 import { EmpresasComponent } from './admin/empresas/empresas.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { EmpresaComponent } from './components/dashboard/components/empresa/empresa.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +55,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoginComponent,
     TokenComponent,
     DashboardComponent,
-    FuncionarioComponent,
     RelatorioComponent,
     HomeDashComponent,
     InfoComponent,
@@ -69,6 +67,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CategoriasComponent,
     DashHomeComponent,
     EmpresasComponent,
+    EmpresaComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -94,7 +93,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HttpClientModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

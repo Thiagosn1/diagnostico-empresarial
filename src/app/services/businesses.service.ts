@@ -8,9 +8,14 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class BusinessesService {
-  private apiUrl = 'http://localhost:4200/api/admin/businesses';
+  private apiUrl = 'http://localhost:4200/api/businesses';
+  private apiUrlAdmin = 'http://localhost:4200/api/admin/businesses';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   // Método para criar uma empresa
   criarEmpresa(business: any) {
@@ -18,8 +23,7 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/businesses';
-      return this.http.post(apiUrl, business, { headers });
+      return this.http.post(this.apiUrl, business, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {
@@ -35,7 +39,11 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get<any>(this.apiUrl, { headers });
+      let apiUrl = 'http://localhost:4200/api/businesses';
+      if (this.router.url.includes('/admin')) {
+        apiUrl = 'http://localhost:4200/api/admin/businesses';
+      }
+      return this.http.get<any>(apiUrl, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {
@@ -51,7 +59,7 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+      return this.http.delete<any>(`${this.apiUrlAdmin}/${id}`, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {
@@ -65,15 +73,19 @@ export class BusinessesService {
   atualizarEmpresa(id: number, empresa: any): Observable<any> {
     const token = this.authService.getToken();
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.put<any>(`${this.apiUrl}/${id}`, empresa, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
+  if (token) {
+    const headers = new HttpHeaders().set('Authorization', token);
+    let apiUrl = 'http://localhost:4200/api/businesses';
+    if (this.router.url.includes('/admin')) {
+      apiUrl = 'http://localhost:4200/api/admin/businesses';
     }
+    return this.http.put<any>(`${apiUrl}/${id}`, empresa, { headers });
+  } else {
+    console.error('Nenhum token de autenticação disponível');
+    return new Observable<any>((subscriber) => {
+      subscriber.next([]);
+      subscriber.complete();
+    });
+  }
   }
 }

@@ -64,3 +64,15 @@ button:hover {
     width: 750px; /* Use a largura fixa para telas maiores */
   }
 }
+
+@media (max-width: 1400px) {
+  span {
+    font-size: 16px;
+  }
+}
+
+.info-styles {
+  .form-card{
+    background-color: #ffffff;
+  }
+}
