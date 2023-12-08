@@ -9,7 +9,7 @@ import { BusinessesService } from 'src/app/services/businesses.service';
   styleUrls: ['./empresa.component.css'],
 })
 export class EmpresaComponent {
-  columnsToDisplay = ['id', 'email', 'status', 'answers', 'actions'];
+  columnsToDisplay = ['email', 'status', 'answers', 'actions'];
   dataSource = new MatTableDataSource();
   userEmail = '';
   errorMessage = '';
@@ -21,7 +21,7 @@ export class EmpresaComponent {
 
   constructor(
     private businessUsersService: BusinessUsersService,
-    private businessesService: BusinessesService,
+    private businessesService: BusinessesService
   ) {}
 
   ngOnInit(): void {
@@ -97,14 +97,12 @@ export class EmpresaComponent {
     let validarEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (this.userEmail && validarEmail.test(this.userEmail)) {
-      console.log(this.userEmail);
       this.businessUsersService.convidarFuncionario(this.userEmail).subscribe(
         () => {
           this.successMessage = 'Convite enviado';
-
-          this.carregarFuncionarios();
           this.userEmail = '';
           setTimeout(() => (this.successMessage = ''), 3000);
+          this.carregarFuncionarios();
         },
         (error) => {
           console.error('Error:', error);
@@ -121,14 +119,14 @@ export class EmpresaComponent {
   reenviarConvite(id: number, email: string): void {
     this.businessUsersService.reenviarConvite(id, email).subscribe(
       () => {
-        this.carregarFuncionarios();
         this.successMessage = 'Convite reenviado';
-        setTimeout(() => (this.successMessage = ''), 3000); // Limpar mensagem de sucesso após 3 segundos.
+        setTimeout(() => (this.successMessage = ''), 3000);
+        this.carregarFuncionarios();
       },
       (error) => {
         console.error('Error:', error);
         this.errorMessage = 'Erro ao reenviar convite';
-        setTimeout(() => (this.errorMessage = ''), 3000); // Limpar mensagem de erro após 3 segundos.
+        setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }

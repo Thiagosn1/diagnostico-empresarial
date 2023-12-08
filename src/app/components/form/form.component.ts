@@ -72,26 +72,6 @@ export class FormComponent implements AfterViewInit {
         c.questions.sort((a: any, b: any) => a.position - b.position);
       });
       this.categories = data;
-
-      // Verifique se os índices da pergunta e da categoria, o número atual de perguntas respondidas e as categorias concluídas estão no armazenamento local
-      const savedCategoryIndex = localStorage.getItem('currentCategoryIndex');
-      const savedQuestionIndex = localStorage.getItem('currentQuestionIndex');
-      const savedNQuestions = localStorage.getItem('currentNQuestions');
-      const savedCompletedCategories = localStorage.getItem(
-        'completedCategories'
-      );
-
-      if (
-        savedCategoryIndex !== null &&
-        savedQuestionIndex !== null &&
-        savedNQuestions !== null &&
-        savedCompletedCategories !== null
-      ) {
-        this.currentCategoryIndex = Number(savedCategoryIndex);
-        this.currentQuestionIndex = Number(savedQuestionIndex);
-        this.currentNQuestions = Number(savedNQuestions);
-        this.completedCategories = JSON.parse(savedCompletedCategories);
-      }
     });
   }
 

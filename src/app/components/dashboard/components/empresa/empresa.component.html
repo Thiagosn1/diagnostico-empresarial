@@ -33,13 +33,6 @@
 
     <div class="table-scroll">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="text-center">ID</th>
-          <td mat-cell *matCellDef="let businessUsers" class="text-center">
-            {{ businessUsers.id }}
-          </td>
-        </ng-container>
-
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="text-center">Email</th>
           <td mat-cell *matCellDef="let businessUsers">
