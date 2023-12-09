@@ -97,6 +97,7 @@ export class EmpresaComponent {
     let validarEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (this.userEmail && validarEmail.test(this.userEmail)) {
+      this.successMessage = 'Enviando convite...';
       this.businessUsersService.convidarFuncionario(this.userEmail).subscribe(
         () => {
           this.successMessage = 'Convite enviado';
@@ -107,16 +108,17 @@ export class EmpresaComponent {
         (error) => {
           console.error('Error:', error);
           this.errorMessage = 'Erro ao enviar convite';
-          setTimeout(() => (this.errorMessage = ''), 3000);
+          setTimeout(() => (this.errorMessage = ''), 2000);
         }
       );
     } else {
       this.errorMessage = 'Por favor, insira um email válido';
-      setTimeout(() => (this.errorMessage = ''), 3000);
+      setTimeout(() => (this.errorMessage = ''), 2000);
     }
   }
 
   reenviarConvite(id: number, email: string): void {
+    this.successMessage = 'Reenviando convite...';
     this.businessUsersService.reenviarConvite(id, email).subscribe(
       () => {
         this.successMessage = 'Convite reenviado';
@@ -126,7 +128,7 @@ export class EmpresaComponent {
       (error) => {
         console.error('Error:', error);
         this.errorMessage = 'Erro ao reenviar convite';
-        setTimeout(() => (this.errorMessage = ''), 3000);
+        setTimeout(() => (this.errorMessage = ''), 2000);
       }
     );
   }

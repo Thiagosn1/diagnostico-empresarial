@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{'info-styles': isInfoRoute()}">
   <mat-card class="card">
     <div class="card-content">
       <div class="left-column">
@@ -40,18 +40,6 @@
         >
         </canvas>
       </div>
-    </div>
-    <div class="card-buttons">
-      <button class="botao-orcamento" *ngIf="mostrarBotaoOrcamento">
-        Solicitar Orçamento
-      </button>
-      <button
-        class="botao-gestor"
-        *ngIf="mostrarBotaoGestor"
-        routerLink="/dashboard"
-      >
-        Painel do Gestor
-      </button>
     </div>
   </mat-card>
 </div>

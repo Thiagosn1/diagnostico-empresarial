@@ -20,7 +20,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { RelatorioComponent } from './components/dashboard/components/relatorio/relatorio.component';
+import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NgChartsModule } from 'ng2-charts';
@@ -32,7 +32,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { QuestoesComponent } from './admin/questoes/questoes.component';
@@ -60,7 +59,6 @@ import { EmpresaComponent } from './components/dashboard/components/empresa/empr
     InfoComponent,
     FormComponent,
     CadastroEmpresaComponent,
-    RelatorioSimplesComponent,
     DashboardAdminComponent,
     UsuariosComponent,
     QuestoesComponent,

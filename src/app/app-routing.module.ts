@@ -3,13 +3,11 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
-import { RelatorioComponent } from './components/dashboard/components/relatorio/relatorio.component';
 import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InfoComponent } from './components/info/info.component';
 import { FormComponent } from './components/form/form.component';
 import { CadastroEmpresaComponent } from './components/cadastro-empresa/cadastro-empresa.component';
-import { RelatorioSimplesComponent } from './components/relatorio-simples/relatorio-simples.component';
 import { DashboardAdminComponent } from './admin/dashboard-admin/dashboard-admin.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { QuestoesComponent } from './admin/questoes/questoes.component';
@@ -17,6 +15,7 @@ import { CategoriasComponent } from './admin/categorias/categorias.component';
 import { DashHomeComponent } from './admin/dash-home/dash-home.component';
 import { EmpresasComponent } from './admin/empresas/empresas.component';
 import { EmpresaComponent } from './components/dashboard/components/empresa/empresa.component';
+import { RelatorioComponent } from './components/relatorio/relatorio.component';
 
 const routes: Routes = [
   // Rotas para usuário comum
@@ -26,7 +25,7 @@ const routes: Routes = [
   { path: 'cadastro', component: CadastroEmpresaComponent },
   { path: 'info', component: InfoComponent },
   { path: 'formulario', component: FormComponent },
-  { path: 'relatorio', component: RelatorioSimplesComponent },
+  { path: 'relatorio', component: RelatorioComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,

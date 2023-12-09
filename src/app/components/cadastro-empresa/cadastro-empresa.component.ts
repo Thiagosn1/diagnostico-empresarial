@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { QuantidadePessoasService } from 'src/app/services/quantidade.pessoas.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { BusinessesService } from 'src/app/services/businesses.service';
@@ -17,7 +16,6 @@ export class CadastroEmpresaComponent {
   constructor(
     private router: Router,
     private businessesService: BusinessesService,
-    private qtdPessoasService: QuantidadePessoasService
   ) {}
 
   // Método para submeter o formulário
@@ -29,10 +27,7 @@ export class CadastroEmpresaComponent {
       };
 
       this.businessesService.criarEmpresa(business).subscribe((res) => {
-        this.qtdPessoasService.setQuantidadePessoas(
-          formValue.quantidadePessoas
-        );
-        this.router.navigate(['/info']);
+        this.router.navigate(['/dashboard']);
       });
     } else {
       if (!form.valid) {
