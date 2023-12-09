@@ -32,11 +32,9 @@ export class TokenComponent {
     } else {
       this.emailService.enviarToken(this.token).subscribe(
         (response: HttpResponse<any>) => {
-          console.log(response);
           const authHeader = response.headers.get('Authorization');
           if (authHeader !== null) {
             this.authService.setToken(authHeader);
-            console.log('Authorization:', authHeader);
             if (this.router.url.includes('/admin')) {
               this.router.navigate(['/admin/dashboard']);
             }
@@ -61,7 +59,6 @@ export class TokenComponent {
                 }
               },
               (error) => {
-                console.error('Erro ao obter empresas:', error);
                 if (error.error.title === 'Negócio não encontrado') {
                   this.answersService.buscarBusinessUserId().subscribe(
                     (businessUserId) => {

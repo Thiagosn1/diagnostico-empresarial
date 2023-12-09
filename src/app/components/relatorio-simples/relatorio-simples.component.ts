@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { FormResponseService } from 'src/app/services/form.response.service';
+import { AnswerService } from 'src/app/services/answers.service';
 import { QuantidadePessoasService } from 'src/app/services/quantidade.pessoas.service';
 
 @Component({
@@ -49,21 +49,29 @@ export class RelatorioSimplesComponent implements OnInit {
   public radarChartType: ChartType = 'radar';
 
   constructor(
-    private formResponseService: FormResponseService,
-    private qtdPessoasService: QuantidadePessoasService
+    private qtdPessoasService: QuantidadePessoasService,
+    private answerService: AnswerService
   ) {}
 
   ngOnInit() {
-    this.formResponseService.currentResponse.subscribe((response) => {
-      this.updateRadarChartData(response);
+    this.answerService.buscarRespostas().subscribe((respostas) => {
+      this.answerService.buscarCategorias().subscribe((categorias) => {
+        this.answerService.buscarQuestoes().subscribe((questoes) => {
+          this.processarDados(respostas, categorias, questoes);
+        });
+      });
     });
+
     this.qtdPessoasService.quantidadePessoas$.subscribe((qtd) => {
       this.quantidadePessoas = Number(qtd);
       this.atualizarVisibilidadeBotoes();
     });
   }
 
-  updateRadarChartData(response: any) {
+  processarDados(respostas: any, categorias: any, questoes: any) {
+    // Atualize radarChartLabels com os nomes das categorias
+    this.radarChartLabels = categorias.map((categoria: any) => categoria.name);
+
     // Inicialize um novo array para armazenar os dados do gráfico
     const newRadarChartData: ChartData<'radar'> = {
       labels: this.radarChartLabels,
@@ -76,12 +84,22 @@ export class RelatorioSimplesComponent implements OnInit {
     };
 
     // Preencha o array com os dados das respostas
-    for (const category of this.radarChartLabels) {
-      const answers = response[category];
-      if (answers) {
-        // Calcule a média das respostas para cada categoria
-        const sum = answers.reduce((a: number, b: number) => a + b, 0);
-        const average = sum / answers.length;
+    for (const categoria of categorias) {
+      const questoesCategoria = questoes.filter(
+        (questao: any) => questao.categoryId === categoria.id
+      );
+      const respostasCategoria = respostas.filter((resposta: any) =>
+        questoesCategoria.some(
+          (questao: any) => questao.id === resposta.questionId
+        )
+      );
+      if (respostasCategoria.length > 0) {
+        // Calcule a soma dos valores das respostas para cada categoria
+        const sum = respostasCategoria.reduce(
+          (a: number, b: any) => a + b.value,
+          0
+        );
+        const average = sum / questoesCategoria.length;
         newRadarChartData.datasets[0].data.push(average);
       } else {
         // Se não houver respostas para uma categoria, adicione um valor padrão (por exemplo, 0)

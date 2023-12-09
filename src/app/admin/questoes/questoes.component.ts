@@ -128,23 +128,6 @@ export class QuestoesComponent implements OnInit {
     }
   }
 
-  /* // Método para excluir uma questão
-  excluirQuestao(questions: Question): void {
-    this.formService.excluirQuestao(questions.id).subscribe(
-      () => {
-        this.carregarDados();
-        this.salvarAlteracaoNaTimeline(
-          `Questão ${questions.id} excluída na categoria ${this.getCategoryName(
-            questions.categoryId
-          )}`
-        );
-      },
-      (error) => {
-        console.error('Erro ao excluir questão:', error);
-      }
-    );
-  } */
-
   // Método para excluir uma questão
   excluirQuestao(questionId: number): void {
     this.formService.excluirQuestao(questionId).subscribe(

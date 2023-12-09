@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
+import { FormService } from 'src/app/services/form.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 
 @Component({
@@ -11,16 +12,19 @@ export class HomeDashComponent {
   businessuserCount: number = 0;
   invitationAcceptedCount: number = 0;
   invitationNoAcceptedCount: number = 0;
-  answersCount: number = 0;
+  formsCompletedCount: number = 0;
+  totalQuestions: number = 0;
   timeline: any[] = [];
   displayedColumns: string[] = ['date', 'description'];
 
   constructor(
     private businessUsersService: BusinessUsersService,
-    private timelineService: TimelineService
+    private timelineService: TimelineService,
+    private formService: FormService
   ) {}
 
   ngOnInit(): void {
+    this.carregarTotalDeQuestoes();
     this.carregarContadores();
     this.carregarLinhaDoTempo();
   }
@@ -36,12 +40,23 @@ export class HomeDashComponent {
         this.invitationNoAcceptedCount = businessUsers.filter(
           (user) => !user.invitationAccepted
         ).length;
-        this.answersCount = businessUsers.reduce(
-          (total, user) => total + user.answers.length,
+        this.formsCompletedCount = businessUsers.filter(
+          (user: any) => user.answers.length === this.totalQuestions
+        ).length;
+      },
+      (error) => console.error('Erro ao carregar funcionários:', error)
+    );
+  }
+
+  carregarTotalDeQuestoes(): void {
+    this.formService.getData().subscribe(
+      (categories) => {
+        this.totalQuestions = categories.reduce(
+          (sum, category) => sum + category.questions.length,
           0
         );
       },
-      (error) => console.error('Erro ao carregar funcionários:', error)
+      (error) => console.error('Erro ao carregar questões:', error)
     );
   }
 

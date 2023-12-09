@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
@@ -13,7 +14,6 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { FormResponseService } from 'src/app/services/form.response.service';
 import { FormService } from 'src/app/services/form.service';
 import { Category } from 'src/app/models/form.model';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -40,7 +40,7 @@ import { AnswerService } from 'src/app/services/answers.service';
     ]),
   ],
 })
-export class FormComponent implements AfterViewInit {
+export class FormComponent implements AfterViewInit, OnInit {
   @ViewChildren(MatTooltip) tooltips!: QueryList<MatTooltip>;
 
   categories: Category[] = [];
@@ -62,7 +62,6 @@ export class FormComponent implements AfterViewInit {
     private snackBar: MatSnackBar,
     private formService: FormService,
     private answerService: AnswerService,
-    private formResponseService: FormResponseService
   ) {
     // Carrega as categorias e questões
     this.formService.getData().subscribe((data) => {
@@ -77,6 +76,45 @@ export class FormComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.showTooltips();
+  }
+
+  ngOnInit() {
+    this.answerService.buscarRespostas().subscribe(
+      (respostas) => {
+        // Aqui você tem as respostas do usuário
+        // Você pode usar essas respostas para determinar a próxima pergunta
+        const ultimaResposta = respostas[respostas.length - 1];
+        const proximaQuestaoId = ultimaResposta.questionId + 1;
+
+        // Atualize o número de perguntas respondidas
+        this.currentNQuestions = respostas.length;
+
+        // Verifique se todas as perguntas foram respondidas
+        if (this.currentNQuestions === this.totalNQuestions) {
+          // Se todas as perguntas foram respondidas, navegue para /relatorio
+          this.router.navigate(['/relatorio']);
+          return;
+        }
+
+        // Marque as categorias concluídas
+        for (let i = 0; i < this.categories.length; i++) {
+          for (let j = 0; j < this.categories[i].questions.length; j++) {
+            if (this.categories[i].questions[j].id === proximaQuestaoId) {
+              this.currentCategoryIndex = i;
+              this.currentQuestionIndex = j;
+              // Marque todas as categorias anteriores como concluídas
+              for (let k = 0; k < i; k++) {
+                this.completedCategories[k] = true;
+              }
+              return;
+            }
+          }
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar as respostas:', error);
+      }
+    );
   }
 
   // Retorna a pergunta atual com base no índice da pergunta atual
@@ -170,7 +208,11 @@ export class FormComponent implements AfterViewInit {
     const currentQuestion =
       currentCategory.questions[this.currentQuestionIndex];
 
-    // Calcule a resposta com base no índice selecionado e na positividade da pergunta
+    // Verifique se a pergunta atual é positiva ou negativa
+    //const isPositive = this.isCurrentQuestionPositive();
+
+    // Inverta o valor da resposta se a pergunta for negativa
+    //const recordedAnswer = isPositive ? index : 10 - index;
     const recordedAnswer = index;
     console.log('Resposta selecionada:', recordedAnswer);
 
@@ -246,13 +288,11 @@ export class FormComponent implements AfterViewInit {
 
   // Função para exibir uma mensagem de sucesso e navegar para outra rota
   async showSuccessMessageAndNavigate() {
-    this.formResponseService.changeResponse(this.responses);
     this.snackBar.open('Concluído com sucesso', '', {
-      duration: 3000, // Duração do snack bar (em milissegundos)
-      panelClass: ['success-snackbar'], // Classe CSS para estilizar o snack bar
+      duration: 3000,
+      panelClass: ['success-snackbar'],
     });
-
-    await new Promise((resolve) => setTimeout(resolve, 3000)); // Aguarde a duração do snack bar
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     this.router.navigate(['/relatorio']);
   }
 }

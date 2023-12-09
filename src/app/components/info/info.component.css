@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 35px;
   line-height: 29px;
   color: #000000;
 }
@@ -59,15 +59,13 @@ button:hover {
   background-color: #0046b2;
 }
 
-@media (min-width: 1920px) {
-  .form-card {
-    width: 750px; /* Use a largura fixa para telas maiores */
-  }
+.continue-button {
+  width: 300px;
 }
 
-@media (max-width: 1400px) {
-  span {
-    font-size: 16px;
+@media (min-width: 1400px) {
+  .form-card {
+    width: 800px;
   }
 }
 
@@ -75,4 +73,13 @@ button:hover {
   .form-card{
     background-color: #ffffff;
   }
+}
+
+.continue-button {
+  width: 300px;
+  background-color: rgb(4, 185, 4);
+}
+
+.continue-button:hover {
+background-color: rgb(1, 112, 1);
 }

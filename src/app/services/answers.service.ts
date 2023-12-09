@@ -38,6 +38,72 @@ export class AnswerService {
     }
   }
 
+  buscarQuestoes(): Observable<any> {
+    const token = this.authService.getToken();
+
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http
+        .get<any[]>('http://localhost:4200/api/questions', { headers })
+        .pipe(
+          map((questoes) => questoes.sort((a, b) => a.position - b.position)),
+          catchError((error) => {
+            console.error('Erro ao buscar as questões:', error);
+            return throwError('Erro ao buscar as questões');
+          })
+        );
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return of(null);
+    }
+  }
+
+  buscarRespostas(): Observable<any> {
+    const token = this.authService.getToken();
+
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http.get<any[]>(this.businessUsersUrl, { headers }).pipe(
+        map((businessUsers) => {
+          if (businessUsers && businessUsers.length > 0) {
+            return businessUsers[0].answers;
+          } else {
+            throw new Error('Nenhum businessUser encontrado');
+          }
+        }),
+        catchError((error) => {
+          console.error('Erro ao buscar as respostas:', error);
+          return throwError('Erro ao buscar as respostas');
+        })
+      );
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return of(null);
+    }
+  }
+
+  buscarCategorias(): Observable<any> {
+    const token = this.authService.getToken();
+
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http
+        .get<any[]>('http://localhost:4200/api/categories', { headers })
+        .pipe(
+          map((categorias) =>
+            categorias.sort((a, b) => a.position - b.position)
+          ),
+          catchError((error) => {
+            console.error('Erro ao buscar as categorias:', error);
+            return throwError('Erro ao buscar as categorias');
+          })
+        );
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return of(null);
+    }
+  }
+
   // Salvar resposta na api
   salvarResposta(answer: any): Observable<any> {
     return this.buscarBusinessUserId().pipe(
