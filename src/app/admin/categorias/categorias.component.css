@@ -61,7 +61,6 @@ mat-form-field {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .category-input {
@@ -69,7 +68,7 @@ mat-form-field {
 }
 
 .table-scroll {
-  max-height: 55vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -99,4 +98,17 @@ mat-form-field {
   padding: 0.625rem;
   margin-top: 0.625rem;
   border-radius: 1rem;
+}
+
+.mat-mdc-header-cell {
+  font-weight: inherit !important;
+  font-size: 20px;
+}
+
+.mat-mdc-cell {
+  font-size: 18px !important;
+}
+
+@media screen and (min-width: 1600px) {
+
 }

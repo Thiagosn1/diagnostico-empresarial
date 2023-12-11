@@ -43,7 +43,6 @@
 .small-card {
   width: 280px;
   height: 193px;
-  margin-bottom: 22px;
   text-align: center;
 }
 
@@ -74,14 +73,15 @@
   overflow-y: auto;
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1600px) {
   .small-card {
     width: 350px;
     height: 250px;
   }
 
   .full-width-card {
-    width: 600px;
-    height: 450px;
+    min-width: 600px;
+    min-height: 500px;
+    font-size: 1.5em;
   }
 }

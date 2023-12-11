@@ -95,12 +95,11 @@ img {
   width: 100%;
 }
 
-@media screen and (max-width: 1400px) {
-  .user-info {
-    padding: 0;
-  }
+.mat-mdc-header-cell {
+  font-weight: inherit !important;
+  font-size: 20px;
+}
 
-  .user-name {
-    margin-top: 25px;
-  }
+.mat-mdc-cell {
+  font-size: 18px !important;
 }

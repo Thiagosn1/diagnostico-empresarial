@@ -5,6 +5,7 @@ import { HttpResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { AnswerService } from 'src/app/services/answers.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-token-form',
@@ -19,6 +20,7 @@ export class TokenComponent {
   constructor(
     private router: Router,
     private emailService: EmailService,
+    private userService: UserService,
     private authService: AuthService,
     private businessesService: BusinessesService,
     private answersService: AnswerService
@@ -35,45 +37,59 @@ export class TokenComponent {
           const authHeader = response.headers.get('Authorization');
           if (authHeader !== null) {
             this.authService.setToken(authHeader);
-            if (this.router.url.includes('/admin')) {
-              this.router.navigate(['/admin/dashboard']);
-            }
-            this.businessesService.obterEmpresas().subscribe(
-              (empresas) => {
-                if (empresas.length > 0) {
-                  this.router.navigate(['/dashboard']);
-                } else {
-                  this.answersService.buscarBusinessUserId().subscribe(
-                    (businessUserId) => {
-                      if (businessUserId) {
-                        this.router.navigate(['/info']);
+            this.userService.obterUsuario().subscribe(
+              (usuario: any) => {
+                if (usuario.authority === 'ROOT') {
+                  this.router.navigate(['/admin/dashboard']);
+                } else if (usuario.authority === 'DEFAULT') {
+                  this.businessesService.obterEmpresas().subscribe(
+                    (empresas) => {
+                      if (empresas.length > 0) {
+                        this.router.navigate(['/dashboard']);
                       } else {
-                        this.router.navigate(['/cadastro']);
+                        this.answersService.buscarBusinessUserId().subscribe(
+                          (businessUserId) => {
+                            if (businessUserId) {
+                              this.router.navigate(['/info']);
+                            } else {
+                              this.router.navigate(['/cadastro']);
+                            }
+                          },
+                          (error) => {
+                            console.error(
+                              'Erro ao buscar o businessUserId:',
+                              error
+                            );
+                            this.router.navigate(['/cadastro']);
+                          }
+                        );
                       }
                     },
                     (error) => {
-                      console.error('Erro ao buscar o businessUserId:', error);
-                      this.router.navigate(['/cadastro']);
+                      if (error.error.title === 'Negócio não encontrado') {
+                        this.answersService.buscarBusinessUserId().subscribe(
+                          (businessUserId) => {
+                            if (businessUserId) {
+                              this.router.navigate(['/info']);
+                            } else {
+                              this.router.navigate(['/cadastro']);
+                            }
+                          },
+                          (error) => {
+                            console.error(
+                              'Erro ao buscar o businessUserId:',
+                              error
+                            );
+                            this.router.navigate(['/cadastro']);
+                          }
+                        );
+                      }
                     }
                   );
                 }
               },
-              (error) => {
-                if (error.error.title === 'Negócio não encontrado') {
-                  this.answersService.buscarBusinessUserId().subscribe(
-                    (businessUserId) => {
-                      if (businessUserId) {
-                        this.router.navigate(['/info']);
-                      } else {
-                        this.router.navigate(['/cadastro']);
-                      }
-                    },
-                    (error) => {
-                      console.error('Erro ao buscar o businessUserId:', error);
-                      this.router.navigate(['/cadastro']);
-                    }
-                  );
-                }
+              (error: any) => {
+                console.error('Erro ao obter o usuário:', error);
               }
             );
           }

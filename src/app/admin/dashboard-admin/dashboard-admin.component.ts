@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EmailService } from 'src/app/services/email.service';
 
 @Component({
@@ -9,13 +10,15 @@ import { EmailService } from 'src/app/services/email.service';
 export class DashboardAdminComponent implements OnInit {
   public email: string = '';
 
-  constructor(private emailService: EmailService) {}
+  constructor(private emailService: EmailService, private router: Router) {}
 
   ngOnInit(): void {
     this.emailService.buscarEmail().subscribe(
       (data) => {
         if (data) {
           this.email = data.email;
+        } else {
+          this.router.navigate(['/admin/login']);
         }
       },
       (error) => {

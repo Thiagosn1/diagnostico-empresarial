@@ -37,11 +37,7 @@ export class LoginComponent {
           console.log(response);
           setTimeout(() => {
             this.emailSuccess = '';
-            if (this.router.url.includes('/admin')) {
-              this.router.navigate(['/admin/token']);
-            } else {
-              this.router.navigate(['/token']);
-            }
+            this.router.navigate(['/token']);
           }, 2000);
         },
         (error) => {

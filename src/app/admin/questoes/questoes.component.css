@@ -10,8 +10,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90vh;
-  height: 75vh;
+  width: 120vh;
+  height: 90vh;
   padding: 0 20px;
   border-radius: 20px;
   background-color: #fff;
@@ -19,7 +19,7 @@
 }
 
 .table-scroll {
-  max-height: 50vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -92,3 +92,11 @@ mat-form-field {
   cursor: pointer;
 }
 
+.mat-mdc-header-cell {
+  font-weight: inherit !important;
+  font-size: 20px;
+}
+
+.mat-mdc-cell {
+  font-size: 18px !important;
+}

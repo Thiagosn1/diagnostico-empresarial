@@ -137,9 +137,9 @@ export class RelatorioComponent implements OnInit {
             if (respostasCategoria.length > 0) {
               const sum = respostasCategoria.reduce((a: number, b: any) => a + b.value, 0);
               const mediaRespostasUsuario = sum / respostasCategoria.length;
-              console.log('Usuário: ', businessUser.userEmail); // Adicione esta linha
-              console.log('Soma das respostas do usuário: ', sum); // Adicione esta linha
-              console.log('Média das respostas do usuário: ', mediaRespostasUsuario); // Adicione esta linha
+              console.log('Usuário: ', businessUser.userEmail);
+              console.log('Soma das respostas do usuário: ', sum);
+              console.log('Média das respostas do usuário: ', mediaRespostasUsuario);
               somaCategoria += sum;
               totalRespostasCategoria += respostasCategoria.length;
             }

@@ -41,14 +41,7 @@ const routes: Routes = [
   // Rotas para admin
   {
     path: 'admin',
-    redirectTo: '/admin/login',
-    pathMatch: 'full',
-  },
-  {
-    path: 'admin',
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'token', component: TokenComponent },
       {
         path: 'dashboard',
         component: DashboardAdminComponent,
