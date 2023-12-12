@@ -11,9 +11,9 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./categorias.component.css'],
 })
 export class CategoriasComponent implements OnInit {
-  displayedColumns: string[] = ['posicao', 'categoria', 'acao'];
+  colunasExibidas: string[] = ['posicao', 'categoria', 'acao'];
   dataSource = new MatTableDataSource<Category>();
-  editingCategoryId: number | null = null;
+  editandoCategoriaId: number | null = null;
   nomeNovaCategoria: string = '';
   novaPosicao!: number;
   erro: string = '';
@@ -27,50 +27,46 @@ export class CategoriasComponent implements OnInit {
     this.carregarDados();
   }
 
-  // Método para aplicar o filtro na tabela conforme o usuário digita
   aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Método para carregar os dados das categorias do serviço
   carregarDados(): void {
-    this.formService.getData().subscribe(
-      (categories) => {
+    this.formService.getData().subscribe({
+      next: (categories) => {
         this.dataSource.data = categories.sort(
           (a, b) => a.position - b.position
         );
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar dados:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para alternar entre o modo de edição e visualização ao clicar nos botões Renomear/Confirmar
   alternarEdicao(category: Category): void {
-    if (this.editingCategoryId === category.id) {
+    if (this.editandoCategoriaId === category.id) {
       this.pararEdicao(category);
-      this.editingCategoryId = null;
+      this.editandoCategoriaId = null;
     } else {
-      this.editingCategoryId = category.id;
+      this.editandoCategoriaId = category.id;
     }
   }
 
-  // Método para parar a edição e atualizar a categoria
   pararEdicao(category: Category): void {
-    this.editingCategoryId = null;
-    this.formService.atualizarCategoria(category).subscribe(
-      () => {
+    this.editandoCategoriaId = null;
+    this.formService.atualizarCategoria(category).subscribe({
+      next: () => {
         this.salvarAlteracaoNaLinhaDoTempo(
           `Categoria ${category.name} atualizada`
         );
       },
-      (error: any) => console.error('Erro ao atualizar categoria:', error)
-    );
+      error: (error: any) =>
+        console.error('Erro ao atualizar categoria:', error),
+    });
   }
 
-  // Método para adicionar uma categoria
   adicionarCategoria(): void {
     if (!this.nomeNovaCategoria.trim()) {
       this.erro = 'O nome da categoria não pode estar vazio.';
@@ -78,36 +74,34 @@ export class CategoriasComponent implements OnInit {
       return;
     }
 
-    this.formService.adicionarCategoria(this.nomeNovaCategoria).subscribe(
-      () => {
+    this.formService.adicionarCategoria(this.nomeNovaCategoria).subscribe({
+      next: () => {
         this.salvarAlteracaoNaLinhaDoTempo(
           `Categoria ${this.nomeNovaCategoria} adicionada`
         );
         this.nomeNovaCategoria = '';
         this.carregarDados();
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao adicionar categoria:', error);
         this.erro = 'Erro ao adicionar categoria.';
         setTimeout(() => (this.erro = ''), 2000);
-      }
-    );
+      },
+    });
   }
 
-  // Método para excluir uma categoria
   excluirCategoria(categoryId: number): void {
-    this.formService.excluirCategoria(categoryId).subscribe(
-      () => {
+    this.formService.excluirCategoria(categoryId).subscribe({
+      next: () => {
         this.salvarAlteracaoNaLinhaDoTempo(`Categoria ${categoryId} excluída`);
         this.carregarDados();
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao excluir categoria:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para salvar a alteração na linha do tempo
   salvarAlteracaoNaLinhaDoTempo(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
@@ -115,12 +109,12 @@ export class CategoriasComponent implements OnInit {
       description: descricao,
     };
 
-    this.timelineService.createTimeline(newItem).subscribe(
-      (response) => {
+    this.timelineService.createTimeline(newItem).subscribe({
+      next: (response) => {
         console.log('Alteração salva na linha do tempo:', response);
       },
-      (error) =>
-        console.error('Erro ao salvar alteração na linha do tempo:', error)
-    );
+      error: (error) =>
+        console.error('Erro ao salvar alteração na linha do tempo:', error),
+    });
   }
 }

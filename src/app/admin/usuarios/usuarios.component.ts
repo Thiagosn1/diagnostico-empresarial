@@ -10,7 +10,7 @@ import { format } from 'date-fns';
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'email', 'tipo', 'acao'];
+  colunasExibidas: string[] = ['id', 'nome', 'email', 'tipo', 'acao'];
   editingUserId: number | null = null;
   dataSource = new MatTableDataSource();
 
@@ -23,28 +23,25 @@ export class UsuariosComponent implements OnInit {
     this.carregarUsuarios();
   }
 
-  // Carrega os usuários
   carregarUsuarios(): void {
-    this.userService.obterUsuarios().subscribe(
-      (data: any[]) => {
-        data.sort((a: any, b: any) => a.id - b.id); 
+    this.userService.obterUsuarios().subscribe({
+      next: (data: any[]) => {
+        data.sort((a: any, b: any) => a.id - b.id);
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar usuários:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Aplica o filtro na tabela
-  applyFilter(event: Event) {
+  aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Método para alternar entre o modo de edição e visualização ao clicar nos botões Renomear/Confirmar
-  toggleEditing(user: any): void {
+  alternarEdicao(user: any): void {
     if (this.editingUserId === user.id) {
       this.atualizarUsuario(user);
       this.editingUserId = null;
@@ -53,55 +50,58 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  // Método para atualizar um usuário
   atualizarUsuario(user: any): void {
-    this.userService.atualizarUsuario(user.id, user).subscribe(
-      () => {
+    this.userService.atualizarUsuario(user.id, user).subscribe({
+      next: () => {
         const descricao = `O usuário ${user.email} foi atualizado`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
       },
-      (error) => console.error('Erro ao atualizar usuário:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao atualizar usuário:', error);
+      },
+    });
   }
 
-  // Torna o usuário um administrador
   tornarAdmin(usuario: any): void {
-    this.userService.tornarAdmin(usuario.id).subscribe(
-      () => {
+    this.userService.tornarAdmin(usuario.id).subscribe({
+      next: () => {
         const descricao = `${usuario.email} tornou-se administrador`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
       },
-      (error) => console.error('Erro ao tornar usuário admin:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao tornar usuário admin:', error);
+      },
+    });
   }
 
-  // Remove o status de administrador do usuário
   removerAdmin(usuario: any): void {
-    this.userService.removerAdmin(usuario.id).subscribe(
-      () => {
+    this.userService.removerAdmin(usuario.id).subscribe({
+      next: () => {
         const descricao = `${usuario.email} deixou de ser administrador`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
       },
-      (error) => console.error('Erro ao remover admin:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao remover admin:', error);
+      },
+    });
   }
 
-  // Exclui o usuário
   excluirUsuario(usuario: any): void {
-    this.userService.excluirUsuario(usuario.id).subscribe(
-      () => {
+    this.userService.excluirUsuario(usuario.id).subscribe({
+      next: () => {
         const descricao = `${usuario.email} foi excluído`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarUsuarios();
       },
-      (error) => console.error('Erro ao excluir usuário:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao excluir usuário:', error);
+      },
+    });
   }
 
-  // Salva a alteração na linha do tempo
   salvarAlteracaoNaTimeline(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
@@ -109,12 +109,13 @@ export class UsuariosComponent implements OnInit {
       description: descricao,
     };
 
-    this.timelineService.createTimeline(newItem).subscribe(
-      (response) => {
+    this.timelineService.createTimeline(newItem).subscribe({
+      next: (response) => {
         console.log('Alteração salva na linha do tempo:', response);
       },
-      (error) =>
-        console.error('Erro ao salvar alteração na linha do tempo:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao salvar alteração na linha do tempo:', error);
+      },
+    });
   }
 }

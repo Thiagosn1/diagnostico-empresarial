@@ -13,22 +13,21 @@ export class DashboardAdminComponent implements OnInit {
   constructor(private emailService: EmailService, private router: Router) {}
 
   ngOnInit(): void {
-    this.emailService.buscarEmail().subscribe(
-      (data) => {
+    this.emailService.buscarEmail().subscribe({
+      next: (data) => {
         if (data) {
           this.email = data.email;
         } else {
           this.router.navigate(['/admin/login']);
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao buscar o email:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para limpar o localStorage e deslogar o usuário
-  onLogout(): void {
+  deslogar(): void {
     localStorage.clear();
   }
 }

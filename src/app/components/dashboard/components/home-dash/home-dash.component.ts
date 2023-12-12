@@ -15,7 +15,7 @@ export class HomeDashComponent {
   formsCompletedCount: number = 0;
   totalQuestions: number = 0;
   timeline: any[] = [];
-  displayedColumns: string[] = ['date', 'description'];
+  colunasExibidas: string[] = ['date', 'description'];
 
   constructor(
     private businessUsersService: BusinessUsersService,
@@ -29,10 +29,9 @@ export class HomeDashComponent {
     this.carregarLinhaDoTempo();
   }
 
-  // Método para carregar os contadores de funcionários, convites aceitos e não aceitos e respostas
   carregarContadores(): void {
-    this.businessUsersService.obterFuncionarios().subscribe(
-      (businessUsers) => {
+    this.businessUsersService.obterFuncionarios().subscribe({
+      next: (businessUsers) => {
         this.businessuserCount = businessUsers.length;
         this.invitationAcceptedCount = businessUsers.filter(
           (user) => user.invitationAccepted
@@ -44,65 +43,69 @@ export class HomeDashComponent {
           (user: any) => user.answers.length === this.totalQuestions
         ).length;
       },
-      (error) => console.error('Erro ao carregar funcionários:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao carregar funcionários:', error);
+      },
+    });
   }
 
   carregarTotalDeQuestoes(): void {
-    this.formService.getData().subscribe(
-      (categories) => {
+    this.formService.getData().subscribe({
+      next: (categories) => {
         this.totalQuestions = categories.reduce(
           (sum, category) => sum + category.questions.length,
           0
         );
       },
-      (error) => console.error('Erro ao carregar questões:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao carregar questões:', error);
+      },
+    });
   }
 
-  // Método para carregar a linha do tempo
   carregarLinhaDoTempo(): void {
-    this.timelineService.getTimeline().subscribe(
-      (timeline) => {
+    this.timelineService.getTimeline().subscribe({
+      next: (timeline) => {
         this.timeline = timeline.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar linha do tempo:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para adicionar um item à linha do tempo
   adicionarItemLinhaDoTempo(): void {
     const newItem = {
       date: new Date().toISOString(),
       description: 'Nova alteração',
     };
 
-    this.timelineService.createTimeline(newItem).subscribe(
-      (response) => {
+    this.timelineService.createTimeline(newItem).subscribe({
+      next: (response) => {
         console.log('Item da linha do tempo criado:', response);
         this.carregarLinhaDoTempo();
       },
-      (error) => console.error('Erro ao criar item da linha do tempo:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao criar item da linha do tempo:', error);
+      },
+    });
   }
 
-  // Método para atualizar um item da linha do tempo
   atualizarItemLinhaDoTempo(id: number): void {
     const updatedItem = {
       description: 'Descrição atualizada',
     };
 
-    this.timelineService.updateTimeline(id, updatedItem).subscribe(
-      (response) => {
+    this.timelineService.updateTimeline(id, updatedItem).subscribe({
+      next: (response) => {
         console.log('Item da linha do tempo atualizado:', response);
         this.carregarLinhaDoTempo();
       },
-      (error) =>
-        console.error('Erro ao atualizar item da linha do tempo:', error)
-    );
+      error: (error) => {
+        console.error('Erro ao atualizar item da linha do tempo:', error);
+      },
+    });
   }
 }

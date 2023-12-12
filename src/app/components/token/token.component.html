@@ -18,7 +18,7 @@
     />
   </mat-form-field>
   <button class="button" (click)="enviarToken()">OK</button>
-  <button class="reenviar" (click)="reenviarToken()" [disabled]="!hasEmail()">
+  <button class="reenviar" (click)="reenviarToken()" [disabled]="!temEmail()">
     Reenviar código
   </button>
   <div *ngIf="tokenError" class="error">{{ tokenError }}</div>

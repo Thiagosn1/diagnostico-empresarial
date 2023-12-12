@@ -12,7 +12,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./questoes.component.css'],
 })
 export class QuestoesComponent implements OnInit {
-  displayedColumns: string[] = ['questao', 'categoria', 'status', 'acao'];
+  colunasExibidas: string[] = ['questao', 'categoria', 'status', 'acao'];
   dataSource = new MatTableDataSource<Question>();
   categories: Category[] = [];
   editingQuestionId: number | null = null;
@@ -35,10 +35,9 @@ export class QuestoesComponent implements OnInit {
     });
   }
 
-  // Método para carregar os dados
   carregarDados(): void {
-    this.formService.getData().subscribe(
-      (categories) => {
+    this.formService.getData().subscribe({
+      next: (categories) => {
         let questions: { question: Question; categoryPosition: number }[] = [];
         categories.forEach((category) => {
           category.questions.forEach((question) => {
@@ -57,91 +56,83 @@ export class QuestoesComponent implements OnInit {
         });
         this.dataSource.data = questions.map((q) => q.question);
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar dados:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para carregar as categorias
   carregarCategorias(): void {
-    this.formService.getData().subscribe(
-      (categories) => {
+    this.formService.getData().subscribe({
+      next: (categories) => {
         this.categories = categories.sort((a, b) => a.position - b.position);
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar categorias:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para filtrar as questões
   aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Método para recuperar o nome da categoria
-  getCategoryName(categoryId: number): string {
+  obterNomeCategoria(categoryId: number): string {
     const category = this.categories.find(
       (category) => category.id === categoryId
     );
     return category ? category.name : '';
   }
 
-  // Método para iniciar a edição
-  startEditing(question: Question): void {
+  iniciarEdicao(question: Question): void {
     this.editingQuestionId = question.id;
   }
 
-  // Método para parar a edição e atualizar a questão
-  stopEditing(question: Question): void {
+  pararEdicao(question: Question): void {
     this.editingQuestionId = null;
-    this.formService.atualizarQuestao(question).subscribe(
-      () => {
+    this.formService.atualizarQuestao(question).subscribe({
+      next: () => {
         this.salvarAlteracaoNaTimeline(
           `Questão ${
             question.id
-          } atualizada na categoria ${this.getCategoryName(
+          } atualizada na categoria ${this.obterNomeCategoria(
             question.categoryId
           )}`
         );
       },
-      (error: any) => console.error('Erro ao atualizar questão:', error)
-    );
+      error: (error: any) => console.error('Erro ao atualizar questão:', error),
+    });
   }
 
-  // Método para adicionar uma questão
   adicionarQuestao(): void {
     if (this.formQuestao.valid) {
       const questao = this.formQuestao.value;
-      this.formService.adicionarQuestao(questao).subscribe(
-        () => {
+      this.formService.adicionarQuestao(questao).subscribe({
+        next: () => {
           this.mostrarFormulario = false;
           this.carregarDados();
           this.formQuestao.reset();
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao adicionar questão:', error);
-        }
-      );
+        },
+      });
     }
   }
 
-  // Método para excluir uma questão
   excluirQuestao(questionId: number): void {
-    this.formService.excluirQuestao(questionId).subscribe(
-      () => {
+    this.formService.excluirQuestao(questionId).subscribe({
+      next: () => {
         this.salvarAlteracaoNaTimeline(`Questão ${questionId} excluída`);
         this.carregarDados();
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao excluir questão:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para salvar a alteração na linha do tempo
   salvarAlteracaoNaTimeline(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
@@ -149,12 +140,12 @@ export class QuestoesComponent implements OnInit {
       description: descricao,
     };
 
-    this.timelineService.createTimeline(newItem).subscribe(
-      (response) => {
+    this.timelineService.createTimeline(newItem).subscribe({
+      next: (response) => {
         console.log('Alteração salva na linha do tempo:', response);
       },
-      (error) =>
-        console.error('Erro ao salvar alteração na linha do tempo:', error)
-    );
+      error: (error) =>
+        console.error('Erro ao salvar alteração na linha do tempo:', error),
+    });
   }
 }

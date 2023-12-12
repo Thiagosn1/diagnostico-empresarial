@@ -57,34 +57,6 @@ export class BusinessUsersService {
     });
   }
 
-  /* convidarFuncionario(userEmail: string): Observable<any> {
-    return new Observable<any>((subscriber) => {
-      const token = this.authService.getToken();
-      if (token) {
-        const headers = new HttpHeaders().set('Authorization', token);
-        this.http
-          .get<any>('http://localhost:4200/api/users', { headers })
-          .subscribe((response) => {
-            const businessId = response.businesses[0].id;
-            const body = {
-              userEmail,
-              businessId,
-            };
-            this.http
-              .post(`${this.apiUrl}/add`, body, { headers })
-              .subscribe((res) => {
-                subscriber.next(res);
-                subscriber.complete();
-              });
-          });
-      } else {
-        console.error('Nenhum token de autenticação disponível');
-        subscriber.next([]);
-        subscriber.complete();
-      }
-    });
-  } */
-
   reenviarConvite(id: number, userEmail: string): Observable<any> {
     const token = this.authService.getToken();
     if (token) {

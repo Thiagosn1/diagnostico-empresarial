@@ -13,7 +13,6 @@ export class AnswerService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Buscar businessUserId
   buscarBusinessUserId(): Observable<any> {
     const token = this.authService.getToken();
 
@@ -29,7 +28,7 @@ export class AnswerService {
         }),
         catchError((error) => {
           console.error('Erro ao buscar o businessUserId:', error);
-          return throwError('Erro ao buscar o businessUserId');
+          return throwError(() => new Error('Erro ao buscar o businessUserId'));
         })
       );
     } else {
@@ -49,7 +48,7 @@ export class AnswerService {
           map((questoes) => questoes.sort((a, b) => a.position - b.position)),
           catchError((error) => {
             console.error('Erro ao buscar as questões:', error);
-            return throwError('Erro ao buscar as questões');
+            return throwError(() => new Error('Erro ao buscar as questões'));
           })
         );
     } else {
@@ -73,7 +72,7 @@ export class AnswerService {
         }),
         catchError((error) => {
           console.error('Erro ao buscar as respostas:', error);
-          return throwError('Erro ao buscar as respostas');
+          return throwError(() => new Error('Erro ao buscar as respostas'));
         })
       );
     } else {
@@ -95,7 +94,7 @@ export class AnswerService {
           ),
           catchError((error) => {
             console.error('Erro ao buscar as categorias:', error);
-            return throwError('Erro ao buscar as categorias');
+            return throwError(() => new Error('Erro ao buscar as categorias'));
           })
         );
     } else {
@@ -104,7 +103,6 @@ export class AnswerService {
     }
   }
 
-  // Salvar resposta na api
   salvarResposta(answer: any): Observable<any> {
     return this.buscarBusinessUserId().pipe(
       mergeMap((businessUserId) => {
@@ -123,13 +121,18 @@ export class AnswerService {
             'Nenhum businessUserId encontrado ou token de autenticação disponível'
           );
           return throwError(
-            'Nenhum businessUserId encontrado ou token de autenticação disponível'
+            () =>
+              new Error(
+                'Nenhum businessUserId encontrado ou token de autenticação disponível'
+              )
           );
         }
       }),
       catchError((error) => {
         console.error('Erro ao salvar a resposta com businessUserId:', error);
-        return throwError('Erro ao salvar a resposta com businessUserId');
+        return throwError(
+          () => new Error('Erro ao salvar a resposta com businessUserId')
+        );
       })
     );
   }

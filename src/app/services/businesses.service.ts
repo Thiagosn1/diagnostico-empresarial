@@ -17,7 +17,6 @@ export class BusinessesService {
     private router: Router
   ) {}
 
-  // Método para criar uma empresa
   criarEmpresa(business: any) {
     const token = this.authService.getToken();
 
@@ -33,7 +32,6 @@ export class BusinessesService {
     }
   }
 
-  // Método para obter as empresas
   obterEmpresas(): Observable<any> {
     const token = this.authService.getToken();
 
@@ -53,7 +51,6 @@ export class BusinessesService {
     }
   }
 
-  // Método para excluir uma empresa
   excluirEmpresa(id: number): Observable<any> {
     const token = this.authService.getToken();
 
@@ -69,23 +66,22 @@ export class BusinessesService {
     }
   }
 
-  // Método para atualizar uma empresa
   atualizarEmpresa(id: number, empresa: any): Observable<any> {
     const token = this.authService.getToken();
 
-  if (token) {
-    const headers = new HttpHeaders().set('Authorization', token);
-    let apiUrl = 'http://localhost:4200/api/businesses';
-    if (this.router.url.includes('/admin')) {
-      apiUrl = 'http://localhost:4200/api/admin/businesses';
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      let apiUrl = 'http://localhost:4200/api/businesses';
+      if (this.router.url.includes('/admin')) {
+        apiUrl = 'http://localhost:4200/api/admin/businesses';
+      }
+      return this.http.put<any>(`${apiUrl}/${id}`, empresa, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<any>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      });
     }
-    return this.http.put<any>(`${apiUrl}/${id}`, empresa, { headers });
-  } else {
-    console.error('Nenhum token de autenticação disponível');
-    return new Observable<any>((subscriber) => {
-      subscriber.next([]);
-      subscriber.complete();
-    });
-  }
   }
 }

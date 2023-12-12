@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{'info-styles': isInfoRoute()}">
+<div class="container" [ngClass]="{'info-styles': checarRota()}">
   <mat-card class="form-card">
     <mat-card-header>
       <mat-card-title class="form-title"
@@ -26,7 +26,7 @@
         5º) Responda o questionário com calma, em um ambiente no qual você possa
         pensar bem no que está respondendo.<br /><br />
       </span>
-      <button [ngClass]="{'continue-button': isContinuing}" routerLink="/formulario">{{ buttonText }}</button>
+      <button [ngClass]="{'continue-button': estaContinuando}" routerLink="/formulario">{{ textoBotao }}</button>
     </mat-card-content>
   </mat-card>
 </div>

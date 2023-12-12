@@ -13,22 +13,21 @@ interface SliderItem {
   styleUrls: ['./slider.component.css'],
 })
 export class SliderComponent implements OnInit {
-  // Array de itens do slider
   items: SliderItem[] = [
     {
       title: 'Item 1',
       description: 'Descrição do Item 1',
-      color: '#f44336', // Cor de fundo do item 1
+      color: '#f44336',
     },
     {
       title: 'Item 2',
       description: 'Descrição do Item 2',
-      color: '#4caf50', // Cor de fundo do item 2
+      color: '#4caf50',
     },
     {
       title: 'Item 3',
       description: 'Descrição do Item 3',
-      color: '#2196f3', // Cor de fundo do item 3
+      color: '#2196f3',
     },
   ];
 
@@ -37,14 +36,12 @@ export class SliderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Função para navegar para o item anterior
   voltar(): void {
     // Se o índice atual for 0, voltamos ao último item
     this.currentIndex =
       this.currentIndex === 0 ? this.items.length - 1 : this.currentIndex - 1;
   }
 
-  // Função para navegar para o próximo item
   avancar(): void {
     // Se o índice atual for o último, voltamos para o primeiro item
     this.currentIndex =

@@ -26,14 +26,13 @@ export class TokenComponent {
     private answersService: AnswerService
   ) {}
 
-  // Método para enviar o token
   enviarToken() {
     if (this.token.length !== 6) {
       this.tokenError =
         'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
     } else {
-      this.emailService.enviarToken(this.token).subscribe(
-        (response: HttpResponse<any>) => {
+      this.emailService.enviarToken(this.token).subscribe({
+        next: (response: HttpResponse<any>) => {
           const authHeader = response.headers.get('Authorization');
           if (authHeader !== null) {
             this.authService.setToken(authHeader);
@@ -42,50 +41,50 @@ export class TokenComponent {
                 if (usuario.authority === 'ROOT') {
                   this.router.navigate(['/admin/dashboard']);
                 } else if (usuario.authority === 'DEFAULT') {
-                  this.businessesService.obterEmpresas().subscribe(
-                    (empresas) => {
+                  this.businessesService.obterEmpresas().subscribe({
+                    next: (empresas) => {
                       if (empresas.length > 0) {
                         this.router.navigate(['/dashboard']);
                       } else {
-                        this.answersService.buscarBusinessUserId().subscribe(
-                          (businessUserId) => {
+                        this.answersService.buscarBusinessUserId().subscribe({
+                          next: (businessUserId) => {
                             if (businessUserId) {
                               this.router.navigate(['/info']);
                             } else {
                               this.router.navigate(['/cadastro']);
                             }
                           },
-                          (error) => {
+                          error: (error) => {
                             console.error(
                               'Erro ao buscar o businessUserId:',
                               error
                             );
                             this.router.navigate(['/cadastro']);
-                          }
-                        );
+                          },
+                        });
                       }
                     },
-                    (error) => {
+                    error: (error) => {
                       if (error.error.title === 'Negócio não encontrado') {
-                        this.answersService.buscarBusinessUserId().subscribe(
-                          (businessUserId) => {
+                        this.answersService.buscarBusinessUserId().subscribe({
+                          next: (businessUserId) => {
                             if (businessUserId) {
                               this.router.navigate(['/info']);
                             } else {
                               this.router.navigate(['/cadastro']);
                             }
                           },
-                          (error) => {
+                          error: (error) => {
                             console.error(
                               'Erro ao buscar o businessUserId:',
                               error
                             );
                             this.router.navigate(['/cadastro']);
-                          }
-                        );
+                          },
+                        });
                       }
-                    }
-                  );
+                    },
+                  });
                 }
               },
               (error: any) => {
@@ -94,7 +93,7 @@ export class TokenComponent {
             );
           }
         },
-        (error) => {
+        error: (error) => {
           console.error(error);
           if (
             error.error.title === 'Falha ao autenticar usuario' ||
@@ -107,12 +106,11 @@ export class TokenComponent {
               this.tokenError = '';
             }, 2000);
           }
-        }
-      );
+        },
+      });
     }
   }
 
-  // Método para reenviar o token
   reenviarToken() {
     this.tokenSuccess = 'Reenviando código para o email...';
     setTimeout(() => {
@@ -128,8 +126,8 @@ export class TokenComponent {
       }
     );
   }
-  // Verifica se o e-mail está presente no serviço
-  hasEmail(): boolean {
+
+  temEmail(): boolean {
     return !!this.emailService.email;
   }
 }

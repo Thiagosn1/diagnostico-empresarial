@@ -30,17 +30,17 @@ export class EmpresaComponent {
   }
 
   carregarEmpresa(): void {
-    this.businessesService.obterEmpresas().subscribe(
-      (data: any[]) => {
+    this.businessesService.obterEmpresas().subscribe({
+      next: (data: any[]) => {
         if (data.length > 0) {
           this.nomeEmpresa = data[0].name;
           this.cnpjEmpresa = data[0].cnpjCpf;
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Error:', error);
-      }
-    );
+      },
+    });
   }
 
   editarEmpresa(): void {
@@ -57,20 +57,20 @@ export class EmpresaComponent {
     };
     this.businessesService
       .atualizarEmpresa(this.idEmpresa, empresaAtualizada)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           console.log('Empresa atualizada com sucesso');
           this.carregarEmpresa();
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao atualizar a empresa:', error);
-        }
-      );
+        },
+      });
   }
 
   carregarFuncionarios(): void {
-    this.businessUsersService.obterFuncionarios().subscribe(
-      (data: any[]) => {
+    this.businessUsersService.obterFuncionarios().subscribe({
+      next: (data: any[]) => {
         data.sort((a: any, b: any) => a.id - b.id);
         this.dataSource.data = data.map((businessUsers) => {
           return {
@@ -82,13 +82,13 @@ export class EmpresaComponent {
         });
         this.dataSource._updateChangeSubscription();
       },
-      (error) => {
+      error: (error) => {
         console.error('Error:', error);
-      }
-    );
+      },
+    });
   }
 
-  applyFilter(event: Event) {
+  aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -98,19 +98,19 @@ export class EmpresaComponent {
 
     if (this.userEmail && validarEmail.test(this.userEmail)) {
       this.successMessage = 'Enviando convite...';
-      this.businessUsersService.convidarFuncionario(this.userEmail).subscribe(
-        () => {
+      this.businessUsersService.convidarFuncionario(this.userEmail).subscribe({
+        next: () => {
           this.successMessage = 'Convite enviado';
           this.userEmail = '';
           setTimeout(() => (this.successMessage = ''), 3000);
           this.carregarFuncionarios();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error:', error);
           this.errorMessage = 'Erro ao enviar convite';
           setTimeout(() => (this.errorMessage = ''), 2000);
-        }
-      );
+        },
+      });
     } else {
       this.errorMessage = 'Por favor, insira um email válido';
       setTimeout(() => (this.errorMessage = ''), 2000);
@@ -119,28 +119,28 @@ export class EmpresaComponent {
 
   reenviarConvite(id: number, email: string): void {
     this.successMessage = 'Reenviando convite...';
-    this.businessUsersService.reenviarConvite(id, email).subscribe(
-      () => {
+    this.businessUsersService.reenviarConvite(id, email).subscribe({
+      next: () => {
         this.successMessage = 'Convite reenviado';
         setTimeout(() => (this.successMessage = ''), 3000);
         this.carregarFuncionarios();
       },
-      (error) => {
+      error: (error) => {
         console.error('Error:', error);
         this.errorMessage = 'Erro ao reenviar convite';
         setTimeout(() => (this.errorMessage = ''), 2000);
-      }
-    );
+      },
+    });
   }
 
   removerFuncionario(id: number): void {
-    this.businessUsersService.removerFuncionario(id).subscribe(
-      () => {
+    this.businessUsersService.removerFuncionario(id).subscribe({
+      next: () => {
         this.carregarFuncionarios();
       },
-      (error) => {
+      error: (error) => {
         console.error('Error:', error);
-      }
-    );
+      },
+    });
   }
 }

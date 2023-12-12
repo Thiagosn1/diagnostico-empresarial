@@ -10,7 +10,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./empresas.component.css'],
 })
 export class EmpresasComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'cnpj', 'managerId', 'acao'];
+  colunasExibidas: string[] = ['id', 'nome', 'cnpj', 'managerId', 'acao'];
   dataSource = new MatTableDataSource();
   editingBusinessId: number | null = null;
 
@@ -23,27 +23,24 @@ export class EmpresasComponent implements OnInit {
     this.carregarEmpresas();
   }
 
-  // Método para carregar as empresas
   carregarEmpresas(): void {
-    this.businessesService.obterEmpresas().subscribe(
-      (data) => {
+    this.businessesService.obterEmpresas().subscribe({
+      next: (data) => {
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar empresas:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Método para aplicar o filtro na tabela conforme o usuário digita
-  applyFilter(event: Event) {
+  aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Método para alternar entre o modo de edição e visualização ao clicar nos botões Renomear/Confirmar
-  toggleEditing(business: any): void {
+  alternarEdicao(business: any): void {
     if (this.editingBusinessId === business.id) {
       this.atualizarEmpresa(business);
       this.editingBusinessId = null;
@@ -52,31 +49,28 @@ export class EmpresasComponent implements OnInit {
     }
   }
 
-  // Método para atualizar a empresa
   atualizarEmpresa(empresa: any): void {
-    this.businessesService.atualizarEmpresa(empresa.id, empresa).subscribe(
-      () => {
+    this.businessesService.atualizarEmpresa(empresa.id, empresa).subscribe({
+      next: () => {
         const descricao = `A empresa ${empresa.name} foi atualizada`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarEmpresas();
       },
-      (error) => console.error('Erro ao atualizar empresa:', error)
-    );
+      error: (error) => console.error('Erro ao atualizar empresa:', error),
+    });
   }
 
-  // Método para excluir a empresa
   excluirEmpresa(empresa: any): void {
-    this.businessesService.excluirEmpresa(empresa.id).subscribe(
-      () => {
+    this.businessesService.excluirEmpresa(empresa.id).subscribe({
+      next: () => {
         const descricao = `A empresa ${empresa.name} foi excluída`;
         this.salvarAlteracaoNaTimeline(descricao);
         this.carregarEmpresas();
       },
-      (error) => console.error('Erro ao excluir empresa:', error)
-    );
+      error: (error) => console.error('Erro ao excluir empresa:', error),
+    });
   }
 
-  // Método para salvar a alteração na linha do tempo
   salvarAlteracaoNaTimeline(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
@@ -84,12 +78,12 @@ export class EmpresasComponent implements OnInit {
       description: descricao,
     };
 
-    this.timelineService.createTimeline(newItem).subscribe(
-      (response) => {
+    this.timelineService.createTimeline(newItem).subscribe({
+      next: (response) => {
         console.log('Alteração salva na linha do tempo:', response);
       },
-      (error) =>
-        console.error('Erro ao salvar alteração na linha do tempo:', error)
-    );
+      error: (error) =>
+        console.error('Erro ao salvar alteração na linha do tempo:', error),
+    });
   }
 }

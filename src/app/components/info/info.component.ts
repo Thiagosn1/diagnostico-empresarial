@@ -8,8 +8,8 @@ import { AnswerService } from 'src/app/services/answers.service';
   styleUrls: ['./info.component.css'],
 })
 export class InfoComponent {
-  buttonText: string = 'Iniciar';
-  isContinuing: boolean = false;
+  textoBotao: string = 'Iniciar';
+  estaContinuando: boolean = false;
 
   constructor(private router: Router, private answerService: AnswerService) {}
 
@@ -17,8 +17,8 @@ export class InfoComponent {
     this.answerService.buscarRespostas().subscribe(
       (respostas) => {
         if (respostas.length > 0) {
-          this.buttonText = 'Continuar de onde parou';
-          this.isContinuing = true;
+          this.textoBotao = 'Continuar de onde parou';
+          this.estaContinuando = true;
         }
       },
       (error) => {
@@ -27,7 +27,7 @@ export class InfoComponent {
     );
   }
 
-  isInfoRoute(): boolean {
+  checarRota(): boolean {
     return this.router.url === '/dashboard/info';
   }
 }

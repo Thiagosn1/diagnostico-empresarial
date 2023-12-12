@@ -18,7 +18,6 @@ import { EmpresaComponent } from './components/dashboard/components/empresa/empr
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
 
 const routes: Routes = [
-  // Rotas para usuário comum
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'token', component: TokenComponent },
@@ -38,7 +37,6 @@ const routes: Routes = [
     ],
   },
 
-  // Rotas para admin
   {
     path: 'admin',
     children: [

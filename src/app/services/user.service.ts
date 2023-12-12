@@ -42,7 +42,6 @@ export class UserService {
     }
   }
 
-  // Método para atualizar um usuario
   atualizarUsuario(id: number, user: any): Observable<any> {
     const token = this.authService.getToken();
 

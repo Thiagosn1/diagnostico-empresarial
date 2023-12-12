@@ -18,15 +18,14 @@ export class CadastroEmpresaComponent {
     private businessesService: BusinessesService,
   ) {}
 
-  // Método para submeter o formulário
-  onSubmit(formValue: any, form: NgForm) {
+  submeterFormulario(formValue: any, form: NgForm) {
     if (form.valid && cnpjValidator.isValid(formValue.cnpj)) {
       const business = {
         name: formValue.nomeEmpresa,
         cnpjCpf: formValue.cnpj,
       };
 
-      this.businessesService.criarEmpresa(business).subscribe((res) => {
+      this.businessesService.criarEmpresa(business).subscribe(() => {
         this.router.navigate(['/dashboard']);
       });
     } else {
@@ -42,7 +41,6 @@ export class CadastroEmpresaComponent {
     }
   }
 
-  // Método para formatar o CNPJ
   formatarCNPJ(event: any) {
     let cnpj = event.target.value;
     cnpj = cnpj.replace(/\D/g, '');
@@ -56,7 +54,6 @@ export class CadastroEmpresaComponent {
     event.target.value = cnpj;
   }
 
-  // Método para permitir apenas números no input
   permitirApenasNumeros(event: any) {
     const pattern = /[0-9\.\-\/]/;
     let inputChar = String.fromCharCode(event.charCode);

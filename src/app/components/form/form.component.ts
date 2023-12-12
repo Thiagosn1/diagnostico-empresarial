@@ -43,17 +43,16 @@ import { AnswerService } from 'src/app/services/answers.service';
 export class FormComponent implements AfterViewInit, OnInit {
   @ViewChildren(MatTooltip) tooltips!: QueryList<MatTooltip>;
 
-  categories: Category[] = [];
+  categorias: Category[] = [];
   responses: any = {};
-
-  answers = Array.from({ length: 11 }, (_, i) => i + 1);
-  transitioning = false;
-  showQuestion = true;
-  currentQuestionIndex = 0;
-  currentCategoryIndex = 0;
-  totalNQuestions = 0;
-  currentNQuestions = 0;
-  completedCategories: boolean[] = new Array(this.categories.length).fill(
+  respostas = Array.from({ length: 11 }, (_, i) => i + 1);
+  transicionando = false;
+  exibirPergunta = true;
+  indicePerguntaAtual = 0;
+  indiceCategoriaAtual = 0;
+  totalPerguntas = 0;
+  perguntasAtuais = 0;
+  categoriasCompletas: boolean[] = new Array(this.categorias.length).fill(
     false
   );
 
@@ -61,107 +60,88 @@ export class FormComponent implements AfterViewInit, OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private formService: FormService,
-    private answerService: AnswerService,
+    private answerService: AnswerService
   ) {
-    // Carrega as categorias e questões
     this.formService.getData().subscribe((data) => {
       data.sort((a: any, b: any) => a.position - b.position);
       data.forEach((c: any) => {
-        this.totalNQuestions += c.questions.length;
+        this.totalPerguntas += c.questions.length;
         c.questions.sort((a: any, b: any) => a.position - b.position);
       });
-      this.categories = data;
+      this.categorias = data;
     });
   }
 
   ngAfterViewInit() {
-    this.showTooltips();
+    this.exibirTooltips();
   }
 
   ngOnInit() {
-    this.answerService.buscarRespostas().subscribe(
-      (respostas) => {
-        // Aqui você tem as respostas do usuário
-        // Você pode usar essas respostas para determinar a próxima pergunta
+    this.answerService.buscarRespostas().subscribe({
+      next: (respostas) => {
         const ultimaResposta = respostas[respostas.length - 1];
         const proximaQuestaoId = ultimaResposta.questionId + 1;
 
-        // Atualize o número de perguntas respondidas
-        this.currentNQuestions = respostas.length;
+        this.perguntasAtuais = respostas.length;
 
-        // Verifique se todas as perguntas foram respondidas
-        if (this.currentNQuestions === this.totalNQuestions) {
-          // Se todas as perguntas foram respondidas, navegue para /relatorio
+        if (this.perguntasAtuais === this.totalPerguntas) {
           this.router.navigate(['/relatorio']);
           return;
         }
 
-        // Marque as categorias concluídas
-        for (let i = 0; i < this.categories.length; i++) {
-          for (let j = 0; j < this.categories[i].questions.length; j++) {
-            if (this.categories[i].questions[j].id === proximaQuestaoId) {
-              this.currentCategoryIndex = i;
-              this.currentQuestionIndex = j;
-              // Marque todas as categorias anteriores como concluídas
+        for (let i = 0; i < this.categorias.length; i++) {
+          for (let j = 0; j < this.categorias[i].questions.length; j++) {
+            if (this.categorias[i].questions[j].id === proximaQuestaoId) {
+              this.indiceCategoriaAtual = i;
+              this.indicePerguntaAtual = j;
               for (let k = 0; k < i; k++) {
-                this.completedCategories[k] = true;
+                this.categoriasCompletas[k] = true;
               }
               return;
             }
           }
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao buscar as respostas:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Retorna a pergunta atual com base no índice da pergunta atual
-  get currentQuestion() {
-    return this.categories[this.currentCategoryIndex].questions[
-      this.currentQuestionIndex
+  perguntaAtual() {
+    return this.categorias[this.indiceCategoriaAtual].questions[
+      this.indicePerguntaAtual
     ].description;
   }
 
-  // Retorna a categoria atual com base no índice da categoria atual
-  get currentCategory() {
-    return this.categories[this.currentCategoryIndex].name;
+  categoriaAtual() {
+    return this.categorias[this.indiceCategoriaAtual].name;
   }
 
-  // Calcula a porcentagem de progresso com base no número de perguntas respondidas e no total de perguntas
-  get progressPercentage() {
-    const totalQuestions = this.totalNQuestions;
-    const completedQuestions = this.currentNQuestions;
+  porcentagemProgresso() {
+    const totalQuestions = this.totalPerguntas;
+    const completedQuestions = this.perguntasAtuais;
     return Math.round((completedQuestions / totalQuestions) * 100);
   }
 
-  // Determina se a questão atual é positiva
-  isCurrentQuestionPositive(): boolean {
-    return this.categories[this.currentCategoryIndex].questions[
-      this.currentQuestionIndex
+  positividadePerguntaAtual(): boolean {
+    return this.categorias[this.indiceCategoriaAtual].questions[
+      this.indicePerguntaAtual
     ].positive;
   }
 
-  // Retorna o valor a ser exibido no botão
-  getDisplayValue(index: number): number {
+  valorExibidoBotao(index: number): number {
     return index;
   }
 
-  /* getDisplayValue(index: number): number {
-    return this.isCurrentQuestionPositive() ? index + 1 : 10 - index;
-  } */
-
-  // Exibe todos os tooltips
-  showTooltips() {
+  exibirTooltips() {
     this.tooltips.forEach((tooltip) => {
       tooltip.show();
     });
   }
 
-  // Retorna o texto do tooltip com base no índice do botão
-  getTooltipText(index: number): string {
-    if (this.isCurrentQuestionPositive()) {
+  textoTooltip(index: number): string {
+    if (this.positividadePerguntaAtual()) {
       if (index === 0) {
         return 'Discordo totalmente';
       } else if (index === 10) {
@@ -180,50 +160,22 @@ export class FormComponent implements AfterViewInit, OnInit {
     }
   }
 
-  /* getTooltipText(index: number): string {
-    if (index === 0) {
-      return 'Discordo totalmente';
-    } else if (index === 9) {
-      return 'Concordo totalmente';
-    } else {
-      return '';
-    }
-  } */
-
-  // Retorna a cor do gradiente com base no índice fornecido
-  gradientColor(index: number): string {
+  corGradiente(index: number): string {
     return `hsl(${(120 * index) / 10}, 100%, 50%)`;
   }
 
-  /* gradientColor(index: number): string {
-    const positive = this.isCurrentQuestionPositive();
-    const adjustedIndex = positive ? index + 0 : 9 - index;
-    return `hsl(${(120 * adjustedIndex) / 9}, 100%, 50%)`;
-  } */
-
-  // Esta função é chamada quando o usuário selecionar uma resposta
-  selectAnswer(index: number): void {
-    // Obtenha a categoria e a pergunta atual
-    const currentCategory = this.categories[this.currentCategoryIndex];
-    const currentQuestion =
-      currentCategory.questions[this.currentQuestionIndex];
-
-    // Verifique se a pergunta atual é positiva ou negativa
-    //const isPositive = this.isCurrentQuestionPositive();
-
-    // Inverta o valor da resposta se a pergunta for negativa
-    //const recordedAnswer = isPositive ? index : 10 - index;
+  selecionarResposta(index: number): void {
+    const currentCategory = this.categorias[this.indiceCategoriaAtual];
+    const currentQuestion = currentCategory.questions[this.indicePerguntaAtual];
     const recordedAnswer = index;
     console.log('Resposta selecionada:', recordedAnswer);
 
-    // Adicione a resposta ao objeto de respostas
     if (!this.responses[currentCategory.name]) {
       this.responses[currentCategory.name] = [];
     }
 
-    // Verifique se a pergunta atual já foi respondida
     if (
-      this.responses[currentCategory.name].length > this.currentQuestionIndex
+      this.responses[currentCategory.name].length > this.indicePerguntaAtual
     ) {
       console.log('A pergunta atual já foi respondida.');
       return;
@@ -231,68 +183,60 @@ export class FormComponent implements AfterViewInit, OnInit {
 
     this.responses[currentCategory.name].push(recordedAnswer);
 
-    // Salve a resposta na API
     const answer = {
       questionId: currentQuestion.id,
       value: recordedAnswer,
     };
 
-    this.answerService.salvarResposta(answer).subscribe(
-      (response) => {
+    this.answerService.salvarResposta(answer).subscribe({
+      next: (response) => {
         console.log('Resposta salva com sucesso:', response);
-        this.transitionToNextQuestion();
-        this.currentNQuestions++;
+        this.transicaoParaProximaPergunta();
+        this.perguntasAtuais++;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao salvar a resposta:', error);
-      }
-    );
+      },
+    });
   }
 
-  // Avança para a próxima pergunta
-  nextQuestion() {
-    const currentCategory = this.categories[this.currentCategoryIndex];
+  proximaPergunta() {
+    const currentCategory = this.categorias[this.indiceCategoriaAtual];
 
-    // Se ainda há perguntas na categoria atual, vá para a próxima pergunta
-    if (this.currentQuestionIndex < currentCategory.questions.length - 1) {
-      this.currentQuestionIndex++;
+    if (this.indicePerguntaAtual < currentCategory.questions.length - 1) {
+      this.indicePerguntaAtual++;
     } else {
-      // Caso contrário, marque a categoria atual como concluída
-      this.completedCategories[this.currentCategoryIndex] = true;
+      this.categoriasCompletas[this.indiceCategoriaAtual] = true;
 
-      // E avance para a próxima categoria
-      this.currentCategoryIndex++;
-      this.currentQuestionIndex = 0;
+      this.indiceCategoriaAtual++;
+      this.indicePerguntaAtual = 0;
 
-      // Se todas as categorias foram concluídas, exiba a mensagem de sucesso e navegue para o dashboard
-      if (this.currentCategoryIndex == this.categories.length) {
-        this.showSuccessMessageAndNavigate();
+      if (this.indiceCategoriaAtual == this.categorias.length) {
+        this.exibirMensagemSucessoENavegar();
       }
     }
   }
 
-  // Função para fazer a transição para a próxima pergunta
-  async transitionToNextQuestion() {
-    this.transitioning = true;
-    this.showQuestion = false;
+  async transicaoParaProximaPergunta() {
+    this.transicionando = true;
+    this.exibirPergunta = false;
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    this.nextQuestion();
+    this.proximaPergunta();
 
-    this.showQuestion = true;
-    this.transitioning = false;
+    this.exibirPergunta = true;
+    this.transicionando = false;
 
-    this.showTooltips();
+    this.exibirTooltips();
   }
 
-  // Função para exibir uma mensagem de sucesso e navegar para outra rota
-  async showSuccessMessageAndNavigate() {
-    this.snackBar.open('Concluído com sucesso', '', {
-      duration: 3000,
+  async exibirMensagemSucessoENavegar() {
+    this.snackBar.open('Gerando relatório...', '', {
+      duration: 5000,
       panelClass: ['success-snackbar'],
     });
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     this.router.navigate(['/relatorio']);
   }
 }

@@ -18,7 +18,6 @@ export class FormService {
     private router: Router
   ) {}
 
-  // Método para obter dados da api
   getData(): Observable<Category[]> {
     const token = this.authService.getToken();
     if (token) {
@@ -37,7 +36,6 @@ export class FormService {
     }
   }
 
-  // Método para atualizar a descrição de uma questão
   atualizarQuestao(question: Question): Observable<Question> {
     const token = this.authService.getToken();
     if (token) {
@@ -57,7 +55,6 @@ export class FormService {
     }
   }
 
-  // Método para adicionar uma questão
   adicionarQuestao(questao: any): Observable<any> {
     const token = this.authService.getToken();
     if (token) {
@@ -72,7 +69,6 @@ export class FormService {
     }
   }
 
-  // Método para excluir uma questão
   excluirQuestao(questionId: number): Observable<any> {
     const token = this.authService.getToken();
     if (token) {
@@ -88,7 +84,6 @@ export class FormService {
     }
   }
 
-  // Método para adicionar uma categoria
   adicionarCategoria(name: string): Observable<Category> {
     const token = this.authService.getToken();
     if (token) {
@@ -106,7 +101,6 @@ export class FormService {
     }
   }
 
-  // Método para renomear uma categoria
   atualizarCategoria(category: Category): Observable<Category> {
     const token = this.authService.getToken();
     if (token) {
@@ -122,7 +116,6 @@ export class FormService {
     }
   }
 
-  // Método para excluir uma categoria
   excluirCategoria(categoryId: number): Observable<any> {
     const token = this.authService.getToken();
     if (token) {

@@ -13,7 +13,6 @@ export class EmailService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Método para enviar o email para a API
   enviarEmail(email: string) {
     this.email = email;
     const user = {
@@ -27,7 +26,6 @@ export class EmailService {
     return postRequireLogin;
   }
 
-  // Método para buscar o email do usuário
   buscarEmail(): Observable<any> {
     const token = this.authService.getToken();
     if (token) {
@@ -42,7 +40,6 @@ export class EmailService {
     }
   }
 
-  // Método para enviar o token para a API
   enviarToken(token: string): Observable<any> {
     const body = {
       email: this.email,
@@ -53,7 +50,6 @@ export class EmailService {
     });
   }
 
-  // Método para reenviar o código para o email
   reenviarToken() {
     return this.enviarEmail(this.email);
   }
