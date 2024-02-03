@@ -73,11 +73,17 @@ export class EmpresaComponent {
       next: (data: any[]) => {
         data.sort((a: any, b: any) => a.id - b.id);
         this.dataSource.data = data.map((businessUsers) => {
+          let statusConvite = '';
+
+          if (businessUsers.answers.length >= 1) {
+            statusConvite = 'Convite Aceito';
+          } else {
+            statusConvite = 'Convite Enviado';
+          }
+
           return {
             ...businessUsers,
-            invitationAccepted: businessUsers.invitationAccepted
-              ? 'Convite Aceito'
-              : 'Convite não Aceito',
+            invitationAccepted: statusConvite,
           };
         });
         this.dataSource._updateChangeSubscription();
