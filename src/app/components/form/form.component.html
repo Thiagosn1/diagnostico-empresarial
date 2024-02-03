@@ -16,12 +16,15 @@
     class="question-wrapper"
     [@slideRightLeft]="exibirPergunta ? 'center-delayed' : 'right'"
   >
-    <div class="question" *ngIf="exibirPergunta" [@fadeInOut]="perguntaAtual">
-      {{ perguntaAtual }}
+    <div class="question" *ngIf="exibirPergunta" [@fadeInOut]="perguntaAtual()">
+      {{ perguntaAtual() }}
     </div>
   </div>
   <div class="answer-buttons">
-    <div *ngFor="let index of respostas; let i = index" class="button-container">
+    <div
+      *ngFor="let index of respostas; let i = index"
+      class="button-container"
+    >
       <button
         [style.backgroundColor]="corGradiente(i)"
         (click)="selecionarResposta(i)"
@@ -35,5 +38,5 @@
     </div>
   </div>
 
-  <div class="progress-text">{{ porcentagemProgresso }}%</div>
+  <div class="progress-text">{{ porcentagemProgresso() }}%</div>
 </div>
