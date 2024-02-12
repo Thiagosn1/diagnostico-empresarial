@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TimelineItem } from 'src/app/models/form.model';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 import { FormService } from 'src/app/services/form.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -14,7 +15,7 @@ export class HomeDashComponent {
   invitationNoAcceptedCount: number = 0;
   formsCompletedCount: number = 0;
   totalQuestions: number = 0;
-  timeline: any[] = [];
+  timeline: TimelineItem[] = [];
   colunasExibidas: string[] = ['date', 'description'];
 
   constructor(
@@ -65,10 +66,12 @@ export class HomeDashComponent {
 
   carregarLinhaDoTempo(): void {
     this.timelineService.getTimeline().subscribe({
-      next: (timeline) => {
-        this.timeline = timeline.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
+      next: (response: { timeline: TimelineItem[] }) => {
+        this.timeline = response.timeline.sort(
+          (a: TimelineItem, b: TimelineItem) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          }
+        );
       },
       error: (error) => {
         console.error('Erro ao carregar linha do tempo:', error);
@@ -81,6 +84,8 @@ export class HomeDashComponent {
       date: new Date().toISOString(),
       description: 'Nova alteração',
     };
+
+    console.log('Enviando para a API:', newItem); // Adicione esta linha
 
     this.timelineService.createTimeline(newItem).subscribe({
       next: (response) => {

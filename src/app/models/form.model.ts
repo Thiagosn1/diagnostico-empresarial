@@ -12,3 +12,9 @@ export interface Category {
   position: number;
   questions: Question[];
 }
+
+export interface TimelineItem {
+  id: number;
+  date: string;
+  description: string;
+}

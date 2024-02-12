@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { FormService } from 'src/app/services/form.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
+import { TimelineItem } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-dash-home',
@@ -14,7 +15,7 @@ export class DashHomeComponent implements OnInit {
   contagemCategorias: number = 0;
   contagemPerguntas: number = 0;
   contagemEmpresas: number = 0;
-  linhaDoTempo: any[] = [];
+  timeline: TimelineItem[] = [];
   colunasExibidas: string[] = ['date', 'description'];
 
   constructor(
@@ -55,10 +56,12 @@ export class DashHomeComponent implements OnInit {
 
   carregarLinhaDoTempo(): void {
     this.timelineService.getTimeline().subscribe({
-      next: (linhaDoTempo) => {
-        this.linhaDoTempo = linhaDoTempo.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
+      next: (response: { timeline: TimelineItem[] }) => {
+        this.timeline = response.timeline.sort(
+          (a: TimelineItem, b: TimelineItem) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          }
+        );
       },
       error: (error) => {
         console.error('Erro ao carregar linha do tempo:', error);
@@ -69,8 +72,10 @@ export class DashHomeComponent implements OnInit {
   adicionarItemLinhaDoTempo(): void {
     const newItem = {
       date: new Date().toISOString(),
-      description: 'Nova alteração',
+      description: 'Nova alteração'
     };
+
+    console.log('Enviando para a API:', newItem);
 
     this.timelineService.createTimeline(newItem).subscribe({
       next: (response) => {

@@ -75,15 +75,15 @@ export class EmpresasComponent implements OnInit {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
       date: date,
-      description: descricao,
+      description: descricao
     };
-
+    
     this.timelineService.createTimeline(newItem).subscribe({
       next: (response) => {
-        console.log('Alteração salva na linha do tempo:', response);
+        console.log('Alteração salva na linha do tempo:');
       },
       error: (error) =>
-        console.error('Erro ao salvar alteração na linha do tempo:', error),
+        console.error('Erro ao salvar alteração na linha do tempo:'),
     });
   }
 }

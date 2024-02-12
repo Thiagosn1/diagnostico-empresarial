@@ -29,8 +29,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: '', component: HomeDashComponent },
-      { path: 'home', component: HomeDashComponent },
+      /* { path: '', component: HomeDashComponent },
+      { path: 'home', component: HomeDashComponent }, */
+      { path: '', component: EmpresaComponent },
+      { path: 'home', component: EmpresaComponent },
       { path: 'empresa', component: EmpresaComponent },
       { path: 'info', component: InfoComponent },
       { path: 'relatorio', component: RelatorioComponent },
