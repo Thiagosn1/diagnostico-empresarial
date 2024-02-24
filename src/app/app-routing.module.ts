@@ -3,7 +3,6 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
-import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InfoComponent } from './components/info/info.component';
 import { FormComponent } from './components/form/form.component';
@@ -25,16 +24,13 @@ const routes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'formulario', component: FormComponent },
   { path: 'relatorio', component: RelatorioComponent },
+  { path: 'empresa', component: EmpresaComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      /* { path: '', component: HomeDashComponent },
-      { path: 'home', component: HomeDashComponent }, */
-      { path: '', component: EmpresaComponent },
-      { path: 'home', component: EmpresaComponent },
+      /* { path: '', component: HomeDashComponent }, */
       { path: 'empresa', component: EmpresaComponent },
-      { path: 'info', component: InfoComponent },
       { path: 'relatorio', component: RelatorioComponent },
     ],
   },

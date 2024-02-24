@@ -24,7 +24,6 @@ export class EmpresaComponent {
   constructor(
     private businessUsersService: BusinessUsersService,
     private businessesService: BusinessesService,
-    private timelineService: TimelineService
   ) {}
 
   ngOnInit(): void {
@@ -150,22 +149,6 @@ export class EmpresaComponent {
       error: (error) => {
         console.error('Error:', error);
       },
-    });
-  }
-
-  salvarAlteracaoNaLinhaDoTempo(descricao: string): void {
-    const date = format(new Date(), 'dd-MM-yyyy HH:mm');
-    const newItem = {
-      date: date,
-      description: descricao,
-    };
-
-    this.timelineService.createTimeline(newItem).subscribe({
-      next: (response) => {
-        console.log('Alteração salva na linha do tempo:', response);
-      },
-      error: (error) =>
-        console.error('Erro ao salvar alteração na linha do tempo:', error),
     });
   }
 }

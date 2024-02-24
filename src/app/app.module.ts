@@ -21,7 +21,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
-import { HomeDashComponent } from './components/dashboard/components/home-dash/home-dash.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NgChartsModule } from 'ng2-charts';
 import { InfoComponent } from './components/info/info.component';
@@ -55,7 +54,6 @@ import { EmpresaComponent } from './components/dashboard/components/empresa/empr
     TokenComponent,
     DashboardComponent,
     RelatorioComponent,
-    HomeDashComponent,
     InfoComponent,
     FormComponent,
     CadastroEmpresaComponent,
