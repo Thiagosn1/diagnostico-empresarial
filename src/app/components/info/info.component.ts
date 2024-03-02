@@ -28,6 +28,6 @@ export class InfoComponent {
   }
 
   checarRota(): boolean {
-    return this.router.url === '/dashboard/info';
+    return this.router.url === '/dashboard/empresa';
   }
 }

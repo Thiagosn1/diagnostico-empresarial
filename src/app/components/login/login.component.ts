@@ -32,7 +32,6 @@ export class LoginComponent {
       this.emailSuccess = 'Enviando código para o email...';
       this.emailService.enviarEmail(this.email).subscribe(
         (response) => {
-          console.log(response);
           setTimeout(() => {
             this.emailSuccess = '';
             this.router.navigate(['/token']);

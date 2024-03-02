@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{'info-styles': checarRota()}">
+<div class="container" [ngClass]="{ 'info-styles': checarRota() }">
   <mat-card class="form-card">
     <mat-card-header>
       <mat-card-title class="form-title"
@@ -7,26 +7,41 @@
     </mat-card-header>
 
     <mat-card-content class="form-content">
-      <span>
+      <p>
         Prezado, antes de responder a este questionário, é importante que fique
-        claro o seguinte:<br /><br />
+        claro o seguinte:
+      </p>
+      <p>
         1º) Esse diagnóstico não substitui de maneira alguma o trabalho de um
         profissional qualificado para atuar orientando a sua empresa. Ele visa
         apenas a sinalização de pontos de melhoria que precisam ser tratados com
         mais atenção e te estimular a, realmente, tomar uma atitude quanto ao
-        seu negócio.<br /><br />
+        seu negócio.
+      </p>
+      <p>
         2º) Seja sincero com suas respostas. Não informe aquilo que sua empresa
         não é ou aquilo que você gostaria que ela fosse. Informe aquilo que está
-        mais próximo da sua realidade e não fique mentindo para você mesmo.<br /><br />
+        mais próximo da sua realidade e não fique mentindo para você mesmo.
+      </p>
+      <p>
         3º) Se a pergunta não se aplica ao seu negócio, mantenha o cursor na
-        resposta neutra e vá para a próxima questão.<br /><br />
+        resposta neutra e vá para a próxima questão.
+      </p>
+      <p>
         4º) Se tiver alguém de confiança em sua equipe para ajuda-lo a
         responder, é recomendável que você convide essa pessoa para auxiliá-lo
-        com o questionário.<br /><br />
+        com o questionário.
+      </p>
+      <p>
         5º) Responda o questionário com calma, em um ambiente no qual você possa
-        pensar bem no que está respondendo.<br /><br />
-      </span>
-      <button [ngClass]="{'continue-button': estaContinuando}" routerLink="/formulario">{{ textoBotao }}</button>
+        pensar bem no que está respondendo.
+      </p>
+      <button
+        [ngClass]="{ 'continue-button': estaContinuando }"
+        routerLink="/formulario"
+      >
+        {{ textoBotao }}
+      </button>
     </mat-card-content>
   </mat-card>
 </div>

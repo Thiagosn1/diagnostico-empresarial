@@ -63,15 +63,18 @@ button:hover {
   width: 300px;
 }
 
-@media (min-width: 1400px) {
-  .form-card {
-    width: 800px;
-  }
-}
+
 
 .info-styles {
   .form-card{
     background-color: #ffffff;
+    width: 90%;
+  }
+
+  p {
+    font-size: 16px;
+    text-align: justify;
+    margin: 0;
   }
 }
 
@@ -82,4 +85,10 @@ button:hover {
 
 .continue-button:hover {
 background-color: rgb(1, 112, 1);
+}
+
+@media (min-width: 1400px) {
+  .form-card {
+    width: 800px;
+  }
 }

@@ -31,7 +31,7 @@ const routes: Routes = [
     children: [
       /* { path: '', component: HomeDashComponent }, */
       { path: 'empresa', component: EmpresaComponent },
-      { path: 'relatorio', component: RelatorioComponent },
+      /* { path: 'relatorio', component: RelatorioComponent }, */
     ],
   },
 

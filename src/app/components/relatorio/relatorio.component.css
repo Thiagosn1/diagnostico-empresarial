@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #d9d9d9;
 }
 
 .card {
   width: 75%;
-  height: 85%;
+  height: auto;
   padding: 16px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -91,27 +92,65 @@
   background-color: #004c99;
 }
 
+.button-container {
+  width: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Adiciona um espaço entre os botões */
+}
+
+.botao-gerenciar {
+  background-color: rgb(21, 206, 21);
+  color: white;
+  width: 260px;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.botao-gerenciar:hover {
+  background-color: rgb(22, 145, 22);
+}
+
+.botao-sair {
+  background-color: rgb(236, 25, 25);
+  color: white;
+  width: 80px;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  /* Restante do CSS para o botão */
+}
+
+.botao-sair:hover {
+  background-color: rgb(167, 21, 21);
+}
+
 .info-styles {
   .container {
-    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
-    height: 70%;
+    display: flex;
+    justify-content: center;
+    height: auto; /* Ajusta a altura automaticamente com base no conteúdo */
   }
-
+  
   .card {
-    width: 95%;
-    height: 90%;
-    margin-right: 40px;
     overflow-y: auto;
-  }
-
-  
-  
-  .card {
-    width: 75%;
-    height: 85%;
+    width: 90%;
+    height: 90%; /* Ajusta a altura automaticamente com base no conteúdo */
     padding: 16px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+    text-align: justify;
   }
   
   .card-content {
@@ -127,8 +166,9 @@
   }
   
   .right-column {
+    margin-top: 10px;
     width: 100%;
-    height: 60%;
+    height: 65%;
     display: flex;
     justify-content: center; /* Centraliza o gráfico */
     /* Restante do CSS */
@@ -138,8 +178,8 @@
 
 @media (min-width: 1600px) {
   .card {
-    width: 70%;
-    height: 75%;
+    width: 75%;
+    height: auto;
   }
 
   .left-column {

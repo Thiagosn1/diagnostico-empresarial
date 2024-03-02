@@ -59,7 +59,17 @@ export class DashHomeComponent implements OnInit {
       next: (response: { timeline: TimelineItem[] }) => {
         this.timeline = response.timeline.sort(
           (a: TimelineItem, b: TimelineItem) => {
-            return new Date(b.date).getTime() - new Date(a.date).getTime();
+            const reformattedDateA =
+              a.date.split(' ')[0].split('-').reverse().join('-') +
+              ' ' +
+              a.date.split(' ')[1];
+            const reformattedDateB =
+              b.date.split(' ')[0].split('-').reverse().join('-') +
+              ' ' +
+              b.date.split(' ')[1];
+            const dateA = new Date(reformattedDateA);
+            const dateB = new Date(reformattedDateB);
+            return dateB.getTime() - dateA.getTime();
           }
         );
       },
@@ -72,7 +82,7 @@ export class DashHomeComponent implements OnInit {
   adicionarItemLinhaDoTempo(): void {
     const newItem = {
       date: new Date().toISOString(),
-      description: 'Nova alteração'
+      description: 'Nova alteração',
     };
 
     console.log('Enviando para a API:', newItem);

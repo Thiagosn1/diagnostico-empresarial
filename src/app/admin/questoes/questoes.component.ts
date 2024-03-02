@@ -109,10 +109,17 @@ export class QuestoesComponent implements OnInit {
     if (this.formQuestao.valid) {
       const questao = this.formQuestao.value;
       this.formService.adicionarQuestao(questao).subscribe({
-        next: () => {
+        next: (question) => {
           this.mostrarFormulario = false;
           this.carregarDados();
           this.formQuestao.reset();
+          this.salvarAlteracaoNaTimeline(
+            `Questão ${
+              question.id
+            } adicionada na categoria ${this.obterNomeCategoria(
+              question.categoryId
+            )}`
+          );
         },
         error: (error) => {
           console.error('Erro ao adicionar questão:', error);
@@ -123,8 +130,11 @@ export class QuestoesComponent implements OnInit {
 
   excluirQuestao(questionId: number): void {
     this.formService.excluirQuestao(questionId).subscribe({
-      next: () => {
-        this.salvarAlteracaoNaTimeline(`Questão ${questionId} excluída`);
+      next: (question) => {
+        this.salvarAlteracaoNaTimeline(`Questão ${questionId} excluída da categoria ${this.obterNomeCategoria(
+          question.categoryId
+        )}`
+      );
         this.carregarDados();
       },
       error: (error) => {

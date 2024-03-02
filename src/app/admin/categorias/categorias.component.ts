@@ -15,6 +15,7 @@ export class CategoriasComponent implements OnInit {
   dataSource = new MatTableDataSource<Category>();
   editandoCategoriaId: number | null = null;
   nomeNovaCategoria: string = '';
+  categories: Category[] = [];
   novaPosicao!: number;
   erro: string = '';
 
@@ -41,6 +42,17 @@ export class CategoriasComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar dados:', error);
+      },
+    });
+  }
+
+  carregarCategorias(): void {
+    this.formService.getData().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar categorias:', error);
       },
     });
   }
@@ -90,16 +102,32 @@ export class CategoriasComponent implements OnInit {
     });
   }
 
+  obterNomeCategoria(categoryId: number): string {
+    const category = this.categories.find(
+      (category) => category.id === categoryId
+    );
+    return category ? category.name : '';
+  }
+
   excluirCategoria(categoryId: number): void {
-    this.formService.excluirCategoria(categoryId).subscribe({
-      next: () => {
-        this.salvarAlteracaoNaLinhaDoTempo(`Categoria ${categoryId} excluída`);
-        this.carregarDados();
-      },
-      error: (error) => {
-        console.error('Erro ao excluir categoria:', error);
-      },
-    });
+    this.carregarCategorias();
+    const category = this.categories.find((cat) => cat.id === categoryId);
+    const categoryName = category ? category.name : 'Desconhecida';
+    if (categoryName !== 'Desconhecida') {
+      this.formService.excluirCategoria(categoryId).subscribe({
+        next: () => {
+          this.salvarAlteracaoNaLinhaDoTempo(
+            `Categoria ${categoryName} excluída`
+          );
+          this.carregarDados();
+        },
+        error: (error) => {
+          console.error('Erro ao excluir categoria:', error);
+        },
+      });
+    } else {
+      console.error('Categoria não encontrada:', categoryId);
+    }
   }
 
   salvarAlteracaoNaLinhaDoTempo(descricao: string): void {

@@ -10,7 +10,7 @@ import { format } from 'date-fns';
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit {
-  colunasExibidas: string[] = ['id', 'nome', 'email', 'tipo', 'acao'];
+  colunasExibidas: string[] = ['id', 'email', 'tipo', 'acao'];
   editingUserId: number | null = null;
   dataSource = new MatTableDataSource();
 

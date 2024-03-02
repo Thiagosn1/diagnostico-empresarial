@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Category, Question } from '../models/form.model';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
@@ -55,15 +55,17 @@ export class FormService {
     }
   }
 
-  adicionarQuestao(questao: any): Observable<any> {
+  adicionarQuestao(questao: any): Observable<Question> {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.post(this.apiUrlQuestions, questao, { headers });
+      return this.http.post<Question>(this.apiUrlQuestions, questao, {
+        headers,
+      });
     } else {
       console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
+      return new Observable<Question>((subscriber) => {
+        subscriber.next(undefined);
         subscriber.complete();
       });
     }

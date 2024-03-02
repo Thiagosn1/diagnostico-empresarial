@@ -10,6 +10,7 @@ import { BusinessesService } from 'src/app/services/businesses.service';
   styleUrls: ['./relatorio.component.css'],
 })
 export class RelatorioComponent implements OnInit {
+  mostrarBotaoGerenciar = false;
   public radarChartType: ChartType = 'radar';
   public radarChartLabels: string[] = [];
 
@@ -34,7 +35,8 @@ export class RelatorioComponent implements OnInit {
   constructor(
     private answerService: AnswerService,
     private router: Router,
-    private businessesService: BusinessesService
+    private businessesService: BusinessesService,
+    private answersService: AnswerService
   ) {}
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class RelatorioComponent implements OnInit {
         (categoria: any) => categoria.name
       );
       this.answerService.buscarQuestoes().subscribe((questoes) => {
-        if (this.router.url.includes('/dashboard/relatorio')) {
+        if (this.router.url.includes('/dashboard/empresa')) {
           this.calcularMediaRespostas(categorias, questoes);
         } else {
           this.answerService.buscarRespostas().subscribe((respostas) => {
@@ -52,6 +54,15 @@ export class RelatorioComponent implements OnInit {
         }
       });
     });
+    this.answersService.buscarBusinessUserId().subscribe(
+      (businessUserId) => {
+        this.mostrarBotaoGerenciar = !!businessUserId;
+      },
+      (error) => {
+        console.error('Erro ao buscar o businessUserId:', error);
+        this.mostrarBotaoGerenciar = false;
+      }
+    );
   }
 
   processarDados(respostas: any, categorias: any, questoes: any) {
@@ -152,6 +163,6 @@ export class RelatorioComponent implements OnInit {
   }
 
   checarRota(): boolean {
-    return this.router.url === '/dashboard';
+    return this.router.url === '/dashboard/empresa';
   }
 }
