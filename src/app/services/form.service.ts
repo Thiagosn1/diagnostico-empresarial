@@ -36,6 +36,36 @@ export class FormService {
     }
   }
 
+  getCategoria(categoryId: number): Observable<Category> {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      const url = `${this.apiUrl}/${categoryId}`;
+      return this.http.get<Category>(url, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<Category>((subscriber) => {
+        subscriber.next(undefined);
+        subscriber.complete();
+      });
+    }
+  }
+
+  getQuestao(questionId: number): Observable<Question> {
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      const url = `${this.apiUrlQuestions}/${questionId}`;
+      return this.http.get<Question>(url, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<Question>((subscriber) => {
+        subscriber.next(undefined);
+        subscriber.complete();
+      });
+    }
+  }
+
   atualizarQuestao(question: Question): Observable<Question> {
     const token = this.authService.getToken();
     if (token) {

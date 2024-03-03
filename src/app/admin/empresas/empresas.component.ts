@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { format } from 'date-fns';
+import { RelatorioComponent } from 'src/app/components/relatorio/relatorio.component';
+import { User } from 'src/app/models/form.model';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 
@@ -10,17 +13,51 @@ import { TimelineService } from 'src/app/services/timeline.service';
   styleUrls: ['./empresas.component.css'],
 })
 export class EmpresasComponent implements OnInit {
-  colunasExibidas: string[] = ['id', 'nome', 'cnpj', 'managerId', 'acao'];
+  colunasExibidas: string[] = [
+    'id',
+    'nome',
+    'cnpj',
+    'managerId',
+    'acao',
+    'relatorio',
+  ];
+  emailEmpresa: { [key: number]: string } = {};
   dataSource = new MatTableDataSource();
   editingBusinessId: number | null = null;
 
   constructor(
     private businessesService: BusinessesService,
-    private timelineService: TimelineService
+    private timelineService: TimelineService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.obterUsuarios();
     this.carregarEmpresas();
+  }
+
+  abrirModalRelatorio(business: any) {
+    console.log(business);
+    this.dialog.open(RelatorioComponent, {
+      width: '800px',
+      height: '600px',
+      data: { business: business },
+      autoFocus: false
+    });
+  }
+  
+
+  obterUsuarios(): void {
+    this.businessesService.obterUsuarios().subscribe({
+      next: (users: User[]) => {
+        users.forEach((user: User) => {
+          this.emailEmpresa[user.id] = user.email;
+        });
+      },
+      error: (error) => {
+        console.error('Erro ao obter usuários:', error);
+      },
+    });
   }
 
   carregarEmpresas(): void {
@@ -42,6 +79,18 @@ export class EmpresasComponent implements OnInit {
 
   alternarEdicao(business: any): void {
     if (this.editingBusinessId === business.id) {
+      const user = {
+        id: business.managerId,
+        email: this.emailEmpresa[business.managerId],
+      };
+      this.businessesService
+        .atualizarUsuario(business.managerId, user)
+        .subscribe({
+          next: () => {
+            console.log('Usuário atualizado com sucesso');
+          },
+          error: (error) => console.error('Erro ao atualizar usuário:', error),
+        });
       this.atualizarEmpresa(business);
       this.editingBusinessId = null;
     } else {
@@ -75,9 +124,9 @@ export class EmpresasComponent implements OnInit {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
       date: date,
-      description: descricao
+      description: descricao,
     };
-    
+
     this.timelineService.createTimeline(newItem).subscribe({
       next: (response) => {
         console.log('Alteração salva na linha do tempo:');

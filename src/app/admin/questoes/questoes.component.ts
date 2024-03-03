@@ -129,16 +129,24 @@ export class QuestoesComponent implements OnInit {
   }
 
   excluirQuestao(questionId: number): void {
-    this.formService.excluirQuestao(questionId).subscribe({
+    this.formService.getQuestao(questionId).subscribe({
       next: (question) => {
-        this.salvarAlteracaoNaTimeline(`Questão ${questionId} excluída da categoria ${this.obterNomeCategoria(
-          question.categoryId
-        )}`
-      );
-        this.carregarDados();
+        this.formService.excluirQuestao(questionId).subscribe({
+          next: () => {
+            this.carregarDados();
+            this.salvarAlteracaoNaTimeline(
+              `Questão ${questionId} excluída da categoria ${this.obterNomeCategoria(
+                question.categoryId
+              )}`
+            );
+          },
+          error: (error) => {
+            console.error('Erro ao excluir questão:', error);
+          },
+        });
       },
       error: (error) => {
-        console.error('Erro ao excluir questão:', error);
+        console.error('Erro ao obter questão:', error);
       },
     });
   }

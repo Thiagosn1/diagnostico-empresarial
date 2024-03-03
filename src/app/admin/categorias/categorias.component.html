@@ -75,6 +75,9 @@
         <tr mat-row *matRowDef="let row; columns: colunasExibidas"></tr>
       </table>
     </div>
+    <div *ngIf="dataSource.data.length === 0" class="no-data">
+      Nenhuma categoria encontrada.
+    </div>
   </div>
   <div *ngIf="erro" class="erro">{{ erro }}</div>
 </div>

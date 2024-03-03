@@ -13,6 +13,37 @@ export class AnswerService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  buscarRespostasPorEmpresa(empresaId: number): Observable<any> {
+    const token = this.authService.getToken();
+
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      return this.http
+        .get<any>(`${this.apiUrl}/admin/businesses/${empresaId}`, { headers })
+        .pipe(
+          map((empresa) => {
+            if (empresa && empresa.businessUsers.length > 0) {
+              // Combina todas as respostas de todos os businessUsers em uma única lista
+              return empresa.businessUsers.flatMap(
+                (businessUser: any) => businessUser.answers
+              );
+            } else {
+              throw new Error(
+                'Nenhum businessUser encontrado para a empresa especificada'
+              );
+            }
+          }),
+          catchError((error) => {
+            console.error('Erro ao buscar as respostas:', error);
+            return throwError(() => new Error('Erro ao buscar as respostas'));
+          })
+        );
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return of(null);
+    }
+  }
+
   buscarBusinessUserId(): Observable<any> {
     const token = this.authService.getToken();
 

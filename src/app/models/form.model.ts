@@ -18,3 +18,21 @@ export interface TimelineItem {
   date: string;
   description: string;
 }
+
+export interface Business {
+  id: number;
+  name: string;
+  cnpjCpf: string;
+  managerId: number;
+  businessUsers: any[];
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  authority: string;
+  businessUsers: any[];
+  businesses: any[];
+  expirated: boolean | null;
+}

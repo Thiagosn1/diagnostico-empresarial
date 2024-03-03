@@ -37,14 +37,17 @@
         </mat-form-field>
 
         <button
+          class="espaco-botao botao-personalizado"
+          [class.botao-ativado]="formQuestao.valid"
           mat-raised-button
-          color="primary"
           type="submit"
           [disabled]="!formQuestao.valid"
         >
           Adicionar
         </button>
+
         <button
+          class="botao-direito"
           mat-raised-button
           color="warn"
           type="button"
@@ -113,6 +116,9 @@
         <tr mat-header-row *matHeaderRowDef="colunasExibidas"></tr>
         <tr mat-row *matRowDef="let row; columns: colunasExibidas"></tr>
       </table>
+    </div>
+    <div *ngIf="dataSource.data.length === 0" class="no-data">
+      Nenhuma questão encontrada.
     </div>
   </div>
 </div>

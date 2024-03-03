@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{ 'info-styles': checarRota() }">
+<div class="container" [ngClass]="{ 'info-styles': checarRota(), 'admin-styles': checarRotaAdmin() }">
   <mat-card class="card">
     <div class="card-content">
       <div class="left-column">
@@ -30,7 +30,7 @@
           melhoria.
         </p>
       </div>
-      <div class="right-column">
+      <div class="right-column large-chart">
         <canvas
           baseChart
           class="chart"
@@ -40,12 +40,17 @@
         >
         </canvas>
       </div>
-      
     </div>
     <div class="button-container">
-      <button class="botao-gerenciar" *ngIf="mostrarBotaoGerenciar" routerLink="/dashboard/empresa">Gerenciar dados da empresa</button>
-<button class="botao-sair" routerLink="/">Sair</button>
-
+      <button
+        class="botao-gerenciar"
+        *ngIf="mostrarBotaoGerenciar"
+        routerLink="/dashboard/empresa"
+      >
+        Gerenciar dados da empresa
+      </button>
+      <button class="botao-sair" routerLink="/" *ngIf="!checarRotaAdmin()">Sair</button>
+      <button mat-button (click)="fecharModal()">Fechar</button>
     </div>
   </mat-card>
 </div>

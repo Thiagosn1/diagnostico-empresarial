@@ -70,5 +70,8 @@
         <tr mat-row *matRowDef="let row; columns: colunasExibidas"></tr>
       </table>
     </div>
+    <div *ngIf="dataSource.data.length === 0" class="no-data">
+      Nenhum usuário encontrado.
+    </div>
   </div>
 </div>

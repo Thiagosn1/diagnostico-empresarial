@@ -28,13 +28,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    children: [
-      /* { path: '', component: HomeDashComponent }, */
-      { path: 'empresa', component: EmpresaComponent },
-      /* { path: 'relatorio', component: RelatorioComponent }, */
-    ],
+    children: [{ path: 'empresa', component: EmpresaComponent }],
   },
-
   {
     path: 'admin',
     children: [

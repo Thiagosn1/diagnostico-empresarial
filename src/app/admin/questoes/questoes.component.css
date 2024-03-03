@@ -10,9 +10,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 120vh;
-  height: 90vh;
-  padding: 0 20px;
+  width: fit-content;
+  max-width: 120vh;
+  max-height: 90vh;
+  height: fit-content;
+  padding: 20px;
   border-radius: 20px;
   background-color: #fff;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -81,7 +83,7 @@ mat-form-field {
   margin-bottom: 10px;
   border: none;
   width: 170px;
-  height: 55px;
+  height: 40px;
   display: block;
   background-color: #0064fb !important;
   border-radius: 15px;
@@ -92,11 +94,41 @@ mat-form-field {
   cursor: pointer;
 }
 
+.espaco-botao {
+  margin-right: 10px;
+  border-radius: 15px;
+}
+
+.botao-personalizado {
+  background-color: gray !important;
+  color: white !important;
+}
+
+.botao-ativado {
+  background-color: #0064fb !important;
+  color: #ffffff !important;
+  cursor: pointer;
+}
+
+.botao-direito {
+  border-radius: 15px;
+  cursor: pointer;
+}
+
 .mat-mdc-header-cell {
   font-weight: inherit !important;
   font-size: 20px;
 }
 
+.mat-mdc-form-field-infix {
+  width: 10px !important;
+  height: 100px !important;
+}
+
 .mat-mdc-cell {
   font-size: 18px !important;
+}
+
+.no-data {
+  margin-top: 20px;
 }

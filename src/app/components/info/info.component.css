@@ -30,7 +30,6 @@
   margin: 10px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   padding: 16px;
   align-items: center;
 }
@@ -68,7 +67,7 @@ button:hover {
 .info-styles {
   .form-card{
     background-color: #ffffff;
-    width: 90%;
+    width: 80%;
   }
 
   p {

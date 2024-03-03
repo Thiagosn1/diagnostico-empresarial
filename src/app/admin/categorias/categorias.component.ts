@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { format } from 'date-fns';
 import { Category } from 'src/app/models/form.model';
+import { BusinessesService } from 'src/app/services/businesses.service';
 import { FormService } from 'src/app/services/form.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 
@@ -110,24 +111,24 @@ export class CategoriasComponent implements OnInit {
   }
 
   excluirCategoria(categoryId: number): void {
-    this.carregarCategorias();
-    const category = this.categories.find((cat) => cat.id === categoryId);
-    const categoryName = category ? category.name : 'Desconhecida';
-    if (categoryName !== 'Desconhecida') {
-      this.formService.excluirCategoria(categoryId).subscribe({
-        next: () => {
-          this.salvarAlteracaoNaLinhaDoTempo(
-            `Categoria ${categoryName} excluída`
-          );
-          this.carregarDados();
-        },
-        error: (error) => {
-          console.error('Erro ao excluir categoria:', error);
-        },
-      });
-    } else {
-      console.error('Categoria não encontrada:', categoryId);
-    }
+    this.formService.getCategoria(categoryId).subscribe({
+      next: (category) => {
+        this.formService.excluirCategoria(categoryId).subscribe({
+          next: () => {
+            this.carregarDados();
+            this.salvarAlteracaoNaLinhaDoTempo(
+              `Categoria ${category.name} excluída`
+            );
+          },
+          error: (error) => {
+            console.error('Erro ao excluir categoria:', error);
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Erro ao obter categoria:', error);
+      },
+    });
   }
 
   salvarAlteracaoNaLinhaDoTempo(descricao: string): void {

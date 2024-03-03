@@ -61,3 +61,7 @@ td.mat-cell:not(:last-child) {
   padding: 0 1em;
   margin-bottom: 1em;
 }
+
+.no-data {
+  margin-top: 20px;
+}

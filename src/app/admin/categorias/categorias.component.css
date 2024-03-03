@@ -109,6 +109,10 @@ mat-form-field {
   font-size: 18px !important;
 }
 
+.no-data {
+  margin-top: 20px;
+}
+
 @media screen and (min-width: 1600px) {
 
 }
