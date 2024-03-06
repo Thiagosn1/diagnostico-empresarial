@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'formulario', component: FormComponent },
   { path: 'relatorio', component: RelatorioComponent },
-  { path: 'empresa', component: EmpresaComponent },
+  { path: 'gestao-empresa', component: EmpresaComponent },
   {
     path: 'admin',
     children: [

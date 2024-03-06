@@ -96,7 +96,7 @@ export class RelatorioComponent implements OnInit {
             .subscribe((respostas) => {
               this.processarDados(respostas, categorias, questoes);
             });
-        } else if (this.router.url.includes('/dashboard/empresa')) {
+        } else if (this.router.url.includes('/gestao-empresa')) {
           this.calcularMediaRespostas(categorias, questoes);
         } else {
           this.answerService.buscarRespostas().subscribe((respostas) => {
