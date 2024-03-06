@@ -8,7 +8,7 @@ import { EmailService } from 'src/app/services/email.service';
   styleUrls: ['./dashboard-admin.component.css'],
 })
 export class DashboardAdminComponent implements OnInit {
-  public email: string = '';
+  email: string = '';
 
   constructor(private emailService: EmailService, private router: Router) {}
 

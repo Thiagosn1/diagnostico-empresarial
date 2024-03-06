@@ -26,7 +26,7 @@ export class CadastroEmpresaComponent {
       };
 
       this.businessesService.criarEmpresa(business).subscribe(() => {
-        this.router.navigate(['/info']);
+        this.router.navigate(['/empresa']);
       });
     } else {
       if (!form.valid) {

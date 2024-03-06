@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-empresa',
@@ -16,15 +17,27 @@ export class EmpresaComponent {
   successMessage = '';
   nomeEmpresa = '';
   cnpjEmpresa = '';
+  emailEmpresa = '';
   editandoEmpresa = false;
   idEmpresa: number = 1;
 
   constructor(
     private businessUsersService: BusinessUsersService,
     private businessesService: BusinessesService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit(): void {
+    this.emailService.buscarEmail().subscribe({
+      next: (data) => {
+        if (data) {
+          this.emailEmpresa = data.email;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar o email:', error);
+      },
+    });
     this.carregarEmpresa();
     this.carregarFuncionarios();
   }
@@ -54,6 +67,7 @@ export class EmpresaComponent {
     const empresaAtualizada = {
       name: this.nomeEmpresa,
       cnpjCpf: this.cnpjEmpresa,
+      emailEmpresa: this.emailEmpresa,
     };
     this.businessesService
       .atualizarEmpresa(this.idEmpresa, empresaAtualizada)
@@ -148,5 +162,9 @@ export class EmpresaComponent {
         console.error('Error:', error);
       },
     });
+  }
+
+  deslogar(): void {
+    localStorage.clear();
   }
 }

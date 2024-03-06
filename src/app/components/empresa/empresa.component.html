@@ -1,14 +1,41 @@
 <div class="parent-container">
   <div class="funcionario-card">
     <div class="empresa-info">
-      <div *ngIf="!editandoEmpresa">
-        <h2>{{ nomeEmpresa }}</h2>
-        <p>{{ cnpjEmpresa }}</p>
+      <div class="empresa-header" [ngClass]="{'header-editing': editandoEmpresa}">
+        <button
+          class="button sair"
+          routerLink="/"
+          (click)="deslogar()"
+          matTooltip="Sair"
+          [ngClass]="{ 'button-editing': editandoEmpresa }"
+        >
+          <mat-icon>west</mat-icon>
+        </button>
+        <div *ngIf="!editandoEmpresa">
+          <h2>{{ nomeEmpresa }}</h2>
+          <p>{{ cnpjEmpresa }}</p>
+          <p>{{ emailEmpresa }}</p>
+        </div>
+        <button
+          class="button botao-relatorio"
+          matTooltip="Ver relatório"
+          [ngClass]="{ 'button-editing': editandoEmpresa }"
+        >
+          <mat-icon>assessment</mat-icon>
+        </button>
       </div>
+
       <div *ngIf="editandoEmpresa">
-        <input [(ngModel)]="nomeEmpresa" />
-        <input [(ngModel)]="cnpjEmpresa" />
+        <label for="nomeEmpresa">Nome da Empresa:</label>
+        <input id="nomeEmpresa" [(ngModel)]="nomeEmpresa" />
+
+        <label for="cnpjEmpresa">CNPJ da Empresa:</label>
+        <input id="cnpjEmpresa" [(ngModel)]="cnpjEmpresa" />
+
+        <label for="emailEmpresa">Email da Empresa:</label>
+        <input id="emailEmpresa" [(ngModel)]="emailEmpresa" />
       </div>
+
       <button class="button editar-empresa" (click)="editarEmpresa()">
         {{ editandoEmpresa ? "Confirmar" : "Editar empresa" }}
       </button>

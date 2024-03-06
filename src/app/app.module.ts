@@ -16,7 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
 import { MatInputModule } from '@angular/material/input';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -39,7 +38,7 @@ import { DashHomeComponent } from './admin/dash-home/dash-home.component';
 import { EmpresasComponent } from './admin/empresas/empresas.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { EmpresaComponent } from './components/dashboard/components/empresa/empresa.component';
+import { EmpresaComponent } from './components/empresa/empresa.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +51,6 @@ import { EmpresaComponent } from './components/dashboard/components/empresa/empr
     SliderComponent,
     LoginComponent,
     TokenComponent,
-    DashboardComponent,
     RelatorioComponent,
     InfoComponent,
     FormComponent,
