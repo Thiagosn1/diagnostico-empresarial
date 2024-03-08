@@ -6,6 +6,7 @@ import { RelatorioComponent } from 'src/app/components/relatorio/relatorio.compo
 import { User } from 'src/app/models/form.model';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-empresas',
@@ -28,6 +29,7 @@ export class EmpresasComponent implements OnInit {
   constructor(
     private businessesService: BusinessesService,
     private timelineService: TimelineService,
+    private userService: UserService,
     private dialog: MatDialog
   ) {}
 
@@ -42,10 +44,9 @@ export class EmpresasComponent implements OnInit {
       width: '800px',
       height: '600px',
       data: { business: business },
-      autoFocus: false
+      autoFocus: false,
     });
   }
-  
 
   obterUsuarios(): void {
     this.businessesService.obterUsuarios().subscribe({
@@ -83,15 +84,14 @@ export class EmpresasComponent implements OnInit {
         id: business.managerId,
         email: this.emailEmpresa[business.managerId],
       };
-      this.businessesService
-        .atualizarUsuario(business.managerId, user)
-        .subscribe({
-          next: () => {
-            console.log('Usuário atualizado com sucesso');
-          },
-          error: (error) => console.error('Erro ao atualizar usuário:', error),
-        });
-      this.atualizarEmpresa(business);
+      this.userService.atualizarUsuario(user.id, user).subscribe({
+        next: () => {
+          console.log('Email do usuário atualizado com sucesso');
+          this.atualizarEmpresa(business);
+        },
+        error: (error) =>
+          console.error('Erro ao atualizar email do usuário:', error),
+      });
       this.editingBusinessId = null;
     } else {
       this.editingBusinessId = business.id;

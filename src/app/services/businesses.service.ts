@@ -56,24 +56,11 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      const url = 'http://localhost:4200/api/admin/users';
-      return this.http.get<any>(url, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
-  }
-
-  atualizarUsuario(userId: number, user: any): Observable<any> {
-    const token = this.authService.getToken();
-  
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      const url = `http://localhost:4200/api/admin/users/${userId}`;
-      return this.http.put(url, user, { headers });
+      let apiUrl = 'http://localhost:4200/api/users';
+      if (this.router.url.includes('/admin')) {
+        apiUrl = 'http://localhost:4200/api/admin/users';
+      }
+      return this.http.get<any>(apiUrl, { headers });
     } else {
       console.error('Nenhum token de autenticação disponível');
       return new Observable<any>((subscriber) => {

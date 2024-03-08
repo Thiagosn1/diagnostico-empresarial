@@ -44,7 +44,7 @@ export class TokenComponent {
                   this.businessesService.obterEmpresas().subscribe({
                     next: (empresas) => {
                       if (empresas.length > 0) {
-                        this.router.navigate(['/empresa']);
+                        this.router.navigate(['/gestao-empresa']);
                       } else {
                         this.answersService.buscarBusinessUserId().subscribe({
                           next: (businessUserId) => {
