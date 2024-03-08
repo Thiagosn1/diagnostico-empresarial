@@ -20,7 +20,7 @@ export class EmpresasComponent implements OnInit {
     'cnpj',
     'managerId',
     'relatorio',
-    'acao'
+    'acao',
   ];
   emailEmpresa: { [key: number]: string } = {};
   dataSource = new MatTableDataSource();
@@ -120,6 +120,32 @@ export class EmpresasComponent implements OnInit {
       error: (error) => console.error('Erro ao excluir empresa:', error),
     });
   }
+
+  /* excluirEmpresa(empresa: any): void {
+    this.businessesService.obterEmpresaPorId(empresa.id).subscribe((empresa: any) => {
+      empresa.businessUsers.forEach((businessUser: any) => {
+        this.userService.excluirUsuario(businessUser.userId).subscribe({
+          next: () => {
+            console.log(`Funcionário ${businessUser.userEmail} foi excluído.`);
+          },
+          error: (error) => {
+            console.error('Erro ao excluir funcionário:', error);
+          },
+        });
+      });
+  
+      this.businessesService.excluirEmpresa(empresa.id).subscribe({
+        next: () => {
+          const descricao = `A empresa ${empresa.name} foi excluída`;
+          this.salvarAlteracaoNaTimeline(descricao);
+          this.carregarEmpresas();
+        },
+        error: (error) => {
+          console.error('Erro ao excluir empresa:', error);
+        },
+      });
+    });
+  } */
 
   salvarAlteracaoNaTimeline(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/form.model';
+import { RelatorioComponent } from 'src/app/components/relatorio/relatorio.component';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { EmailService } from 'src/app/services/email.service';
@@ -29,7 +30,8 @@ export class EmpresaComponent {
     private businessesService: BusinessesService,
     private emailService: EmailService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,16 @@ export class EmpresaComponent {
     this.carregarEmpresa();
     this.carregarFuncionarios();
   }
+
+  abrirModalRelatorio(): void {
+    this.dialog.open(RelatorioComponent, {
+      width: '800px',
+      height: '600px',
+      data: { business: this.idEmpresa },
+      autoFocus: false,
+    });
+  }
+  
 
   carregarEmpresa(): void {
     this.businessesService.obterEmpresas().subscribe({
@@ -87,7 +99,7 @@ export class EmpresaComponent {
       this.editandoEmpresa = false;
     }
   }
-  
+
   atualizarEmail(novoEmail: string): void {
     this.emailService.buscarEmail().subscribe({
       next: (data) => {

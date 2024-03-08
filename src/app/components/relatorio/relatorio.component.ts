@@ -284,7 +284,7 @@ export class RelatorioComponent implements OnInit {
   }
 
   checarRota(): boolean {
-    return this.router.url === '/dashboard/empresa';
+    return this.router.url === '/gestao-empresa';
   }
 
   checarRotaAdmin(): boolean {

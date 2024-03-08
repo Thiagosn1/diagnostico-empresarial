@@ -20,6 +20,7 @@
           <p>{{ emailEmpresa }}</p>
         </div>
         <button
+          (click)="abrirModalRelatorio()"
           class="button botao-relatorio"
           matTooltip="Ver relatório"
           [ngClass]="{ 'button-editing': editandoEmpresa }"

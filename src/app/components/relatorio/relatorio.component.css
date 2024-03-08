@@ -97,7 +97,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* Adiciona um espaço entre os botões */
+  gap: 10px;
 }
 
 .botao-gerenciar {
@@ -129,7 +129,6 @@
   cursor: pointer;
   font-weight: 700;
   font-size: 16px;
-  /* Restante do CSS para o botão */
 }
 
 .botao-sair:hover {
@@ -140,29 +139,36 @@
   .container {
     display: flex;
     justify-content: center;
-    height: auto; /* Ajusta a altura automaticamente com base no conteúdo */
+    height: auto;
   }
 
-  .card {
+  /* .card {
     overflow-y: auto;
     width: 90%;
-    height: 90%; /* Ajusta a altura automaticamente com base no conteúdo */
+    height: 90%;
     padding: 16px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     text-align: justify;
+  } */
+
+  .card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
   }
 
   .card-content {
     display: flex;
-    flex-direction: column; /* Empilha o texto e o gráfico verticalmente */
-    align-items: center; /* Centraliza o conteúdo */
+    flex-direction: column;
+    align-items: center;
   }
 
   .left-column {
     width: 100%;
-    text-align: justify; /* Justifica o texto */
-    /* Restante do CSS */
+    text-align: justify;
   }
 
   .right-column {
@@ -170,8 +176,7 @@
     width: 100%;
     height: 65%;
     display: flex;
-    justify-content: center; /* Centraliza o gráfico */
-    /* Restante do CSS */
+    justify-content: center;
   }
 }
 
