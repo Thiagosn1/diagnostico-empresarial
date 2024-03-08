@@ -65,3 +65,8 @@ td.mat-cell:not(:last-child) {
 .no-data {
   margin-top: 20px;
 }
+
+.input-editing {
+  height: 30px;
+  font-size: 18px;
+}

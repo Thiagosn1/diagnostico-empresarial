@@ -41,7 +41,10 @@
               {{ category.name }}
             </div>
             <ng-template #editing>
-              <input [(ngModel)]="category.name" class="full-width-input" />
+              <input
+                [(ngModel)]="category.name"
+                class="full-width-input input-editing"
+              />
             </ng-template>
           </td>
         </ng-container>

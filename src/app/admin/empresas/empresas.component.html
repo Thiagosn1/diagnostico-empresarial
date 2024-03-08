@@ -21,7 +21,7 @@
               {{ businesses.name }}
             </div>
             <ng-template #editingName>
-              <input [(ngModel)]="businesses.name" style="border: none" />
+              <input [(ngModel)]="businesses.name" class="input-editing" />
             </ng-template>
           </td>
         </ng-container>
@@ -33,7 +33,7 @@
               {{ businesses.cnpjCpf }}
             </div>
             <ng-template #editingCnpj>
-              <input [(ngModel)]="businesses.cnpjCpf" style="border: none" />
+              <input [(ngModel)]="businesses.cnpjCpf" class="input-editing" />
             </ng-template>
           </td>
         </ng-container>
@@ -47,9 +47,20 @@
             <ng-template #editingEmail>
               <input
                 [(ngModel)]="emailEmpresa[businesses.managerId]"
-                style="border: none"
+                class="input-editing"
               />
             </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="relatorio">
+          <th mat-header-cell *matHeaderCellDef class="text-center">
+            Relatório
+          </th>
+          <td mat-cell *matCellDef="let businesses" class="text-center">
+            <button mat-icon-button (click)="abrirModalRelatorio(businesses)">
+              <mat-icon>insert_chart_outlined</mat-icon>
+            </button>
           </td>
         </ng-container>
 
@@ -72,17 +83,6 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
-          </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="relatorio">
-          <th mat-header-cell *matHeaderCellDef class="text-center">
-            Relatório
-          </th>
-          <td mat-cell *matCellDef="let businesses" class="text-center">
-            <button mat-icon-button (click)="abrirModalRelatorio(businesses)">
-              <mat-icon>insert_chart_outlined</mat-icon>
-            </button>
           </td>
         </ng-container>
 

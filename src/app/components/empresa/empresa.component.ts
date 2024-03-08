@@ -87,30 +87,7 @@ export class EmpresaComponent {
       this.editandoEmpresa = false;
     }
   }
-
-  /* atualizarEmail(novoEmail: string): void {
-    this.emailService.buscarEmail().subscribe({
-      next: (data) => {
-        if (data) {
-          const user = {
-            id: data.id,
-            email: novoEmail,
-          };
-          this.userService.atualizarUsuario(user.id, user).subscribe({
-            next: () => {
-              console.log('Email atualizado com sucesso');
-              this.emailEmpresa = novoEmail;
-            },
-            error: (error) => console.error('Erro ao atualizar email:', error),
-          });
-        }
-      },
-      error: (error) => {
-        console.error('Erro ao buscar o email:', error);
-      },
-    });
-  }
- */
+  
   atualizarEmail(novoEmail: string): void {
     this.emailService.buscarEmail().subscribe({
       next: (data) => {
@@ -180,19 +157,19 @@ export class EmpresaComponent {
       this.successMessage = 'Enviando convite...';
       this.businessUsersService.convidarFuncionario(this.userEmail).subscribe({
         next: () => {
-          this.successMessage = 'Convite enviado';
+          this.successMessage = 'Convite enviado.';
           this.userEmail = '';
           setTimeout(() => (this.successMessage = ''), 3000);
           this.carregarFuncionarios();
         },
         error: (error) => {
           console.error('Error:', error);
-          this.errorMessage = 'Erro ao enviar convite';
+          this.errorMessage = 'Erro ao enviar convite.';
           setTimeout(() => (this.errorMessage = ''), 2000);
         },
       });
     } else {
-      this.errorMessage = 'Por favor, insira um email válido';
+      this.errorMessage = 'Por favor, insira um email válido.';
       setTimeout(() => (this.errorMessage = ''), 2000);
     }
   }
@@ -201,13 +178,13 @@ export class EmpresaComponent {
     this.successMessage = 'Reenviando convite...';
     this.businessUsersService.reenviarConvite(id, email).subscribe({
       next: () => {
-        this.successMessage = 'Convite reenviado';
+        this.successMessage = 'Convite reenviado.';
         setTimeout(() => (this.successMessage = ''), 3000);
         this.carregarFuncionarios();
       },
       error: (error) => {
         console.error('Error:', error);
-        this.errorMessage = 'Erro ao reenviar convite';
+        this.errorMessage = 'Erro ao reenviar convite.';
         setTimeout(() => (this.errorMessage = ''), 2000);
       },
     });

@@ -67,7 +67,6 @@ mat-form-field {
 
 .full-width-input {
   width: 100%;
-  border: none;
   background-color: transparent;
   outline: none;
 }
@@ -131,4 +130,9 @@ mat-form-field {
 
 .no-data {
   margin-top: 20px;
+}
+
+.input-editing {
+  height: 30px;
+  font-size: 18px;
 }

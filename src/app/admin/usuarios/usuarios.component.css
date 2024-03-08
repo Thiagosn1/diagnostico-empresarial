@@ -43,6 +43,11 @@ th.mat-header-cell {
   font-size: 18px !important;
 }
 
+.input-editing {
+  height: 30px;
+  font-size: 18px;
+}
+
 td.mat-cell {
   padding: 8px;
 }

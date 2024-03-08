@@ -12,7 +12,7 @@
           matTooltip="Sair"
           [ngClass]="{ 'button-editing': editandoEmpresa }"
         >
-          <mat-icon>west</mat-icon>
+          <mat-icon>exit_to_app</mat-icon>
         </button>
         <div *ngIf="!editandoEmpresa">
           <h2>{{ nomeEmpresa }}</h2>
@@ -39,7 +39,11 @@
         <input id="emailEmpresa" [(ngModel)]="emailEmpresa" />
       </div>
 
-      <button class="button editar-empresa" (click)="editarEmpresa()">
+      <button
+        class="button editar-empresa"
+        [ngClass]="{ 'button-inativo': !editandoEmpresa }"
+        (click)="editarEmpresa()"
+      >
         {{ editandoEmpresa ? "Confirmar" : "Editar empresa" }}
       </button>
     </div>
@@ -52,7 +56,11 @@
         [(ngModel)]="userEmail"
         (keyup.enter)="convidarFuncionario()"
       />
-      <button class="button" (click)="convidarFuncionario()">
+      <button
+        class="button"
+        [ngClass]="{ 'button-inativo': !userEmail }"
+        (click)="convidarFuncionario()"
+      >
         Convidar funcionário
       </button>
     </div>

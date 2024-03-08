@@ -65,9 +65,10 @@
           <td mat-cell *matCellDef="let question">
             <input
               *ngIf="editingQuestionId === question.id"
-              class="full-width-input"
+              class="full-width-input input-editing"
               [(ngModel)]="question.description"
             />
+
             <span *ngIf="editingQuestionId !== question.id">{{
               question.description
             }}</span>

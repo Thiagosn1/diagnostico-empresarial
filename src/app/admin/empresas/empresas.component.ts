@@ -19,8 +19,8 @@ export class EmpresasComponent implements OnInit {
     'nome',
     'cnpj',
     'managerId',
-    'acao',
     'relatorio',
+    'acao'
   ];
   emailEmpresa: { [key: number]: string } = {};
   dataSource = new MatTableDataSource();
@@ -63,7 +63,8 @@ export class EmpresasComponent implements OnInit {
 
   carregarEmpresas(): void {
     this.businessesService.obterEmpresas().subscribe({
-      next: (data) => {
+      next: (data: any[]) => {
+        data.sort((a: any, b: any) => a.id - b.id);
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       },

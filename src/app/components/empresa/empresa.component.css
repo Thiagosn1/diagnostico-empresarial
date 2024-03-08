@@ -70,6 +70,10 @@
   cursor: pointer;
 }
 
+.editar-empresa {
+  width: 150px;
+}
+
 .button:hover {
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
   background-color: #0046b2;
@@ -135,7 +139,7 @@
 }
 
 .sair {
-  background-color: gray;
+  background-color: #808080;
   width: 50px;
 }
 
@@ -144,7 +148,7 @@
 }
 
 .botao-relatorio {
-  background-color: gray;
+  background-color: #808080;
   width: 50px;
 }
 
@@ -157,6 +161,7 @@
 }
 .sair mat-icon {
   color: white !important;
+  transform: rotateY(180deg);
 }
 
 .button-editing {
@@ -165,6 +170,14 @@
 
 .header-editing {
   height: 60px;
+}
+
+.button-inativo {
+  background-color: #808080;
+}
+
+.button-inativo:hover {
+  background-color: #555555;
 }
 
 label {
