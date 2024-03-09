@@ -8,7 +8,7 @@
         height="512"
         width="512"
       />
-      <h3 class="user-name">Admin</h3>
+      <h3 class="user-name">Administrador</h3>
       <p class="user-email">{{ email }}</p>
     </div>
     <div class="nav-list-container">
@@ -17,6 +17,7 @@
           mat-list-item
           routerLink="/admin/dashboard"
           routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
           class="menu-item"
         >
           <span class="menu-item-content">
@@ -24,6 +25,7 @@
             Home
           </span>
         </a>
+
         <a
           mat-list-item
           routerLink="/admin/dashboard/usuarios"

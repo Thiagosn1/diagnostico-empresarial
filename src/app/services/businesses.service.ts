@@ -32,6 +32,25 @@ export class BusinessesService {
     }
   }
 
+  obterEmpresa(id: number): Observable<any> {
+    const token = this.authService.getToken();
+
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', token);
+      let apiUrl = `http://localhost:4200/api/businesses/${id}`;
+      if (this.router.url.includes('/admin')) {
+        apiUrl = `http://localhost:4200/api/admin/businesses/${id}`;
+      }
+      return this.http.get<any>(apiUrl, { headers });
+    } else {
+      console.error('Nenhum token de autenticação disponível');
+      return new Observable<any>((subscriber) => {
+        subscriber.next(null);
+        subscriber.complete();
+      });
+    }
+  }
+
   obterEmpresas(): Observable<any> {
     const token = this.authService.getToken();
 

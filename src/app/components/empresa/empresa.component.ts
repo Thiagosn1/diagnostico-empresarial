@@ -58,7 +58,6 @@ export class EmpresaComponent {
       autoFocus: false,
     });
   }
-  
 
   carregarEmpresa(): void {
     this.businessesService.obterEmpresas().subscribe({

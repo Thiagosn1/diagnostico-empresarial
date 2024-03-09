@@ -3,6 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from 'src/app/services/user.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { format } from 'date-fns';
+import { BusinessesService } from 'src/app/services/businesses.service';
+import { BusinessUsersService } from 'src/app/services/businessUsers.service';
+import { forkJoin, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-usuarios',
@@ -16,18 +19,48 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private timelineService: TimelineService
+    private timelineService: TimelineService,
+    private businessesService: BusinessesService,
+    private businessUsersService: BusinessUsersService
   ) {}
 
   ngOnInit(): void {
     this.carregarUsuarios();
   }
 
-  carregarUsuarios(): void {
+  /* carregarUsuarios(): void {
     this.userService.obterUsuarios().subscribe({
       next: (data: any[]) => {
         data.sort((a: any, b: any) => a.id - b.id);
         this.dataSource.data = data;
+        this.dataSource._updateChangeSubscription();
+      },
+      error: (error) => {
+        console.error('Erro ao carregar usuários:', error);
+      },
+    });
+  } */
+
+  carregarUsuarios(): void {
+    this.userService.obterUsuarios().subscribe({
+      next: (usuarios: any[]) => {
+        usuarios.forEach((usuario: any) => {
+          if (
+            usuario.authority === 'DEFAULT' &&
+            usuario.businesses.length === 0 &&
+            usuario.businessUsers.length === 0
+          ) {
+            this.excluirUsuario(usuario);
+          }
+        });
+        usuarios = usuarios.filter(
+          (usuario) =>
+            usuario.authority !== 'DEFAULT' ||
+            usuario.businesses.length > 0 ||
+            usuario.businessUsers.length > 0
+        );
+        usuarios.sort((a: any, b: any) => a.id - b.id);
+        this.dataSource.data = usuarios;
         this.dataSource._updateChangeSubscription();
       },
       error: (error) => {
@@ -90,16 +123,51 @@ export class UsuariosComponent implements OnInit {
   }
 
   excluirUsuario(usuario: any): void {
-    this.userService.excluirUsuario(usuario.id).subscribe({
-      next: () => {
-        const descricao = `${usuario.email} foi excluído`;
-        this.salvarAlteracaoNaTimeline(descricao);
-        this.carregarUsuarios();
-      },
-      error: (error) => {
-        console.error('Erro ao excluir usuário:', error);
-      },
-    });
+    this.businessesService
+      .obterEmpresas()
+      .pipe(
+        switchMap((empresas: any[]) => {
+          const exclusoesDeUsuarios = empresas.map((empresa: any) => {
+            const businessUserIndex = empresa.businessUsers.findIndex(
+              (businessUser: any) => businessUser.userId === usuario.id
+            );
+            if (businessUserIndex !== -1) {
+              return this.businessUsersService.removerFuncionario(
+                empresa.businessUsers[businessUserIndex].id
+              );
+            }
+            if (empresa.managerId === usuario.id) {
+              return this.businessesService.excluirEmpresa(empresa.id);
+            }
+            return of(null);
+          });
+          return forkJoin(exclusoesDeUsuarios);
+        }),
+        switchMap(() => {
+          return this.userService.excluirUsuario(usuario.id);
+        })
+      )
+      .subscribe({
+        next: () => {
+          const descricao = `${usuario.email} foi excluído`;
+          this.salvarAlteracaoNaTimeline(descricao);
+          this.carregarUsuarios();
+          console.log('Usuário excluído com sucesso:', usuario);
+        },
+        error: (error) => {
+          console.error('Erro ao excluir usuário:', error);
+        },
+      });
+  }
+
+  obterAutoridade(usuario: any) {
+    if (usuario.authority === 'ROOT') {
+      return 'Administrador';
+    } else if (usuario.authority === 'DEFAULT') {
+      return 'Padrão';
+    } else {
+      return usuario.authority;
+    }
   }
 
   salvarAlteracaoNaTimeline(descricao: string): void {

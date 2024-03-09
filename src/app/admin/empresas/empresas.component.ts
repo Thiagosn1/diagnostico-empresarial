@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { format } from 'date-fns';
+import { concatMap, forkJoin, map, tap } from 'rxjs';
 import { RelatorioComponent } from 'src/app/components/relatorio/relatorio.component';
 import { User } from 'src/app/models/form.model';
 import { BusinessesService } from 'src/app/services/businesses.service';
@@ -111,41 +112,57 @@ export class EmpresasComponent implements OnInit {
   }
 
   excluirEmpresa(empresa: any): void {
-    this.businessesService.excluirEmpresa(empresa.id).subscribe({
-      next: () => {
-        const descricao = `A empresa ${empresa.name} foi excluída`;
-        this.salvarAlteracaoNaTimeline(descricao);
-        this.carregarEmpresas();
-      },
-      error: (error) => console.error('Erro ao excluir empresa:', error),
-    });
-  }
+    forkJoin({
+      usuarios: this.userService.obterUsuarios(),
+      empresa: this.businessesService.obterEmpresa(empresa.id),
+    })
+      .pipe(
+        concatMap(({ usuarios, empresa }) => {
+          const usuariosCorrespondentes = empresa.businessUsers
+            .map((businessUser: any) => {
+              return usuarios.find(
+                (usuario: any) =>
+                  usuario.id === businessUser.userId &&
+                  usuario.email === businessUser.userEmail
+              );
+            })
+            .filter((usuario: any) => usuario !== undefined);
+          return this.businessesService.excluirEmpresa(empresa.id).pipe(
+            tap({
+              next: () => {
+                const descricao = `A empresa ${empresa.name} foi excluída`;
+                this.salvarAlteracaoNaTimeline(descricao);
+                this.carregarEmpresas();
+              },
+              error: (error) =>
+                console.error('Erro ao excluir empresa:', error),
+            }),
+            map(() => usuariosCorrespondentes)
+          );
+        }),
+        concatMap((usuariosCorrespondentes: any[]) => {
+          const exclusoesDeUsuarios = usuariosCorrespondentes.map(
+            (usuario: any) => {
+              return this.userService.excluirUsuario(usuario.id).pipe(
+                tap({
+                  next: () =>
+                    console.log('Usuário excluído com sucesso:', usuario),
+                  error: (error) =>
+                    console.error('Erro ao excluir usuário:', error),
+                })
+              );
+            }
+          );
 
-  /* excluirEmpresa(empresa: any): void {
-    this.businessesService.obterEmpresaPorId(empresa.id).subscribe((empresa: any) => {
-      empresa.businessUsers.forEach((businessUser: any) => {
-        this.userService.excluirUsuario(businessUser.userId).subscribe({
-          next: () => {
-            console.log(`Funcionário ${businessUser.userEmail} foi excluído.`);
-          },
-          error: (error) => {
-            console.error('Erro ao excluir funcionário:', error);
-          },
-        });
+          return forkJoin(exclusoesDeUsuarios);
+        })
+      )
+      .subscribe({
+        next: () =>
+          console.log('Todos os usuários correspondentes foram excluídos'),
+        error: (error) => console.error('Erro ao excluir usuários:', error),
       });
-  
-      this.businessesService.excluirEmpresa(empresa.id).subscribe({
-        next: () => {
-          const descricao = `A empresa ${empresa.name} foi excluída`;
-          this.salvarAlteracaoNaTimeline(descricao);
-          this.carregarEmpresas();
-        },
-        error: (error) => {
-          console.error('Erro ao excluir empresa:', error);
-        },
-      });
-    });
-  } */
+  }
 
   salvarAlteracaoNaTimeline(descricao: string): void {
     const date = format(new Date(), 'dd-MM-yyyy HH:mm');

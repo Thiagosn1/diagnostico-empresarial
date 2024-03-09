@@ -105,16 +105,6 @@ export class RelatorioComponent implements OnInit {
         }
       });
     });
-
-    this.answersService.buscarBusinessUserId().subscribe(
-      (businessUserId) => {
-        this.mostrarBotaoGerenciar = !!businessUserId;
-      },
-      (error) => {
-        console.error('Erro ao buscar o businessUserId:', error);
-        this.mostrarBotaoGerenciar = false;
-      }
-    );
   }
 
   fecharModal(): void {
