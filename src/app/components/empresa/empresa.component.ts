@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { RelatorioComponent } from 'src/app/components/relatorio/relatorio.component';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { EmailService } from 'src/app/services/email.service';
 import { UserService } from 'src/app/services/user.service';
+import { RelatorioComponent } from '../relatorio/relatorio.component';
 
 @Component({
   selector: 'app-empresa',
@@ -40,7 +40,6 @@ export class EmpresaComponent {
         if (data) {
           this.emailEmpresa = data.email;
         }
-        console.log('Email:', data);
       },
       error: (error) => {
         console.error('Erro ao buscar o email:', error);
@@ -161,14 +160,18 @@ export class EmpresaComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  convidarFuncionario(): void {
+  convidarFuncionario(suppressMessage: boolean = false): void {
     let validarEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (this.userEmail && validarEmail.test(this.userEmail)) {
-      this.successMessage = 'Enviando convite...';
+      if (!suppressMessage) {
+        this.successMessage = 'Enviando convite...';
+      }
       this.businessUsersService.convidarFuncionario(this.userEmail).subscribe({
         next: () => {
-          this.successMessage = 'Convite enviado.';
+          if (!suppressMessage) {
+            this.successMessage = 'Convite enviado.';
+          }
           this.userEmail = '';
           setTimeout(() => (this.successMessage = ''), 3000);
           this.carregarFuncionarios();
@@ -187,11 +190,12 @@ export class EmpresaComponent {
 
   reenviarConvite(id: number, email: string): void {
     this.successMessage = 'Reenviando convite...';
-    this.businessUsersService.reenviarConvite(id, email).subscribe({
+    let emailFuncionario = email;
+    this.businessUsersService.removerFuncionario(id).subscribe({
       next: () => {
-        this.successMessage = 'Convite reenviado.';
-        setTimeout(() => (this.successMessage = ''), 3000);
-        this.carregarFuncionarios();
+        this.userEmail = emailFuncionario;
+        this.convidarFuncionario();
+        this.userEmail = '';
       },
       error: (error) => {
         console.error('Error:', error);

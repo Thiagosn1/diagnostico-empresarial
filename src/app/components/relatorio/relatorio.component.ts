@@ -39,47 +39,8 @@ export class RelatorioComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private answerService: AnswerService,
     private router: Router,
-    private businessesService: BusinessesService,
-    private answersService: AnswerService
+    private businessesService: BusinessesService
   ) {}
-
-  /* ngOnInit() {
-    const business = this.data.business;
-    console.log(this.data.business);
-    let categorias: any;
-    let questoes: any;
-
-    if (this.checarRotaAdmin()) {
-      this.answerService
-        .buscarRespostasPorEmpresa(business.id)
-        .subscribe((respostas) => {
-          this.processarDados(respostas, categorias, questoes);
-        });
-    }
-    this.answerService.buscarCategorias().subscribe((categorias) => {
-      this.radarChartLabels = categorias.map(
-        (categoria: any) => categoria.name
-      );
-      this.answerService.buscarQuestoes().subscribe((questoes) => {
-        if (this.router.url.includes('/dashboard/empresa')) {
-          this.calcularMediaRespostas(categorias, questoes);
-        } else {
-          this.answerService.buscarRespostas().subscribe((respostas) => {
-            this.processarDados(respostas, categorias, questoes);
-          });
-        }
-      });
-    });
-    this.answersService.buscarBusinessUserId().subscribe(
-      (businessUserId) => {
-        this.mostrarBotaoGerenciar = !!businessUserId;
-      },
-      (error) => {
-        console.error('Erro ao buscar o businessUserId:', error);
-        this.mostrarBotaoGerenciar = false;
-      }
-    );
-  } */
 
   ngOnInit() {
     const business = this.data.business;
@@ -147,66 +108,6 @@ export class RelatorioComponent implements OnInit {
 
     this.radarChartData = newRadarChartData;
   }
-
-  /* calcularMediaRespostas(categorias: any, questoes: any): void {
-    this.businessesService.obterEmpresas().subscribe((empresas) => {
-      if (empresas.length > 0) {
-        const empresa = empresas[0];
-        const newRadarChartData: ChartData<'radar'> = {
-          labels: this.radarChartLabels,
-          datasets: [
-            {
-              data: [],
-              label: 'Diagnóstico Empresarial',
-            },
-          ],
-        };
-
-        for (const categoria of categorias) {
-          let somaCategoria = 0;
-          let totalRespostasCategoria = 0;
-
-          for (const businessUser of empresa.businessUsers) {
-            const respostasCategoria = businessUser.answers.filter(
-              (resposta: any) =>
-                questoes.find(
-                  (questao: any) => questao.id === resposta.questionId
-                ).categoryId === categoria.id
-            );
-            if (respostasCategoria.length > 0) {
-              const sum = respostasCategoria.reduce(
-                (a: number, b: any) => a + b.value,
-                0
-              );
-              const mediaRespostasUsuario = sum / respostasCategoria.length;
-              console.log('Usuário: ', businessUser.userEmail);
-              console.log('Soma das respostas do usuário: ', sum);
-              console.log(
-                'Média das respostas do usuário: ',
-                mediaRespostasUsuario
-              );
-              somaCategoria += sum;
-              totalRespostasCategoria += respostasCategoria.length;
-            }
-          }
-
-          if (totalRespostasCategoria > 0) {
-            const mediaRespostas = somaCategoria / totalRespostasCategoria;
-            console.log('Categoria: ', categoria.name);
-            console.log('Soma das respostas: ', somaCategoria);
-            console.log('Total de respostas: ', totalRespostasCategoria);
-            console.log('Média das respostas: ', mediaRespostas);
-            console.log('-------------------------');
-            newRadarChartData.datasets[0].data.push(mediaRespostas);
-          } else {
-            newRadarChartData.datasets[0].data.push(0);
-          }
-        }
-
-        this.radarChartData = newRadarChartData;
-      }
-    });
-  } */
 
   calcularMediaRespostas(categorias: any, questoes: any): void {
     this.businessesService.obterEmpresas().subscribe((empresas) => {

@@ -19,7 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NgChartsModule } from 'ng2-charts';
 import { InfoComponent } from './components/info/info.component';
@@ -39,6 +38,7 @@ import { EmpresasComponent } from './admin/empresas/empresas.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EmpresaComponent } from './components/empresa/empresa.component';
+import { RelatorioComponent } from './components/relatorio/relatorio.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,6 @@ import { EmpresaComponent } from './components/empresa/empresa.component';
     SliderComponent,
     LoginComponent,
     TokenComponent,
-    RelatorioComponent,
     InfoComponent,
     FormComponent,
     CadastroEmpresaComponent,
@@ -62,6 +61,7 @@ import { EmpresaComponent } from './components/empresa/empresa.component';
     DashHomeComponent,
     EmpresasComponent,
     EmpresaComponent,
+    RelatorioComponent,
   ],
   imports: [
     AppRoutingModule,

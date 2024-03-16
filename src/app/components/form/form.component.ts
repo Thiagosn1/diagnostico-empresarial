@@ -232,11 +232,7 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   async exibirMensagemSucessoENavegar() {
-    this.snackBar.open('Gerando relatório...', '', {
-      duration: 5000,
-      panelClass: ['success-snackbar'],
-    });
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    this.router.navigate(['/relatorio']);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    this.router.navigate(['/']);
   }
 }
