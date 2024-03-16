@@ -118,7 +118,7 @@ export class TokenComponent {
     }, 2000);
 
     this.emailService.reenviarToken().subscribe(
-      (response) => {
+      () => {
       },
       (error) => {
         console.error(error);

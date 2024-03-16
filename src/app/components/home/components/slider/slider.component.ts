@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-// Interface para definir o formato dos itens do slider
 interface SliderItem {
   title: string;
   description: string;
@@ -31,19 +30,16 @@ export class SliderComponent implements OnInit {
     },
   ];
 
-  // Índice do item atual
   currentIndex = 0;
 
   ngOnInit(): void {}
 
   voltar(): void {
-    // Se o índice atual for 0, voltamos ao último item
     this.currentIndex =
       this.currentIndex === 0 ? this.items.length - 1 : this.currentIndex - 1;
   }
 
   avancar(): void {
-    // Se o índice atual for o último, voltamos para o primeiro item
     this.currentIndex =
       this.currentIndex === this.items.length - 1 ? 0 : this.currentIndex + 1;
   }

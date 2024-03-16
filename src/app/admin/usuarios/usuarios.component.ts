@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 import { forkJoin, of, switchMap } from 'rxjs';
-import { User } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-usuarios',

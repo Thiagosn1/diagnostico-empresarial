@@ -1,19 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  OnInit,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormService } from 'src/app/services/form.service';
 import { Category } from 'src/app/models/form.model';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -58,7 +46,6 @@ export class FormComponent implements AfterViewInit, OnInit {
 
   constructor(
     private router: Router,
-    private snackBar: MatSnackBar,
     private formService: FormService,
     private answerService: AnswerService
   ) {

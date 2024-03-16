@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { cnpj as cnpjValidator } from 'cpf-cnpj-validator';
-import { BusinessUsersService } from 'src/app/services/businessUsers.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cadastro-empresa',
@@ -12,33 +10,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./cadastro-empresa.component.css'],
 })
 export class CadastroEmpresaComponent {
-  public cnpjMask = [
-    /\d/,
-    /\d/,
-    '.',
-    /\d/,
-    /\d/,
-    /\d/,
-    '.',
-    /\d/,
-    /\d/,
-    /\d/,
-    '/',
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/,
-    '-',
-    /\d/,
-    /\d/,
-  ];
+  public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public mensagemErro: string = '';
 
   constructor(
     private router: Router,
-    private businessesService: BusinessesService,
-    private businessUsersService: BusinessUsersService,
-    private userService: UserService
+    private businessesService: BusinessesService
   ) {}
 
   submeterFormulario(formValue: any, form: NgForm) {
@@ -63,33 +40,6 @@ export class CadastroEmpresaComponent {
       }, 2000);
     }
   }
-
-  /* submeterFormulario(formValue: any, form: NgForm) {
-    if (form.valid && cnpjValidator.isValid(formValue.cnpj)) {
-      const business = {
-        name: formValue.nomeEmpresa,
-        cnpjCpf: formValue.cnpj,
-      };
-
-      this.businessesService.criarEmpresa(business).subscribe(() => {
-        if (formValue.quantidadePessoas > 1) {
-          this.router.navigate(['/gestao-empresa']);
-        } else {
-          this.router.navigate(['/info']);
-        }
-      });
-    } else {
-      if (!form.valid) {
-        this.mensagemErro = 'Por favor, preencha todos os campos.';
-      } else if (!cnpjValidator.isValid(formValue.cnpj)) {
-        this.mensagemErro = 'Por favor, insira um CNPJ válido.';
-      }
-      console.log(this.mensagemErro);
-      setTimeout(() => {
-        this.mensagemErro = '';
-      }, 2000);
-    }
-  } */
 
   formatarCNPJ(event: any) {
     let cnpj = event.target.value;

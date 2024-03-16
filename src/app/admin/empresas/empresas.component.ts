@@ -172,10 +172,10 @@ export class EmpresasComponent implements OnInit {
     };
 
     this.timelineService.createTimeline(newItem).subscribe({
-      next: (response) => {
+      next: () => {
         console.log('Alteração salva na linha do tempo:');
       },
-      error: (error) =>
+      error: () =>
         console.error('Erro ao salvar alteração na linha do tempo:'),
     });
   }

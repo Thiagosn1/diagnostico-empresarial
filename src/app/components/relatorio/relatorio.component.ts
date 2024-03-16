@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { Business, Category, Question } from 'src/app/models/form.model';
+import { Business } from 'src/app/models/form.model';
 import { AnswerService } from 'src/app/services/answers.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
 
@@ -42,31 +42,8 @@ export class RelatorioComponent implements OnInit {
     private businessesService: BusinessesService
   ) {}
 
-  /* ngOnInit() {
-    const business = this.data.business;
-    console.log(this.data.business);
-
-    this.answerService.buscarCategorias().subscribe((categorias) => {
-      this.radarChartLabels = categorias.map(
-        (categoria: any) => categoria.name
-      );
-      this.answerService.buscarQuestoes().subscribe((questoes) => {
-        if (this.router.url === '/admin/dashboard/empresas') {
-          this.answerService
-            .buscarRespostasPorEmpresa(business.id)
-            .subscribe((respostas) => {
-              this.processarDados(respostas, categorias, questoes);
-            });
-        } else if (this.router.url.includes('/gestao-empresa')) {
-          this.calcularMediaRespostas(categorias, questoes);
-        }
-      });
-    });
-  } */
-
   ngOnInit() {
     const business = this.data.business;
-    console.log(this.data.business);
 
     this.answerService.buscarCategorias().subscribe((categorias) => {
       this.radarChartLabels = categorias.map(
@@ -158,13 +135,6 @@ export class RelatorioComponent implements OnInit {
                 (a: number, b: any) => a + b.value,
                 0
               );
-              const mediaRespostasUsuario = sum / respostasCategoria.length;
-              console.log('Usuário: ', businessUser.userEmail);
-              console.log('Soma das respostas do usuário: ', sum);
-              console.log(
-                'Média das respostas do usuário: ',
-                mediaRespostasUsuario
-              );
               somaCategoria += sum;
               totalRespostasCategoria += respostasCategoria.length;
             }
@@ -172,12 +142,6 @@ export class RelatorioComponent implements OnInit {
 
           if (totalRespostasCategoria > 0) {
             const mediaRespostas = somaCategoria / totalRespostasCategoria;
-            console.log('Empresa: ', empresa.name);
-            console.log('Categoria: ', categoria.name);
-            console.log('Soma das respostas: ', somaCategoria);
-            console.log('Total de respostas: ', totalRespostasCategoria);
-            console.log('Média das respostas: ', mediaRespostas);
-            console.log('-------------------------');
             newRadarChartData.datasets[0].data.push(mediaRespostas);
           } else {
             newRadarChartData.datasets[0].data.push(0);
