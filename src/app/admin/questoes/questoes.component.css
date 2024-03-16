@@ -84,13 +84,18 @@ mat-form-field {
   width: 170px;
   height: 40px;
   display: block;
-  background-color: #0064fb !important;
+  background-color: #0064fb;
   border-radius: 15px;
   color: #ffffff !important;
   font-weight: 700;
   font-size: 16px;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+  background-color: #0046b2;
 }
 
 .espaco-botao {

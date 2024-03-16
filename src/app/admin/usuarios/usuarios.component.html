@@ -26,15 +26,6 @@
           </td>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="tipo">
-          <th mat-header-cell *matHeaderCellDef>
-            <div class="text-center">Tipo de Usuário</div>
-          </th>
-          <td mat-cell *matCellDef="let user">
-            <div class="text-center">{{ user.authority }}</div>
-          </td>
-        </ng-container> -->
-
         <ng-container matColumnDef="tipo">
           <th mat-header-cell *matHeaderCellDef>
             <div class="text-center">Tipo de Usuário</div>
@@ -43,7 +34,6 @@
             <div class="text-center">{{ obterAutoridade(user) }}</div>
           </td>
         </ng-container>
-        
 
         <ng-container matColumnDef="acao">
           <th mat-header-cell *matHeaderCellDef>
@@ -51,14 +41,31 @@
           </th>
           <td mat-cell *matCellDef="let user">
             <div class="text-center">
-              <button mat-icon-button (click)="alternarEdicao(user)">
-                <mat-icon *ngIf="editingUserId !== user.id">edit</mat-icon>
-                <mat-icon *ngIf="editingUserId === user.id">check</mat-icon>
+              <button
+                mat-icon-button
+                (click)="alternarEdicao(user)"
+                *ngIf="editingUserId !== user.id"
+                matTooltip="Editar"
+                matTooltipPosition="right"
+              >
+                <mat-icon>edit</mat-icon>
               </button>
+              <button
+                mat-icon-button
+                (click)="alternarEdicao(user)"
+                *ngIf="editingUserId === user.id"
+                matTooltip="Confirmar"
+                matTooltipPosition="right"
+              >
+                <mat-icon>check</mat-icon>
+              </button>
+
               <button
                 mat-icon-button
                 (click)="tornarAdmin(user)"
                 *ngIf="user.authority !== 'ROOT'"
+                matTooltip="Tornar admin"
+                matTooltipPosition="right"
               >
                 <mat-icon>person_add</mat-icon>
               </button>
@@ -66,10 +73,17 @@
                 mat-icon-button
                 (click)="removerAdmin(user)"
                 *ngIf="user.authority === 'ROOT'"
+                matTooltip="Remover admin"
+                matTooltipPosition="right"
               >
                 <mat-icon>person_remove</mat-icon>
               </button>
-              <button mat-icon-button (click)="excluirUsuario(user)">
+              <button
+                mat-icon-button
+                (click)="excluirUsuario(user)"
+                matTooltip="Excluir"
+                matTooltipPosition="right"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

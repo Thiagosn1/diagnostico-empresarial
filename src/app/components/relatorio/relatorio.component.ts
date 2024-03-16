@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { Business } from 'src/app/models/form.model';
+import { Business, Category, Question } from 'src/app/models/form.model';
 import { AnswerService } from 'src/app/services/answers.service';
 import { BusinessesService } from 'src/app/services/businesses.service';
 
@@ -42,7 +42,7 @@ export class RelatorioComponent implements OnInit {
     private businessesService: BusinessesService
   ) {}
 
-  ngOnInit() {
+  /* ngOnInit() {
     const business = this.data.business;
     console.log(this.data.business);
 
@@ -59,11 +59,21 @@ export class RelatorioComponent implements OnInit {
             });
         } else if (this.router.url.includes('/gestao-empresa')) {
           this.calcularMediaRespostas(categorias, questoes);
-        } else {
-          this.answerService.buscarRespostas().subscribe((respostas) => {
-            this.processarDados(respostas, categorias, questoes);
-          });
         }
+      });
+    });
+  } */
+
+  ngOnInit() {
+    const business = this.data.business;
+    console.log(this.data.business);
+
+    this.answerService.buscarCategorias().subscribe((categorias) => {
+      this.radarChartLabels = categorias.map(
+        (categoria: any) => categoria.name
+      );
+      this.answerService.buscarQuestoes().subscribe((questoes) => {
+        this.calcularMediaRespostas(business.id, categorias, questoes);
       });
     });
   }
@@ -109,12 +119,17 @@ export class RelatorioComponent implements OnInit {
     this.radarChartData = newRadarChartData;
   }
 
-  calcularMediaRespostas(categorias: any, questoes: any): void {
+  calcularMediaRespostas(businessId: number, categorias: any, questoes: any) {
     this.businessesService.obterEmpresas().subscribe((empresas) => {
-      const empresasParaProcessar =
-        this.router.url === '/admin/dashboard/empresas'
-          ? empresas
-          : [empresas[0]];
+      let empresasParaProcessar;
+
+      if (this.router.url.includes('/gestao-empresa')) {
+        empresasParaProcessar = [empresas[0]];
+      } else {
+        empresasParaProcessar = empresas.filter(
+          (empresa: Business) => empresa.id === businessId
+        );
+      }
 
       empresasParaProcessar.forEach((empresa: Business) => {
         const newRadarChartData: ChartData<'radar'> = {

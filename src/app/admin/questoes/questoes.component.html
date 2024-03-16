@@ -99,15 +99,27 @@
                 *ngIf="editingQuestionId !== question.id"
                 mat-icon-button
                 (click)="iniciarEdicao(question)"
+                matTooltip="Editar"
+                matTooltipPosition="right"
               >
                 <mat-icon>edit</mat-icon>
               </button>
               <div *ngIf="editingQuestionId === question.id">
-                <button mat-icon-button (click)="pararEdicao(question)">
+                <button
+                  mat-icon-button
+                  (click)="pararEdicao(question)"
+                  matTooltip="Confirmar"
+                  matTooltipPosition="right"
+                >
                   <mat-icon>check</mat-icon>
                 </button>
               </div>
-              <button mat-icon-button (click)="excluirQuestao(question.id)">
+              <button
+                mat-icon-button
+                (click)="excluirQuestao(question.id)"
+                matTooltip="Excluir"
+                matTooltipPosition="right"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

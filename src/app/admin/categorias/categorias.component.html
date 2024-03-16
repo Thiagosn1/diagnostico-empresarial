@@ -15,8 +15,6 @@
       </mat-form-field>
       <button
         class="button"
-        mat-raised-button
-        color="primary"
         (click)="adicionarCategoria()"
       >
         Adicionar categoria
@@ -57,6 +55,8 @@
                 mat-icon-button
                 (click)="alternarEdicao(category)"
                 *ngIf="editandoCategoriaId !== category.id"
+                matTooltip="Editar"
+                matTooltipPosition="right"
               >
                 <mat-icon>edit</mat-icon>
               </button>
@@ -64,15 +64,23 @@
                 mat-icon-button
                 (click)="alternarEdicao(category)"
                 *ngIf="editandoCategoriaId === category.id"
+                matTooltip="Confirmar"
+                matTooltipPosition="right"
               >
                 <mat-icon>check</mat-icon>
               </button>
-              <button mat-icon-button (click)="excluirCategoria(category.id)">
+              <button
+                mat-icon-button
+                (click)="excluirCategoria(category.id)"
+                matTooltip="Excluir"
+                matTooltipPosition="right"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
           </td>
         </ng-container>
+        
 
         <tr mat-header-row *matHeaderRowDef="colunasExibidas"></tr>
         <tr mat-row *matRowDef="let row; columns: colunasExibidas"></tr>

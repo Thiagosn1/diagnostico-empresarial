@@ -193,4 +193,8 @@ label {
   .empresa-header .button {
     margin-bottom: 120px;
   }
+
+  .button-editing {
+    margin-top: 140px;
+  }
 }

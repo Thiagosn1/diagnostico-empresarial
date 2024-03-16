@@ -112,6 +112,8 @@
                   reenviarConvite(businessUsers.id, businessUsers.userEmail)
                 "
                 *ngIf="businessUsers.invitationAccepted !== 'Convite Aceito'"
+                matTooltip="Reenviar convite"
+                matTooltipPosition="right"
               >
                 <mat-icon>send</mat-icon>
               </button>
@@ -119,6 +121,8 @@
                 mat-icon-button
                 color="warn"
                 (click)="removerFuncionario(businessUsers.id)"
+                matTooltip="Excluir"
+                matTooltipPosition="right"
               >
                 <mat-icon>delete</mat-icon>
               </button>

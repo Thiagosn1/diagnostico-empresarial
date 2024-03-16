@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { BusinessesService } from 'src/app/services/businesses.service';
 import { BusinessUsersService } from 'src/app/services/businessUsers.service';
 import { forkJoin, of, switchMap } from 'rxjs';
+import { User } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -27,19 +28,6 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.carregarUsuarios();
   }
-
-  /* carregarUsuarios(): void {
-    this.userService.obterUsuarios().subscribe({
-      next: (data: any[]) => {
-        data.sort((a: any, b: any) => a.id - b.id);
-        this.dataSource.data = data;
-        this.dataSource._updateChangeSubscription();
-      },
-      error: (error) => {
-        console.error('Erro ao carregar usuários:', error);
-      },
-    });
-  } */
 
   carregarUsuarios(): void {
     this.userService.obterUsuarios().subscribe({
