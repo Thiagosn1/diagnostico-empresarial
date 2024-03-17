@@ -1,7 +1,19 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 import { FormService } from 'src/app/services/form.service';
 import { Category } from 'src/app/models/form.model';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -182,7 +194,14 @@ export class FormComponent implements AfterViewInit, OnInit {
         this.perguntasAtuais++;
       },
       error: (error) => {
-        console.error('Erro ao salvar a resposta:', error);
+        if (
+          error.error.title ===
+          'Já exíste uma resposta cadastrada com essa descrição'
+        ) {
+          console.log('Resposta já existe, pulando para a próxima pergunta');
+          this.transicaoParaProximaPergunta();
+          this.perguntasAtuais++;
+        }
       },
     });
   }

@@ -1,12 +1,20 @@
 # Diagnóstico Empresarial
 
-Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 16.0.3.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 17.0.7.
 
 ## Configuração de desenvolvimento
 
 ### Pré-requisitos
 
 Instale o [Node.js](https://nodejs.org/)
+
+### Instalação de Dependências
+
+Execute `npm install` para instalar as dependências do projeto.
+
+### Executando
+
+Execute `npm start` para executar o projeto. Acesse `http://localhost:4200/`. O aplicativo irá recarregar automaticamente se você alterar qualquer um dos arquivos de origem.
 
 ## Servidor de desenvolvimento
 
@@ -31,11 +39,3 @@ Execute `ng e2e` para executar os testes de ponta a ponta através de uma plataf
 ## Ajuda adicional
 
 Para obter mais ajuda sobre o Angular CLI, use `ng help` ou consulte a página [Visão geral do Angular CLI e referência de comandos](https://angular.io/cli).
-
-## Utilizando Docker
-
-Execute `docker build -t diagnostico-empresarial .` para construir a imagem do Docker.
-
-Execute `docker run -p 4200:4200 diagnostico-empresarial` para executar o container.
-
-Acesse o aplicativo no seu navegador por meio do endereço `http://localhost:4200`.

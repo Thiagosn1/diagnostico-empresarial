@@ -127,12 +127,6 @@ export class AnswerService {
               )
           );
         }
-      }),
-      catchError((error) => {
-        console.error('Erro ao salvar a resposta com businessUserId:', error);
-        return throwError(
-          () => new Error('Erro ao salvar a resposta com businessUserId')
-        );
       })
     );
   }
