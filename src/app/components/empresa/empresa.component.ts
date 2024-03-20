@@ -21,6 +21,7 @@ export class EmpresaComponent {
   successMessage = '';
   nomeEmpresa = '';
   cnpjEmpresa = '';
+  emailEmpresaOriginal!: string;
   emailEmpresa = '';
   editandoEmpresa = false;
   idEmpresa: number = 1;
@@ -92,7 +93,9 @@ export class EmpresaComponent {
           },
         });
 
-      this.atualizarEmail(this.emailEmpresa);
+      if (this.emailEmpresa !== this.emailEmpresaOriginal) {
+        this.atualizarEmail(this.emailEmpresa);
+      }
 
       this.editandoEmpresa = false;
     }
@@ -124,7 +127,9 @@ export class EmpresaComponent {
 
   editarEmpresa(): void {
     this.editandoEmpresa = !this.editandoEmpresa;
-    if (!this.editandoEmpresa) {
+    if (this.editandoEmpresa) {
+      this.emailEmpresaOriginal = this.emailEmpresa;
+    } else {
       this.atualizarEmpresa();
     }
   }

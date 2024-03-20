@@ -6,7 +6,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   trigger,
   state,

@@ -1,3 +1,7 @@
+body, html {
+  overflow-x: hidden;
+}
+
 .categories-container {
   position: absolute;
   top: 0;
@@ -8,6 +12,7 @@
   flex-wrap: nowrap;
   background-color: #0064fb;
   height: 60px;
+  overflow-x: hidden;
 }
 
 .category {
@@ -32,6 +37,7 @@
   justify-content: center;
   align-items: center;
   min-height: 80vh;
+  overflow-x: hidden;
 }
 
 .question {
@@ -86,7 +92,6 @@ button:hover {
 
 .question-wrapper {
   position: relative;
-  overflow: hidden;
 }
 
 .success-snackbar {
