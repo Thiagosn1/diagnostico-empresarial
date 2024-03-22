@@ -39,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EmpresaComponent } from './components/empresa/empresa.component';
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { RelatorioComponent } from './components/relatorio/relatorio.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

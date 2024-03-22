@@ -55,6 +55,7 @@ export class FormComponent implements AfterViewInit, OnInit {
     false
   );
   questionarioFinalizado: boolean = false;
+  carregandoDados: boolean = false;
 
   constructor(
     private router: Router,
@@ -245,9 +246,13 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   finalizarQuestionario(): void {
-    this.questionarioFinalizado = true;
+    this.carregandoDados = true; // mostra o spinner de progresso
     setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 5000);
+      this.questionarioFinalizado = true; // mostra a mensagem
+      this.carregandoDados = false; // oculta o spinner de progresso
+      setTimeout(() => {
+        this.router.navigate(['/']); // redireciona para a rota '/'
+      }, 3000);
+    }, 6000);
   }
 }

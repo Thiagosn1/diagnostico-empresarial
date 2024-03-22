@@ -11,11 +11,14 @@ export class InfoComponent {
   textoBotao: string = 'Iniciar';
   estaContinuando: boolean = false;
   todasPerguntasRespondidas: boolean = false;
+  carregandoDados: boolean = true;
 
   constructor(private router: Router, private answerService: AnswerService) {}
 
   ngOnInit(): void {
-    this.buscarRespostas();
+    setTimeout(() => {
+      this.buscarRespostas();
+    }, 100);
   }
 
   buscarRespostas(): void {
@@ -23,6 +26,7 @@ export class InfoComponent {
       next: (questoes) => {
         this.answerService.buscarRespostas().subscribe({
           next: (respostas) => {
+            this.carregandoDados = false;
             if (respostas.length > 0) {
               this.textoBotao = 'Continuar de onde parou';
               this.estaContinuando = true;
@@ -31,7 +35,7 @@ export class InfoComponent {
               if (this.todasPerguntasRespondidas) {
                 setTimeout(() => {
                   this.router.navigate(['/']);
-                }, 5000);
+                }, 6000);
               }
             }
           },

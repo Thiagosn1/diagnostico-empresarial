@@ -3,6 +3,13 @@ html {
   overflow-x: hidden;
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .categories-container {
   position: absolute;
   top: 0;
@@ -112,11 +119,18 @@ button:hover {
   height: 100vh;
 }
 
+.finalizado-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .finalizado-container p {
   font-weight: 500;
   font-size: 35px;
   line-height: 29px;
   color: #000000;
+  margin: 10px 0;
 }
 
 @media screen and (max-width: 1400px) {
