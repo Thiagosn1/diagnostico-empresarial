@@ -1,42 +1,52 @@
-<div class="categories-container">
-  <div
-    *ngFor="let category of categorias; let i = index"
-    class="category"
-    [ngClass]="{
-      'category-active': indiceCategoriaAtual === i,
-      'category-completed': categoriasCompletas[i]
-    }"
-  >
-    {{ category.name }}
+<div *ngIf="!questionarioFinalizado">
+  <div class="categories-container">
+    <div
+      *ngFor="let category of categorias; let i = index"
+      class="category"
+      [ngClass]="{
+        'category-active': indiceCategoriaAtual === i,
+        'category-completed': categoriasCompletas[i]
+      }"
+    >
+      {{ category.name }}
+    </div>
+  </div>
+  <div class="question-container">
+    <div class="category">{{ categoriaAtual }}</div>
+    <div
+      class="question-wrapper"
+      [@slideRightLeft]="exibirPergunta ? 'center-delayed' : 'right'"
+    >
+      <div
+        class="question"
+        *ngIf="exibirPergunta"
+        [@fadeInOut]="perguntaAtual()"
+      >
+        {{ perguntaAtual() }}
+      </div>
+    </div>
+    <div class="answer-buttons">
+      <div
+        *ngFor="let index of respostas; let i = index"
+        class="button-container"
+      >
+        <button
+          [style.backgroundColor]="corGradiente(i)"
+          (click)="selecionarResposta(i)"
+          [disabled]="transicionando"
+          matTooltip="{{ textoTooltip(i) }}"
+          matTooltipShowDelay="0"
+          matTooltipHideDelay="999999999"
+        >
+          {{ valorExibidoBotao(i) }}
+        </button>
+      </div>
+    </div>
+
+    <div class="progress-text">{{ porcentagemProgresso() }}%</div>
   </div>
 </div>
-<div class="question-container">
-  <div class="category">{{ categoriaAtual }}</div>
-  <div
-    class="question-wrapper"
-    [@slideRightLeft]="exibirPergunta ? 'center-delayed' : 'right'"
-  >
-    <div class="question" *ngIf="exibirPergunta" [@fadeInOut]="perguntaAtual()">
-      {{ perguntaAtual() }}
-    </div>
-  </div>
-  <div class="answer-buttons">
-    <div
-      *ngFor="let index of respostas; let i = index"
-      class="button-container"
-    >
-      <button
-        [style.backgroundColor]="corGradiente(i)"
-        (click)="selecionarResposta(i)"
-        [disabled]="transicionando"
-        matTooltip="{{ textoTooltip(i) }}"
-        matTooltipShowDelay="0"
-        matTooltipHideDelay="999999999"
-      >
-        {{ valorExibidoBotao(i) }}
-      </button>
-    </div>
-  </div>
 
-  <div class="progress-text">{{ porcentagemProgresso() }}%</div>
+<div class="finalizado-container" *ngIf="questionarioFinalizado">
+  <p>Questionário respondido com sucesso!</p>
 </div>

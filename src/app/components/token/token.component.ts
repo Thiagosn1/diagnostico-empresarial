@@ -65,19 +65,47 @@ export class TokenComponent {
                       }
                     },
                     error: (error) => {
-                      console.error('Erro ao obter empresas:', error);
+                      if (error.error.title === 'Negócio não encontrado') {
+                        this.answersService.buscarBusinessUserId().subscribe({
+                          next: (businessUserId) => {
+                            if (businessUserId) {
+                              this.router.navigate(['/info']);
+                            } else {
+                              this.router.navigate(['/cadastro']);
+                            }
+                          },
+                          error: (error) => {
+                            console.error(
+                              'Erro ao buscar o businessUserId:',
+                              error
+                            );
+                            this.router.navigate(['/cadastro']);
+                          },
+                        });
+                      }
                     },
                   });
                 }
               },
               error: (error) => {
-                console.error('Erro ao obter usuário:', error);
+                console.error('Erro ao obter o usuário:', error);
               },
             });
           }
         },
         error: (error) => {
-          console.error('Erro ao enviar token:', error);
+          console.error(error);
+          if (
+            error.error.title === 'Falha ao autenticar usuario' ||
+            error.error.title === 'Seu Código expirou' ||
+            error.error.title === 'Seu c�digo expirou'
+          ) {
+            this.tokenError =
+              'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
+            setTimeout(() => {
+              this.tokenError = '';
+            }, 2000);
+          }
         },
       });
     }

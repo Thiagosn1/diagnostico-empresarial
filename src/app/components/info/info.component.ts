@@ -10,6 +10,7 @@ import { AnswerService } from 'src/app/services/answers.service';
 export class InfoComponent {
   textoBotao: string = 'Iniciar';
   estaContinuando: boolean = false;
+  todasPerguntasRespondidas: boolean = false;
 
   constructor(private router: Router, private answerService: AnswerService) {}
 
@@ -18,15 +19,29 @@ export class InfoComponent {
   }
 
   buscarRespostas(): void {
-    this.answerService.buscarRespostas().subscribe({
-      next: (respostas) => {
-        if (respostas.length > 0) {
-          this.textoBotao = 'Continuar de onde parou';
-          this.estaContinuando = true;
-        }
+    this.answerService.buscarQuestoes().subscribe({
+      next: (questoes) => {
+        this.answerService.buscarRespostas().subscribe({
+          next: (respostas) => {
+            if (respostas.length > 0) {
+              this.textoBotao = 'Continuar de onde parou';
+              this.estaContinuando = true;
+              this.todasPerguntasRespondidas =
+                questoes.length === respostas.length;
+              if (this.todasPerguntasRespondidas) {
+                setTimeout(() => {
+                  this.router.navigate(['/']);
+                }, 5000);
+              }
+            }
+          },
+          error: (error) => {
+            console.error('Erro ao buscar as respostas:', error);
+          },
+        });
       },
       error: (error) => {
-        console.error('Erro ao buscar as respostas:', error);
+        console.error('Erro ao buscar as questões:', error);
       },
     });
   }

@@ -54,6 +54,7 @@ export class FormComponent implements AfterViewInit, OnInit {
   categoriasCompletas: boolean[] = new Array(this.categorias.length).fill(
     false
   );
+  questionarioFinalizado: boolean = false;
 
   constructor(
     private router: Router,
@@ -244,8 +245,9 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   finalizarQuestionario(): void {
+    this.questionarioFinalizado = true;
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 3000);
+    }, 5000);
   }
 }
