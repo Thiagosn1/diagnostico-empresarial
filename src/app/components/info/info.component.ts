@@ -14,17 +14,21 @@ export class InfoComponent {
   constructor(private router: Router, private answerService: AnswerService) {}
 
   ngOnInit(): void {
-    this.answerService.buscarRespostas().subscribe(
-      (respostas) => {
+    this.buscarRespostas();
+  }
+
+  buscarRespostas(): void {
+    this.answerService.buscarRespostas().subscribe({
+      next: (respostas) => {
         if (respostas.length > 0) {
           this.textoBotao = 'Continuar de onde parou';
           this.estaContinuando = true;
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao buscar as respostas:', error);
-      }
-    );
+      },
+    });
   }
 
   checarRota(): boolean {

@@ -13,6 +13,10 @@ export class DashboardAdminComponent implements OnInit {
   constructor(private emailService: EmailService, private router: Router) {}
 
   ngOnInit(): void {
+    this.buscarEmail();
+  }
+
+  buscarEmail(): void {
     this.emailService.buscarEmail().subscribe({
       next: (data) => {
         if (data) {

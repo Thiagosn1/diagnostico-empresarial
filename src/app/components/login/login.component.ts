@@ -30,18 +30,18 @@ export class LoginComponent {
     this.validarEmail();
     if (!this.emailError) {
       this.emailSuccess = 'Enviando código para o email...';
-      this.emailService.enviarEmail(this.email).subscribe(
-        (response) => {
+      this.emailService.enviarEmail(this.email).subscribe({
+        next: () => {
           setTimeout(() => {
             this.emailSuccess = '';
             this.router.navigate(['/token']);
           }, 2000);
         },
-        (error) => {
+        error: (error) => {
           console.error(error);
           this.emailSuccess = '';
-        }
-      );
+        },
+      });
     }
   }
 }

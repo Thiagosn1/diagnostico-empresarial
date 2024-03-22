@@ -40,7 +40,6 @@ export class EmpresasComponent implements OnInit {
   }
 
   abrirModalRelatorio(business: any) {
-    console.log(business);
     this.dialog.open(RelatorioComponent, {
       width: '800px',
       height: '600px',

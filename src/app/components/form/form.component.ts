@@ -59,7 +59,18 @@ export class FormComponent implements AfterViewInit, OnInit {
     private router: Router,
     private formService: FormService,
     private answerService: AnswerService
-  ) {
+  ) {}
+
+  ngOnInit() {
+    this.carregarDados();
+    this.buscarRespostas();
+  }
+
+  ngAfterViewInit() {
+    this.exibirTooltips();
+  }
+
+  carregarDados(): void {
     this.formService.getData().subscribe((data) => {
       data.sort((a: any, b: any) => a.position - b.position);
       data.forEach((c: any) => {
@@ -70,11 +81,7 @@ export class FormComponent implements AfterViewInit, OnInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.exibirTooltips();
-  }
-
-  ngOnInit() {
+  buscarRespostas(): void {
     this.answerService.buscarRespostas().subscribe({
       next: (respostas) => {
         const ultimaResposta = respostas[respostas.length - 1];
@@ -217,7 +224,7 @@ export class FormComponent implements AfterViewInit, OnInit {
       this.indicePerguntaAtual = 0;
 
       if (this.indiceCategoriaAtual == this.categorias.length) {
-        this.exibirMensagemSucessoENavegar();
+        this.finalizarQuestionario();
       }
     }
   }
@@ -236,8 +243,9 @@ export class FormComponent implements AfterViewInit, OnInit {
     this.exibirTooltips();
   }
 
-  async exibirMensagemSucessoENavegar() {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    this.router.navigate(['/']);
+  finalizarQuestionario(): void {
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 3000);
   }
 }

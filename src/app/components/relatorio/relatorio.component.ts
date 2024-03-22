@@ -18,7 +18,12 @@ export class RelatorioComponent implements OnInit {
 
   public radarChartData: ChartData<'radar'> = {
     labels: [],
-    datasets: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Diagnóstico Empresarial',
+      },
+    ],
   };
 
   public radarChartOptions: ChartConfiguration['options'] = {
@@ -44,14 +49,21 @@ export class RelatorioComponent implements OnInit {
 
   ngOnInit() {
     const business = this.data.business;
+    this.buscarCategorias(business);
+  }
 
+  buscarCategorias(business: any): void {
     this.answerService.buscarCategorias().subscribe((categorias) => {
       this.radarChartLabels = categorias.map(
         (categoria: any) => categoria.name
       );
-      this.answerService.buscarQuestoes().subscribe((questoes) => {
-        this.calcularMediaRespostas(business.id, categorias, questoes);
-      });
+      this.buscarQuestoes(business.id, categorias);
+    });
+  }
+
+  buscarQuestoes(businessId: any, categorias: any): void {
+    this.answerService.buscarQuestoes().subscribe((questoes) => {
+      this.calcularMediaRespostas(businessId, categorias, questoes);
     });
   }
 
@@ -62,16 +74,7 @@ export class RelatorioComponent implements OnInit {
   processarDados(respostas: any, categorias: any, questoes: any) {
     this.radarChartLabels = categorias.map((categoria: any) => categoria.name);
 
-    const newRadarChartData: ChartData<'radar'> = {
-      labels: this.radarChartLabels,
-      datasets: [
-        {
-          data: [],
-          label: 'Diagnóstico Empresarial',
-        },
-      ],
-    };
-
+    const newData: number[] = [];
     for (const categoria of categorias) {
       const questoesCategoria = questoes.filter(
         (questao: any) => questao.categoryId === categoria.id
@@ -87,13 +90,14 @@ export class RelatorioComponent implements OnInit {
           0
         );
         const average = sum / questoesCategoria.length;
-        newRadarChartData.datasets[0].data.push(average);
+        newData.push(average);
       } else {
-        newRadarChartData.datasets[0].data.push(0);
+        newData.push(0);
       }
     }
 
-    this.radarChartData = newRadarChartData;
+    this.radarChartData.labels = this.radarChartLabels;
+    this.radarChartData.datasets[0].data = newData;
   }
 
   calcularMediaRespostas(businessId: number, categorias: any, questoes: any) {

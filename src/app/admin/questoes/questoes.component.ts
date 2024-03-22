@@ -28,11 +28,7 @@ export class QuestoesComponent implements OnInit {
   ngOnInit(): void {
     this.carregarDados();
     this.carregarCategorias();
-    this.formQuestao = this.formBuilder.group({
-      description: ['', Validators.required],
-      positive: ['', Validators.required],
-      categoryId: ['', Validators.required],
-    });
+    this.criarFormulario();
   }
 
   carregarDados(): void {
@@ -70,6 +66,14 @@ export class QuestoesComponent implements OnInit {
       error: (error) => {
         console.error('Erro ao carregar categorias:', error);
       },
+    });
+  }
+
+  criarFormulario(): void {
+    this.formQuestao = this.formBuilder.group({
+      description: ['', Validators.required],
+      positive: ['', Validators.required],
+      categoryId: ['', Validators.required],
     });
   }
 
@@ -162,8 +166,7 @@ export class QuestoesComponent implements OnInit {
       next: () => {
         console.log('Alteração salva na linha do tempo:');
       },
-      error: () =>
-        console.error('Erro ao salvar alteração na linha do tempo:'),
+      error: () => console.error('Erro ao salvar alteração na linha do tempo:'),
     });
   }
 }

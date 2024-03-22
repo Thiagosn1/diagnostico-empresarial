@@ -36,8 +36,8 @@ export class TokenComponent {
           const authHeader = response.headers.get('Authorization');
           if (authHeader !== null) {
             this.authService.setToken(authHeader);
-            this.userService.obterUsuario().subscribe(
-              (usuario: any) => {
+            this.userService.obterUsuario().subscribe({
+              next: (usuario: any) => {
                 if (usuario.authority === 'ROOT') {
                   this.router.navigate(['/admin/dashboard']);
                 } else if (usuario.authority === 'DEFAULT') {
@@ -65,47 +65,19 @@ export class TokenComponent {
                       }
                     },
                     error: (error) => {
-                      if (error.error.title === 'Negócio não encontrado') {
-                        this.answersService.buscarBusinessUserId().subscribe({
-                          next: (businessUserId) => {
-                            if (businessUserId) {
-                              this.router.navigate(['/info']);
-                            } else {
-                              this.router.navigate(['/cadastro']);
-                            }
-                          },
-                          error: (error) => {
-                            console.error(
-                              'Erro ao buscar o businessUserId:',
-                              error
-                            );
-                            this.router.navigate(['/cadastro']);
-                          },
-                        });
-                      }
+                      console.error('Erro ao obter empresas:', error);
                     },
                   });
                 }
               },
-              (error: any) => {
-                console.error('Erro ao obter o usuário:', error);
-              }
-            );
+              error: (error) => {
+                console.error('Erro ao obter usuário:', error);
+              },
+            });
           }
         },
         error: (error) => {
-          console.error(error);
-          if (
-            error.error.title === 'Falha ao autenticar usuario' ||
-            error.error.title === 'Seu Código expirou' ||
-            error.error.title === 'Seu c�digo expirou'
-          ) {
-            this.tokenError =
-              'Código inválido, verifique se você digitou corretamente ou solicite um novo código.';
-            setTimeout(() => {
-              this.tokenError = '';
-            }, 2000);
-          }
+          console.error('Erro ao enviar token:', error);
         },
       });
     }
@@ -117,13 +89,12 @@ export class TokenComponent {
       this.tokenSuccess = '';
     }, 2000);
 
-    this.emailService.reenviarToken().subscribe(
-      () => {
-      },
-      (error) => {
+    this.emailService.reenviarToken().subscribe({
+      next: () => {},
+      error: (error) => {
         console.error(error);
-      }
-    );
+      },
+    });
   }
 
   temEmail(): boolean {

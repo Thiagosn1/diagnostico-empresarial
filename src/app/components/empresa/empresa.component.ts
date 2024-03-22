@@ -36,6 +36,12 @@ export class EmpresaComponent {
   ) {}
 
   ngOnInit(): void {
+    this.buscarEmail();
+    this.carregarEmpresa();
+    this.carregarFuncionarios();
+  }
+
+  buscarEmail(): void {
     this.emailService.buscarEmail().subscribe({
       next: (data) => {
         if (data) {
@@ -46,8 +52,6 @@ export class EmpresaComponent {
         console.error('Erro ao buscar o email:', error);
       },
     });
-    this.carregarEmpresa();
-    this.carregarFuncionarios();
   }
 
   abrirModalRelatorio(): void {
