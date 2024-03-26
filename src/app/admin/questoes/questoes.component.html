@@ -5,7 +5,11 @@
       <input matInput (keyup)="aplicarFiltro($event)" placeholder="Filtrar" />
     </mat-form-field>
 
-    <button class="button" (click)="mostrarFormulario = true">
+    <button
+      class="button"
+      (click)="mostrarFormulario = true"
+      *ngIf="!mostrarFormulario"
+    >
       Adicionar questão
     </button>
 

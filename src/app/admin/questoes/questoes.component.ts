@@ -117,6 +117,7 @@ export class QuestoesComponent implements OnInit {
           this.mostrarFormulario = false;
           this.carregarDados();
           this.formQuestao.reset();
+          this.mostrarFormulario = false;
           this.salvarAlteracaoNaTimeline(
             `Questão ${
               question.id
