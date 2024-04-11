@@ -41,8 +41,8 @@ export class EmpresasComponent implements OnInit {
 
   abrirModalRelatorio(business: any) {
     this.dialog.open(RelatorioComponent, {
-      width: '800px',
-      height: '600px',
+      width: '900px',
+      height: '800px',
       data: { business: business },
       autoFocus: false,
     });
