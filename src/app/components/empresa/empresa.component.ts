@@ -56,7 +56,7 @@ export class EmpresaComponent {
 
   abrirModalRelatorio(): void {
     this.dialog.open(RelatorioComponent, {
-      width: '900px',
+      width: '800px',
       height: '800px',
       data: { business: this.idEmpresa },
       autoFocus: false,
