@@ -41,7 +41,7 @@ export class EmpresasComponent implements OnInit {
 
   abrirModalRelatorio(business: any) {
     this.dialog.open(RelatorioComponent, {
-      width: '800px',
+      width: '1000px',
       height: '800px',
       data: { business: business },
       autoFocus: false,
@@ -174,8 +174,7 @@ export class EmpresasComponent implements OnInit {
       next: () => {
         console.log('Alteração salva na linha do tempo:');
       },
-      error: () =>
-        console.error('Erro ao salvar alteração na linha do tempo:'),
+      error: () => console.error('Erro ao salvar alteração na linha do tempo:'),
     });
   }
 }

@@ -7,11 +7,18 @@
       <div class="left-column">
         <h2>Relatório</h2>
 
-        <p>
+        <p *ngIf="larguraTela < 1600">
+          Este relatório apresenta os resultados do nosso Diagnóstico
+          Empresarial. As respostas foram coletadas por meio do formulário
+          respondido anteriormente e estão representadas no gráfico de radar ao
+          lado.
+        </p>
+
+        <p *ngIf="larguraTela >= 1600">
           Este relatório apresenta os resultados do nosso Diagnóstico
           Empresarial. As respostas foram coletadas por meio do formulário
           respondido anteriormente e estão representadas no gráfico de radar
-          abaixo lado.
+          abaixo.
         </p>
 
         <p>
@@ -44,8 +51,5 @@
         </canvas>
       </div>
     </div>
-    <!-- <div class="button-container">
-      <button mat-button (click)="fecharModal()">Fechar</button>
-    </div> -->
   </mat-card>
 </div>

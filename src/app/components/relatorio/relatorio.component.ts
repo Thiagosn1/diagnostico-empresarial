@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
@@ -12,6 +13,7 @@ import { BusinessesService } from 'src/app/services/businesses.service';
   styleUrls: ['./relatorio.component.css'],
 })
 export class RelatorioComponent implements OnInit {
+  larguraTela: number;
   mostrarBotaoGerenciar = false;
   public radarChartType: ChartType = 'radar';
   public radarChartLabels: string[] = [];
@@ -44,8 +46,11 @@ export class RelatorioComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private answerService: AnswerService,
     private router: Router,
-    private businessesService: BusinessesService
-  ) {}
+    private businessesService: BusinessesService,
+    private viewportRuler: ViewportRuler
+  ) {
+    this.larguraTela = this.viewportRuler.getViewportSize().width;
+  }
 
   ngOnInit() {
     const business = this.data.business;
