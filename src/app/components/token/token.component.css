@@ -37,17 +37,21 @@ label {
   margin-bottom: 10px;
 }
 
-.input {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+.token-input {
+  display: flex;
+  justify-content: space-between;
   width: 500px;
 }
 
-.button {
+.input {
+  width: 70px;
+  height: 60px;
+  text-align: center;
+}
+
+.button, .reenviar {
   margin-top: 20px;
-  width: 100px;
+  width: 200px;
   height: 48px;
   background-color: #0064fb;
   border-radius: 50px;
@@ -60,7 +64,7 @@ label {
   border: none;
 }
 
-.button:hover {
+.button:hover, .reenviar:hover {
   box-shadow: rgba(0, 0, 0, 0.25) 0 0.1875rem 0.1875rem;
   background-color: #0046b2;
 }
@@ -72,20 +76,6 @@ label {
   padding: 0.625rem;
   margin-top: 0.625rem;
   border-radius: 0.25rem;
-}
-
-.reenviar {
-  margin-top: 10px;
-  background-color: transparent;
-  color: #0064fb;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  text-decoration: underline;
-}
-
-.reenviar:hover {
-  color: #0046b2;
 }
 
 .success {

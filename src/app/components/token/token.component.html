@@ -5,11 +5,15 @@
 </mat-toolbar>
 <div class="form-container">
   <label for="token-input">Digite o código que foi enviado no seu email</label>
-  <mat-form-field>
-    <input class="input" matInput id="token-input" type="password" [(ngModel)]="token" name="token" required maxlength="6"/>
-  </mat-form-field>
-  <button class="button" (click)="enviarToken()">OK</button>
-  <button class="reenviar" (click)="reenviarToken()" [disabled]="!temEmail()">
+  <div class="token-input">
+    <input #input1 class="input" matInput type="text" [(ngModel)]="token[0]" name="token0" required maxlength="1" (keyup)="focarProximo($event, input2)" (paste)="colarToken($event)"/>
+    <input #input2 class="input" matInput type="text" [(ngModel)]="token[1]" name="token1" required maxlength="1" (keyup)="focarProximo($event, input3)" (paste)="colarToken($event)"/>
+    <input #input3 class="input" matInput type="text" [(ngModel)]="token[2]" name="token2" required maxlength="1" (keyup)="focarProximo($event, input4)" (paste)="colarToken($event)"/>
+    <input #input4 class="input" matInput type="text" [(ngModel)]="token[3]" name="token3" required maxlength="1" (keyup)="focarProximo($event, input5)" (paste)="colarToken($event)"/>
+    <input #input5 class="input" matInput type="text" [(ngModel)]="token[4]" name="token4" required maxlength="1" (keyup)="focarProximo($event, input6)" (paste)="colarToken($event)"/>
+    <input #input6 class="input" matInput type="text" [(ngModel)]="token[5]" name="token5" required maxlength="1" (keyup)="focarProximo($event)" (paste)="colarToken($event)"/>
+  </div>
+  <button class="button reenviar" (click)="reenviarToken()" [disabled]="!temEmail()">
     Reenviar código
   </button>
   <div *ngIf="tokenError" class="error">{{ tokenError }}</div>
