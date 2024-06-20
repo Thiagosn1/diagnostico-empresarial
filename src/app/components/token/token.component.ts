@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmailService } from '../../services/email.service';
 import { HttpResponse } from '@angular/common/http';
@@ -30,8 +24,7 @@ export class TokenComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private businessesService: BusinessesService,
-    private answersService: AnswerService,
-    private renderer: Renderer2
+    private answersService: AnswerService
   ) {}
 
   ngOnInit() {
