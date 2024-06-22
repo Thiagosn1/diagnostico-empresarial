@@ -9,12 +9,19 @@
       <p>{{ item.description }}</p>
     </div>
   </div>
+  <!-- <div
+    class="slider-item"
+    *ngFor="let item of items; let i = index"
+    [ngClass]="{ active: currentIndex === i }"
+    [style.backgroundImage]="'url(' + item.image + ')'"
+  >
+  </div> -->
   <div class="slider-nav">
     <button class="nav-button" (click)="voltar()">
-      <img ngSrc="/assets/botao-voltar.png" alt="Voltar" height="512" width="512"/>
+      <span class="material-icons">arrow_back_ios</span>
     </button>
     <button class="nav-button" (click)="avancar()">
-      <img ngSrc="/assets/botao-avancar.png" alt="Avançar" height="512" width="512"/>
+      <span class="material-icons">arrow_forward_ios</span>
     </button>
   </div>
 </div>

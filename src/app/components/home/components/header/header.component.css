@@ -12,7 +12,8 @@
 
 .title {
   color: #ffffff;
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 800;
+  font-size: 35px;
   line-height: 29px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }

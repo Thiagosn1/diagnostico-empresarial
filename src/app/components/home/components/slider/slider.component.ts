@@ -6,6 +6,10 @@ interface SliderItem {
   color: string;
 }
 
+/* interface SliderItem {
+  image: string;
+} */
+
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
@@ -29,6 +33,18 @@ export class SliderComponent implements OnInit {
       color: '#2196f3',
     },
   ];
+
+  /* items: SliderItem[] = [
+    {
+      image: 'assets/image1.jpg',
+    },
+    {
+      image: 'assets/image2.jpg',
+    },
+    {
+      image: 'assets/image3.jpg',
+    },
+  ]; */
 
   currentIndex = 0;
 

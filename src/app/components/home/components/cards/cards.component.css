@@ -1,5 +1,16 @@
+.title-container {
+  margin-top: 15px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  margin: 0;
+  padding: 10px 0;
+}
+
 .cards {
-  height: 504px;
+  margin-bottom: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,18 +19,32 @@
 
 .card {
   margin: 10px;
-  width: 266px;
-  height: 273px;
-  background: #f4be56;
+  width: 340px;
+  height: 200px;
+  background-color: #0064fb;
   border-radius: 15px;
 }
 
+mat-card-header {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card-title {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
 mat-card-content {
-  height: 100px;
-  margin-top: 90px;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 20px;
+  font-size: 18px;
+  margin: 15px 15px 0 15px;
   background-color: #ffffff;
   border-radius: 10px;
+}
+
+mat-card-content p {
+  text-align: justify;
 }

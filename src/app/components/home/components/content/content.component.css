@@ -15,12 +15,14 @@
   height: 48px;
   background-color: #0064fb;
   border-radius: 50px;
+  border: none;
   color: #ffffff;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   cursor: pointer;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .button:hover {
