@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 interface SliderItem {
-  title: string;
-  description: string;
-  color: string;
-}
-
-/* interface SliderItem {
   image: string;
-} */
+}
 
 @Component({
   selector: 'app-slider',
@@ -16,47 +10,64 @@ interface SliderItem {
   styleUrls: ['./slider.component.css'],
 })
 export class SliderComponent implements OnInit {
+  currentIndex = 0;
+  private autoSlideInterval: any;
+  private pauseDuration = 5000;
+
   items: SliderItem[] = [
     {
-      title: 'Item 1',
-      description: 'Descrição do Item 1',
-      color: '#f44336',
+      image: 'assets/pexels.jpg',
     },
     {
-      title: 'Item 2',
-      description: 'Descrição do Item 2',
-      color: '#4caf50',
+      image: 'assets/pexels2.jpg',
     },
     {
-      title: 'Item 3',
-      description: 'Descrição do Item 3',
-      color: '#2196f3',
+      image: 'assets/unsplash2.jpg',
+    },
+    {
+      image: 'assets/pexels3.jpg',
+    },
+    {
+      image: 'assets/unsplash3.jpg',
     },
   ];
 
-  /* items: SliderItem[] = [
-    {
-      image: 'assets/image1.jpg',
-    },
-    {
-      image: 'assets/image2.jpg',
-    },
-    {
-      image: 'assets/image3.jpg',
-    },
-  ]; */
+  ngOnInit(): void {
+    this.startAutoSlide();
+  }
 
-  currentIndex = 0;
-
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.stopAutoSlide();
+  }
 
   voltar(): void {
     this.currentIndex =
       this.currentIndex === 0 ? this.items.length - 1 : this.currentIndex - 1;
+    this.resetAutoSlide();
   }
 
   avancar(): void {
     this.currentIndex =
       this.currentIndex === this.items.length - 1 ? 0 : this.currentIndex + 1;
+    this.resetAutoSlide();
+  }
+
+  private startAutoSlide(): void {
+    this.autoSlideInterval = setInterval(() => {
+      this.avancar();
+    }, 3000);
+  }
+
+  private stopAutoSlide(): void {
+    if (this.autoSlideInterval) {
+      clearInterval(this.autoSlideInterval);
+    }
+  }
+
+  private resetAutoSlide(): void {
+    this.stopAutoSlide();
+    setTimeout(() => {
+      this.startAutoSlide();
+    }, this.pauseDuration);
   }
 }

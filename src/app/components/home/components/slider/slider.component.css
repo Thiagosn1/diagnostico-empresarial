@@ -4,16 +4,6 @@
   overflow: hidden;
 }
 
-/* .slider-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-} */
-
 .slider-item {
   position: absolute;
   top: 0;
@@ -22,9 +12,9 @@
   height: 100%;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
-  background-size: cover; /* Garante que a imagem cubra toda a área da div */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Evita a repetição da imagem */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .slider-item.active {
