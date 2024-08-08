@@ -18,7 +18,7 @@ export class SliderComponent implements OnInit {
     {
       image: 'assets/pexels.jpg',
     },
-    {
+    /* {
       image: 'assets/pexels2.jpg',
     },
     {
@@ -26,7 +26,7 @@ export class SliderComponent implements OnInit {
     },
     {
       image: 'assets/pexels3.jpg',
-    },
+    }, */
     {
       image: 'assets/unsplash3.jpg',
     },

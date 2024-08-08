@@ -1,6 +1,37 @@
 .content-1 {
   height: 465px;
   background: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-me {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.text {
+  flex: 1;
+  padding: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  font-size: 18px;
+}
+
+.image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.image img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .content-2 {
@@ -28,4 +59,40 @@
 .button:hover {
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
   background-color: #0046b2;
+}
+
+@media (max-width: 900px) {
+  .content-1 {
+    height: auto;
+    min-height: 600px;
+  }
+
+  .about-me {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .text {
+    box-sizing: border-box;
+    order: 2;
+    width: 100%;
+    padding: 0 30px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text h1 {
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .image {
+    order: 1;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .image img {
+    max-width: 50%;
+  }
 }

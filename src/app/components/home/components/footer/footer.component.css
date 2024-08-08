@@ -9,6 +9,8 @@
 
 .title {
   font-size: 30px;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 p {
@@ -26,5 +28,22 @@ img {
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center; /* Alinha os itens*/
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.contact-item img {
+  margin-right: 10px;
+}
+
+.contact-item span {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 700;
 }
