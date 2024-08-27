@@ -29,7 +29,7 @@ img {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Alinha os itens*/
+  align-items: center;
 }
 
 .contact-item {
@@ -46,4 +46,9 @@ img {
   font-size: 18px;
   color: #ffffff;
   font-weight: 700;
+}
+
+.credit {
+  color: #336AEA;
+  text-decoration: none;
 }

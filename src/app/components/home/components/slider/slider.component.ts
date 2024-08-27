@@ -18,15 +18,12 @@ export class SliderComponent implements OnInit {
     {
       image: 'assets/pexels.jpg',
     },
-    /* {
-      image: 'assets/pexels2.jpg',
+    {
+      image: 'assets/freepik2.jpg',
     },
     {
-      image: 'assets/unsplash2.jpg',
+      image: 'assets/freepik3.jpg',
     },
-    {
-      image: 'assets/pexels3.jpg',
-    }, */
     {
       image: 'assets/unsplash3.jpg',
     },
