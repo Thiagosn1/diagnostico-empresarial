@@ -9,11 +9,13 @@ import { EmailService } from 'src/app/services/email.service';
 })
 export class DashboardAdminComponent implements OnInit {
   email: string = '';
+  menuAberto: boolean = true;
 
   constructor(private emailService: EmailService, private router: Router) {}
 
   ngOnInit(): void {
     this.buscarEmail();
+    this.menuAberto = localStorage.getItem('menuAberto') === 'true';
   }
 
   buscarEmail(): void {
@@ -33,5 +35,10 @@ export class DashboardAdminComponent implements OnInit {
 
   deslogar(): void {
     localStorage.clear();
+  }
+
+  toggleMenu(): void {
+    this.menuAberto = !this.menuAberto;
+    localStorage.setItem('menuAberto', this.menuAberto.toString());
   }
 }

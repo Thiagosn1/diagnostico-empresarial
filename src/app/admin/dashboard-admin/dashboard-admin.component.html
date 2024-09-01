@@ -1,9 +1,21 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav mode="side" opened class="sidenav">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    [(opened)]="menuAberto"
+    [ngClass]="{ collapsed: !menuAberto }"
+    class="sidenav"
+  >
     <div class="user-info">
-      <img ngSrc="./assets/user.png" class="user-image" alt="User" height="512" width="512"/>
-      <h3 class="user-name">Administrador</h3>
-      <p class="user-email">{{ email }}</p>
+      <img
+        ngSrc="./assets/user.png"
+        class="user-image"
+        alt="User"
+        height="512"
+        width="512"
+      />
+      <h3 class="user-name" *ngIf="menuAberto">Administrador</h3>
+      <p class="user-email" *ngIf="menuAberto">{{ email }}</p>
     </div>
     <div class="nav-list-container">
       <mat-nav-list class="nav-list">
@@ -16,10 +28,9 @@
         >
           <span class="menu-item-content">
             <mat-icon>home</mat-icon>
-            Home
+            <span *ngIf="menuAberto">Home</span>
           </span>
         </a>
-
         <a
           mat-list-item
           routerLink="/admin/dashboard/usuarios"
@@ -28,7 +39,7 @@
         >
           <span class="menu-item-content">
             <mat-icon>people</mat-icon>
-            Usuários
+            <span *ngIf="menuAberto">Usuários</span>
           </span>
         </a>
         <a
@@ -39,10 +50,9 @@
         >
           <span class="menu-item-content">
             <mat-icon>business</mat-icon>
-            Empresas
+            <span *ngIf="menuAberto">Empresas</span>
           </span>
         </a>
-
         <a
           mat-list-item
           routerLink="/admin/dashboard/categorias"
@@ -51,7 +61,7 @@
         >
           <span class="menu-item-content">
             <mat-icon>category</mat-icon>
-            Categorias
+            <span *ngIf="menuAberto">Categorias</span>
           </span>
         </a>
         <a
@@ -62,7 +72,7 @@
         >
           <span class="menu-item-content">
             <mat-icon>format_list_bulleted</mat-icon>
-            Questões
+            <span *ngIf="menuAberto">Questões</span>
           </span>
         </a>
         <div class="logout-container">
@@ -74,7 +84,7 @@
           >
             <span class="menu-item-content">
               <mat-icon>exit_to_app</mat-icon>
-              Sair
+              <span *ngIf="menuAberto">Sair</span>
             </span>
           </a>
         </div>
@@ -82,6 +92,9 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
+    <button mat-icon-button (click)="toggleMenu()" class="toggle-button">
+      <mat-icon>{{ menuAberto ? "chevron_left" : "chevron_right" }}</mat-icon>
+    </button>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

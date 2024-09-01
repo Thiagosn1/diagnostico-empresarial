@@ -6,12 +6,19 @@
 .sidenav {
   width: 250px;
   background-color: #0064fb;
+  transition: width 0.3s;
+  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+}
+
+.sidenav.collapsed {
+  width: 60px;
 }
 
 .sidenav-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .user-info {
@@ -101,4 +108,13 @@ img {
 
 .mat-mdc-cell {
   font-size: 18px !important;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  background-color: #0064fb;
+  color: #fff;
 }
