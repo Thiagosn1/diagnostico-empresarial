@@ -1,4 +1,5 @@
 .sidenav-container {
+  display: flex;
   height: 100%;
   background-color: #d9d9d9;
 }
@@ -8,6 +9,7 @@
   background-color: #0064fb;
   transition: width 0.3s;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+  overflow: hidden;
 }
 
 .sidenav.collapsed {
@@ -15,6 +17,7 @@
 }
 
 .sidenav-content {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,6 +37,12 @@
   height: 123px;
   object-fit: cover;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+  transition: width 0.3s, height 0.3s;
+}
+
+.user-image.collapsed-image {
+  width: 35px;
+  height: 35px;
 }
 
 .user-name {
@@ -52,28 +61,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.cadastro-item {
+  padding: 15px 18px;
+  color: #ffffff;
+  text-decoration: none;
   position: relative;
 }
 
 .menu-item-content {
-  color: #ffffff;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.cadastro-item {
-  width: 100%;
-}
-
-.cadastro-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.menu-item-content span,
+.user-email {
+  font-size: 18px;
 }
 
 .active {
@@ -84,12 +86,6 @@ mat-icon {
   color: #fff;
 }
 
-img {
-  width: 35px;
-  height: 35px;
-  display: block;
-}
-
 .nav-list-container {
   display: flex;
   flex-direction: column;
@@ -98,16 +94,6 @@ img {
 .logout-container {
   position: absolute;
   bottom: 5px;
-  width: 100%;
-}
-
-.mat-mdc-header-cell {
-  font-weight: inherit !important;
-  font-size: 20px;
-}
-
-.mat-mdc-cell {
-  font-size: 18px !important;
 }
 
 .toggle-button {
@@ -117,4 +103,12 @@ img {
   left: 10px;
   background-color: #0064fb;
   color: #fff;
+}
+
+.collapsed .menu-item-content {
+  justify-content: center;
+}
+
+.collapsed .menu-item-content span {
+  display: none;
 }

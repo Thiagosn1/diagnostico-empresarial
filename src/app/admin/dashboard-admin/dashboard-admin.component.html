@@ -1,15 +1,10 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #sidenav
-    mode="side"
-    [(opened)]="menuAberto"
-    [ngClass]="{ collapsed: !menuAberto }"
-    class="sidenav"
-  >
+<div class="sidenav-container">
+  <div class="sidenav" [ngClass]="{ collapsed: !menuAberto }">
     <div class="user-info">
       <img
         ngSrc="./assets/user.png"
         class="user-image"
+        [ngClass]="{ 'collapsed-image': !menuAberto }"
         alt="User"
         height="512"
         width="512"
@@ -18,13 +13,14 @@
       <p class="user-email" *ngIf="menuAberto">{{ email }}</p>
     </div>
     <div class="nav-list-container">
-      <mat-nav-list class="nav-list">
+      <nav class="nav-list">
         <a
-          mat-list-item
+          class="menu-item"
           routerLink="/admin/dashboard"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="menu-item"
+          [matTooltip]="!menuAberto ? 'Home' : ''"
+          matTooltipPosition="right"
         >
           <span class="menu-item-content">
             <mat-icon>home</mat-icon>
@@ -32,10 +28,11 @@
           </span>
         </a>
         <a
-          mat-list-item
+          class="menu-item"
           routerLink="/admin/dashboard/usuarios"
           routerLinkActive="active"
-          class="menu-item"
+          [matTooltip]="!menuAberto ? 'Usuários' : ''"
+          matTooltipPosition="right"
         >
           <span class="menu-item-content">
             <mat-icon>people</mat-icon>
@@ -43,10 +40,11 @@
           </span>
         </a>
         <a
-          mat-list-item
+          class="menu-item"
           routerLink="/admin/dashboard/empresas"
           routerLinkActive="active"
-          class="menu-item"
+          [matTooltip]="!menuAberto ? 'Empresas' : ''"
+          matTooltipPosition="right"
         >
           <span class="menu-item-content">
             <mat-icon>business</mat-icon>
@@ -54,10 +52,11 @@
           </span>
         </a>
         <a
-          mat-list-item
+          class="menu-item"
           routerLink="/admin/dashboard/categorias"
           routerLinkActive="active"
-          class="menu-item"
+          [matTooltip]="!menuAberto ? 'Categorias' : ''"
+          matTooltipPosition="right"
         >
           <span class="menu-item-content">
             <mat-icon>category</mat-icon>
@@ -65,10 +64,11 @@
           </span>
         </a>
         <a
-          mat-list-item
+          class="menu-item"
           routerLink="/admin/dashboard/questoes"
           routerLinkActive="active"
-          class="menu-item"
+          [matTooltip]="!menuAberto ? 'Questões' : ''"
+          matTooltipPosition="right"
         >
           <span class="menu-item-content">
             <mat-icon>format_list_bulleted</mat-icon>
@@ -77,10 +77,11 @@
         </a>
         <div class="logout-container">
           <a
-            mat-list-item
-            routerLink="/"
             class="menu-item"
+            routerLink="/"
             (click)="deslogar()"
+            [matTooltip]="!menuAberto ? 'Sair' : ''"
+            matTooltipPosition="right"
           >
             <span class="menu-item-content">
               <mat-icon>exit_to_app</mat-icon>
@@ -88,13 +89,13 @@
             </span>
           </a>
         </div>
-      </mat-nav-list>
+      </nav>
     </div>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
+  </div>
+  <div class="sidenav-content">
     <button mat-icon-button (click)="toggleMenu()" class="toggle-button">
       <mat-icon>{{ menuAberto ? "chevron_left" : "chevron_right" }}</mat-icon>
     </button>
     <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+</div>
