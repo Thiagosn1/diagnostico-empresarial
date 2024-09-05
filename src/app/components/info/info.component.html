@@ -14,6 +14,14 @@
     <ng-template #questionario>
       <mat-card class="form-card">
         <mat-card-header>
+          <button
+            class="button sair"
+            routerLink="/"
+            (click)="deslogar()"
+            matTooltip="Sair"
+          >
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
           <mat-card-title class="form-title"
             >Diagnóstico Empresarial</mat-card-title
           >

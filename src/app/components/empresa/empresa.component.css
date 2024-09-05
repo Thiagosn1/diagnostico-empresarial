@@ -140,7 +140,11 @@
 
 .sair {
   background-color: #808080;
-  width: 50px;
+  width: 40px;
+  height: 40px;
+  display: flex; /* Adicionado para usar flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
 }
 
 .sair:hover {
@@ -149,7 +153,8 @@
 
 .botao-relatorio {
   background-color: #808080;
-  width: 50px;
+  width: 40px;
+  height: 40px;
 }
 
 .botao-relatorio:hover {
@@ -161,7 +166,7 @@
 }
 .sair mat-icon {
   color: white !important;
-  transform: rotateY(180deg);
+  transform: rotateY(0deg);
 }
 
 .button-editing {

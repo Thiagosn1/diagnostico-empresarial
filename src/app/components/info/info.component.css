@@ -14,6 +14,7 @@
 
 .form-card {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 70%;
@@ -21,6 +22,7 @@
   border-radius: 20px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 16px;
+  position: relative; /* Adicionado para posicionamento absoluto do botão "Sair" */
 }
 
 .form-title {
@@ -107,8 +109,141 @@ button:hover {
   margin: 10px 0;
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  position: relative; /* Adicionado para posicionamento absoluto do botão "Sair" */
+}
+
+.form-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 29px;
+  color: #000000;
+}
+
+.form-content {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  align-items: center;
+}
+
+span {
+  font-size: 20px;
+  text-align: justify;
+}
+
+button {
+  width: 130px;
+  height: 48px;
+  background-color: #0064fb;
+  border-radius: 50px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+  background-color: #0046b2;
+}
+
+.continue-button {
+  width: 300px;
+}
+
+.info-styles {
+  .form-card {
+    background-color: #ffffff;
+    width: 80%;
+  }
+
+  p {
+    font-size: 16px;
+    text-align: justify;
+    margin: 0;
+  }
+}
+
+.continue-button {
+  width: 300px;
+  background-color: rgb(4, 185, 4);
+}
+
+.continue-button:hover {
+  background-color: rgb(1, 112, 1);
+}
+
+.finalizado-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.finalizado-texto {
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 29px;
+  color: #000000;
+  margin: 10px 0;
+}
+
+.sair {
+  background-color: #808080;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex; /* Adicionado para usar flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.sair:hover {
+  background-color: red;
+}
+
+.sair mat-icon {
+  color: white !important;
+  transform: rotateY(0deg);
+}
+
 @media (min-width: 1400px) {
   .form-card {
     width: 800px;
   }
 }
+

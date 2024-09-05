@@ -53,4 +53,8 @@ export class InfoComponent {
   checarRota(): boolean {
     return this.router.url === '/dashboard/empresa';
   }
+
+  deslogar(): void {
+    localStorage.clear();
+  }
 }

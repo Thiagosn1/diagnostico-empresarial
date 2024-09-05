@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^17.0.7",
     "@angular/router": "^17.0.7",
     "@babel/plugin-transform-unicode-property-regex": "^7.22.5",
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "@npmcli/fs": "^3.1.0",
     "@sideway/address": "^5.0.0",
     "@sideway/formula": "^3.0.1",
