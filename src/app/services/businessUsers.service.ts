@@ -97,19 +97,4 @@ export class BusinessUsersService {
       });
     }
   }
-
-  /* removerFuncionario(id: number): Observable<any> {
-    const token = this.authService.getToken();
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      const url = `${this.apiUrl}/${id}`;
-      return this.http.delete(url, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
-  } */
 }

@@ -273,4 +273,8 @@ export class FormComponent implements AfterViewInit, OnInit {
       }, 3000);
     }, 6000);
   }
+
+  voltar() {
+    this.router.navigate(['/info']);
+  }
 }

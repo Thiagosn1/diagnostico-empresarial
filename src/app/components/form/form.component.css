@@ -133,6 +133,35 @@ button:hover {
   margin: 10px 0;
 }
 
+.voltar-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 40px;
+  padding: 0 16px;
+  background-color: #808080;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+.voltar-button:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+  background-color: #ff0000;
+}
+.voltar-button mat-icon {
+  margin-right: 8px;
+}
+
 @media screen and (max-width: 1400px) {
   .question-container {
     min-height: 90vh;
