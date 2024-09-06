@@ -34,10 +34,10 @@
     <ng-container *ngIf="timeline.length; else noData">
       <div class="table-container">
         <table mat-table [dataSource]="timeline">
-          <ng-container matColumnDef="date">
+          <ng-container matColumnDef="datetime_edition">
             <th mat-header-cell *matHeaderCellDef class="center">Data</th>
             <td mat-cell *matCellDef="let item" class="center">
-              {{ item.date }}
+              {{ item.datetime_edition }}
             </td>
           </ng-container>
           <ng-container matColumnDef="description">

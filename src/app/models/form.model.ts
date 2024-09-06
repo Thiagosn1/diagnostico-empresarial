@@ -15,7 +15,7 @@ export interface Category {
 
 export interface TimelineItem {
   id: number;
-  date: string;
+  datetime_edition: string;
   description: string;
 }
 

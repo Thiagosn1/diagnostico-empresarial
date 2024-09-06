@@ -131,9 +131,7 @@ export class CategoriasComponent implements OnInit {
   }
 
   salvarAlteracaoNaLinhaDoTempo(descricao: string): void {
-    const date = format(new Date(), 'dd-MM-yyyy HH:mm');
     const newItem = {
-      date: date,
       description: descricao,
     };
 

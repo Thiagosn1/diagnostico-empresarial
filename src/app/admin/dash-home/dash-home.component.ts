@@ -16,7 +16,7 @@ export class DashHomeComponent implements OnInit {
   contagemPerguntas: number = 0;
   contagemEmpresas: number = 0;
   timeline: TimelineItem[] = [];
-  colunasExibidas: string[] = ['date', 'description'];
+  colunasExibidas: string[] = ['datetime_edition', 'description'];
 
   constructor(
     private userService: UserService,
@@ -56,22 +56,20 @@ export class DashHomeComponent implements OnInit {
 
   carregarLinhaDoTempo(): void {
     this.timelineService.getTimeline().subscribe({
-      next: (response: { timeline: TimelineItem[] }) => {
-        this.timeline = response.timeline.sort(
-          (a: TimelineItem, b: TimelineItem) => {
-            const reformattedDateA =
-              a.date.split(' ')[0].split('-').reverse().join('-') +
-              ' ' +
-              a.date.split(' ')[1];
-            const reformattedDateB =
-              b.date.split(' ')[0].split('-').reverse().join('-') +
-              ' ' +
-              b.date.split(' ')[1];
-            const dateA = new Date(reformattedDateA);
-            const dateB = new Date(reformattedDateB);
-            return dateB.getTime() - dateA.getTime();
-          }
-        );
+      next: (response: TimelineItem[]) => {
+        if (Array.isArray(response)) {
+          this.timeline = response
+            .map((item) => ({
+              ...item,
+              datetime_edition: new Date(
+                item.datetime_edition
+              ).toLocaleString(),
+            }))
+            .sort((a, b) => b.id - a.id);
+        } else {
+          this.timeline = [];
+          console.warn('Timeline não encontrada ou não é um array');
+        }
       },
       error: (error) => {
         console.error('Erro ao carregar linha do tempo:', error);
@@ -81,7 +79,6 @@ export class DashHomeComponent implements OnInit {
 
   adicionarItemLinhaDoTempo(): void {
     const newItem = {
-      date: new Date().toISOString(),
       description: 'Nova alteração',
     };
 

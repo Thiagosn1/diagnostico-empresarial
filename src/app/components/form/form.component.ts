@@ -80,15 +80,13 @@ export class FormComponent implements AfterViewInit, OnInit {
         c.questions.sort((a: any, b: any) => a.position - b.position);
       });
       this.categorias = data;
+      this.buscarRespostas();
     });
   }
 
   buscarRespostas(): void {
     this.answerService.buscarRespostas().subscribe({
       next: (respostas) => {
-        const ultimaResposta = respostas[respostas.length - 1];
-        const proximaQuestaoId = ultimaResposta.questionId + 1;
-
         this.perguntasAtuais = respostas.length;
 
         if (this.perguntasAtuais === this.totalPerguntas) {
@@ -96,23 +94,43 @@ export class FormComponent implements AfterViewInit, OnInit {
           return;
         }
 
-        for (let i = 0; i < this.categorias.length; i++) {
-          for (let j = 0; j < this.categorias[i].questions.length; j++) {
-            if (this.categorias[i].questions[j].id === proximaQuestaoId) {
-              this.indiceCategoriaAtual = i;
-              this.indicePerguntaAtual = j;
-              for (let k = 0; k < i; k++) {
-                this.categoriasCompletas[k] = true;
-              }
-              return;
-            }
-          }
-        }
+        this.atualizarStatusCategorias(respostas);
       },
       error: (error) => {
         console.error('Erro ao buscar as respostas:', error);
       },
     });
+  }
+
+  atualizarStatusCategorias(respostas: any[]): void {
+    let questaoAtualEncontrada = false;
+    let totalRespondidas = 0;
+
+    for (let i = 0; i < this.categorias.length; i++) {
+      const categoria = this.categorias[i];
+      let perguntasRespondidasNaCategoria = 0;
+
+      for (let j = 0; j < categoria.questions.length; j++) {
+        const questao = categoria.questions[j];
+        const respostaEncontrada = respostas.find(
+          (r) => r.questionId === questao.id
+        );
+
+        if (respostaEncontrada) {
+          perguntasRespondidasNaCategoria++;
+          totalRespondidas++;
+        } else if (!questaoAtualEncontrada) {
+          this.indiceCategoriaAtual = i;
+          this.indicePerguntaAtual = j;
+          questaoAtualEncontrada = true;
+        }
+      }
+
+      this.categoriasCompletas[i] =
+        perguntasRespondidasNaCategoria === categoria.questions.length;
+    }
+
+    this.perguntasAtuais = totalRespondidas;
   }
 
   perguntaAtual() {
