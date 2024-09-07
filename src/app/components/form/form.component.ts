@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  HostListener,
   OnInit,
   QueryList,
   ViewChildren,
@@ -15,7 +16,7 @@ import {
 } from '@angular/animations';
 import { FormService } from 'src/app/services/form.service';
 import { Category } from 'src/app/models/form.model';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatTooltip, TooltipPosition } from '@angular/material/tooltip';
 import { AnswerService } from 'src/app/services/answers.service';
 
 @Component({
@@ -56,6 +57,8 @@ export class FormComponent implements AfterViewInit, OnInit {
   );
   questionarioFinalizado: boolean = false;
   carregandoDados: boolean = false;
+  primeiroTooltipPosition: TooltipPosition = 'below';
+  exibirTooltip: boolean = false;
 
   constructor(
     private router: Router,
@@ -66,10 +69,29 @@ export class FormComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.carregarDados();
     this.buscarRespostas();
+    this.atualizarPrimeiroTooltipPosition();
   }
 
   ngAfterViewInit() {
     this.exibirTooltips();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.atualizarPrimeiroTooltipPosition();
+    this.atualizarVisibilidadeTooltip();
+  }
+
+  atualizarPrimeiroTooltipPosition() {
+    this.primeiroTooltipPosition = window.innerWidth < 768 ? 'above' : 'below';
+  }
+
+  atualizarVisibilidadeTooltip() {
+    this.exibirTooltip = window.innerWidth < 480;
+  }
+
+  getTooltipPosition(index: number): TooltipPosition {
+    return index === 0 ? this.primeiroTooltipPosition : 'below';
   }
 
   carregarDados(): void {
@@ -264,12 +286,12 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   finalizarQuestionario(): void {
-    this.carregandoDados = true; // mostra o spinner de progresso
+    this.carregandoDados = true;
     setTimeout(() => {
-      this.questionarioFinalizado = true; // mostra a mensagem
-      this.carregandoDados = false; // oculta o spinner de progresso
+      this.questionarioFinalizado = true;
+      this.carregandoDados = false;
       setTimeout(() => {
-        this.router.navigate(['/']); // redireciona para a rota '/'
+        this.router.navigate(['/']);
       }, 3000);
     }, 6000);
   }

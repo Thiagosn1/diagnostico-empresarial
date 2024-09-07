@@ -9,7 +9,8 @@
         class="category"
         [ngClass]="{
           'category-active': indiceCategoriaAtual === i,
-          'category-completed': categoriasCompletas[i]
+          'category-completed': categoriasCompletas[i],
+          'category-hidden': indiceCategoriaAtual !== i
         }"
       >
         {{ category.name }}
@@ -38,7 +39,8 @@
             [style.backgroundColor]="corGradiente(i)"
             (click)="selecionarResposta(i)"
             [disabled]="transicionando"
-            matTooltip="{{ textoTooltip(i) }}"
+            [matTooltip]="textoTooltip(i)"
+            [matTooltipPosition]="getTooltipPosition(i)"
             matTooltipShowDelay="0"
             matTooltipHideDelay="999999999"
           >
@@ -49,9 +51,9 @@
 
       <div class="progress-text">{{ porcentagemProgresso() }}%</div>
     </div>
-    <button class="voltar-button" (click)="voltar()">
+    <button class="voltar-button" (click)="voltar()" [matTooltip]="exibirTooltip ? 'Voltar à tela anterior' : ''">
       <mat-icon>arrow_back</mat-icon>
-      Voltar a tela anterior
+      <span>Voltar a tela anterior</span>
     </button>
   </div>
 </div>
