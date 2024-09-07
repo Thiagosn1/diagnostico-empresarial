@@ -15,7 +15,8 @@ export class DashboardAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscarEmail();
-    this.menuAberto = localStorage.getItem('menuAberto') === 'true';
+    const menuAbertoStorage = localStorage.getItem('menuAberto');
+    this.menuAberto = menuAbertoStorage === null ? true : menuAbertoStorage === 'true';
   }
 
   buscarEmail(): void {

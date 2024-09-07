@@ -176,21 +176,30 @@ export class EmpresaComponent {
       if (!suppressMessage) {
         this.successMessage = 'Enviando convite...';
       }
-      this.businessUsersService.convidarFuncionario(this.userEmail).subscribe({
-        next: () => {
-          if (!suppressMessage) {
-            this.successMessage = 'Convite enviado.';
-          }
-          this.userEmail = '';
-          setTimeout(() => (this.successMessage = ''), 3000);
-          this.carregarFuncionarios();
-        },
-        error: (error) => {
-          console.error('Error:', error);
-          this.errorMessage = 'Erro ao enviar convite.';
-          setTimeout(() => (this.errorMessage = ''), 2000);
-        },
-      });
+      const customTitle = `Convite para responder o questionário de desempenho da ${this.nomeEmpresa}`;
+      const customMessage = `
+    Segue abaixo o link para poder logar no sistema Business-Eval e responder o questionário de desempenho da ${this.nomeEmpresa}.
+    
+    Acesse o sistema através do link: [link do sistema]
+    
+    Caso tenha dúvidas, entre em contato com o suporte.`;
+      this.businessUsersService
+        .convidarFuncionario(this.userEmail, customTitle, customMessage)
+        .subscribe({
+          next: () => {
+            if (!suppressMessage) {
+              this.successMessage = 'Convite enviado.';
+            }
+            this.userEmail = '';
+            setTimeout(() => (this.successMessage = ''), 3000);
+            this.carregarFuncionarios();
+          },
+          error: (error) => {
+            console.error('Error:', error);
+            this.errorMessage = 'Erro ao enviar convite.';
+            setTimeout(() => (this.errorMessage = ''), 2000);
+          },
+        });
     } else {
       this.errorMessage = 'Por favor, insira um email válido.';
       setTimeout(() => (this.errorMessage = ''), 2000);
@@ -203,8 +212,28 @@ export class EmpresaComponent {
     this.businessUsersService.removerFuncionario(id).subscribe({
       next: () => {
         this.userEmail = emailFuncionario;
-        this.convidarFuncionario();
-        this.userEmail = '';
+        const customTitle = `Convite para responder o questionário de desempenho da ${this.nomeEmpresa}`;
+        const customMessage = `
+        Segue abaixo o link para poder logar no sistema Business-Eval e responder o questionário de desempenho da ${this.nomeEmpresa}.
+        
+        Acesse o sistema através do link: [link do sistema]
+        
+        Caso tenha dúvidas, entre em contato com o suporte.`;
+        this.businessUsersService
+          .convidarFuncionario(this.userEmail, customTitle, customMessage)
+          .subscribe({
+            next: () => {
+              this.successMessage = 'Convite reenviado.';
+              this.userEmail = '';
+              setTimeout(() => (this.successMessage = ''), 3000);
+              this.carregarFuncionarios();
+            },
+            error: (error) => {
+              console.error('Error:', error);
+              this.errorMessage = 'Erro ao reenviar convite.';
+              setTimeout(() => (this.errorMessage = ''), 2000);
+            },
+          });
       },
       error: (error) => {
         console.error('Error:', error);
