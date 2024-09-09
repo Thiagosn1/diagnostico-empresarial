@@ -17,6 +17,7 @@ export class EmpresaComponent {
   columnsToDisplay = ['email', 'status', 'answers', 'actions'];
   dataSource = new MatTableDataSource();
   userEmail = '';
+  emailFuncionarioTemp = '';
   errorMessage = '';
   successMessage = '';
   nomeEmpresa = '';
@@ -176,13 +177,8 @@ export class EmpresaComponent {
       if (!suppressMessage) {
         this.successMessage = 'Enviando convite...';
       }
-      const customTitle = `Convite para responder o questionário de desempenho da ${this.nomeEmpresa}`;
-      const customMessage = `
-    Segue abaixo o link para poder logar no sistema Business-Eval e responder o questionário de desempenho da ${this.nomeEmpresa}.
-    
-    Acesse o sistema através do link: [link do sistema]
-    
-    Caso tenha dúvidas, entre em contato com o suporte.`;
+      const customTitle = `Convite para responder o questionário de diagnóstico da ${this.nomeEmpresa}`;
+      const customMessage = this.gerarMensagemConvite();
       this.businessUsersService
         .convidarFuncionario(this.userEmail, customTitle, customMessage)
         .subscribe({
@@ -208,23 +204,22 @@ export class EmpresaComponent {
 
   reenviarConvite(id: number, email: string): void {
     this.successMessage = 'Reenviando convite...';
-    let emailFuncionario = email;
+    this.emailFuncionarioTemp = email;
     this.businessUsersService.removerFuncionario(id).subscribe({
       next: () => {
-        this.userEmail = emailFuncionario;
-        const customTitle = `Convite para responder o questionário de desempenho da ${this.nomeEmpresa}`;
-        const customMessage = `
-        Segue abaixo o link para poder logar no sistema Business-Eval e responder o questionário de desempenho da ${this.nomeEmpresa}.
-        
-        Acesse o sistema através do link: [link do sistema]
-        
-        Caso tenha dúvidas, entre em contato com o suporte.`;
+        const customTitle = `Convite para responder o questionário de diagnóstico da ${this.nomeEmpresa}`;
+        const customMessage = this.gerarMensagemConvite();
+
         this.businessUsersService
-          .convidarFuncionario(this.userEmail, customTitle, customMessage)
+          .convidarFuncionario(
+            this.emailFuncionarioTemp,
+            customTitle,
+            customMessage
+          )
           .subscribe({
             next: () => {
               this.successMessage = 'Convite reenviado.';
-              this.userEmail = '';
+              this.emailFuncionarioTemp = '';
               setTimeout(() => (this.successMessage = ''), 3000);
               this.carregarFuncionarios();
             },
@@ -252,6 +247,43 @@ export class EmpresaComponent {
         console.error('Error:', error);
       },
     });
+  }
+
+  gerarMensagemConvite(): string {
+    return `
+    Prezado(a) colaborador(a),
+
+    A direção da ${this.nomeEmpresa} está empenhada em melhorar nossos processos e ambiente de trabalho. Como parte desse esforço, estamos realizando um diagnóstico empresarial interno e sua participação é fundamental.
+
+    Você está sendo convidado(a) a responder um questionário confidencial. Suas respostas sinceras nos ajudarão a identificar pontos fortes e áreas de melhoria em nossa organização.
+
+    Instruções para participação:
+    1. Acesse o link: [link do sistema]
+    2. Faça login com seu email corporativo
+    3. Responda ao questionário de diagnóstico empresarial
+    4. Envie suas respostas até [data limite, se aplicável]
+
+    Tempo estimado para conclusão: aproximadamente 20 minutos
+
+    Pontos importantes:
+    - Suas respostas são confidenciais e serão analisadas de forma agregada.
+    - O objetivo é obter um panorama geral da empresa, não avaliar colaboradores individualmente.
+    - Seja honesto(a) em suas respostas para que possamos ter um diagnóstico preciso e implementar melhorias efetivas.
+
+    Este diagnóstico nos permitirá:
+    1. Identificar áreas que necessitam de atenção imediata
+    2. Reconhecer nossos pontos fortes
+    3. Desenvolver estratégias para melhorar nossa eficiência e ambiente de trabalho
+
+    Se tiver dificuldades técnicas ou dúvidas sobre o processo, entre em contato pelo email [email de contato].
+
+    Sua participação é essencial para o crescimento e melhoria contínua da ${this.nomeEmpresa}. Agradecemos antecipadamente por sua contribuição neste importante processo.
+
+    Atenciosamente,
+    ${this.nomeEmpresa}
+
+    Observação: Esta é uma mensagem automática. Por favor, não responda a este email.
+  `;
   }
 
   deslogar(): void {
