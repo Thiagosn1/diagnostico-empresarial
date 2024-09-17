@@ -3,8 +3,52 @@
     class="slider-item"
     *ngFor="let item of items; let i = index"
     [ngClass]="{ active: currentIndex === i }"
-    [style.backgroundImage]="'url(' + item.image + ')'"
-  ></div>
+  >
+    <div
+      class="background-image"
+      [style.backgroundImage]="'url(' + item.image + ')'"
+    ></div>
+    <div class="slider-item-content" *ngIf="i === 0">
+      <h2 class="highlight-text">Você sabia?</h2>
+      <p class="curiosity-text">
+        95% das empresas com planejamento estratégico eficaz superam suas metas
+        de crescimento.
+      </p>
+      <p class="subtext">
+        Descubra como o planejamento estratégico pode impulsionar o crescimento
+        da sua empresa.
+      </p>
+      <button class="diagnose-button" routerLink="/login">
+        Faça um diagnóstico
+      </button>
+    </div>
+    <div class="slider-item-content" *ngIf="i === 1">
+      <p class="curiosity-text">
+        Empresas que investem em gestão da qualidade têm, em média, 25% menos
+        desperdícios e 20% maior satisfação do cliente.
+      </p>
+      <p class="subtext">
+        Descubra como a gestão da qualidade pode revolucionar sua eficiência
+        operacional e satisfação do cliente.
+      </p>
+      <button class="diagnose-button" routerLink="/login">
+        Faça um diagnóstico
+      </button>
+    </div>
+    <div class="slider-item-content" *ngIf="i === 3">
+      <p class="curiosity-text">
+        Organizações com práticas de gestão de projetos de alta performance
+        completam 92% dos projetos no prazo e dentro do orçamento.
+      </p>
+      <p class="subtext">
+        Descubra como a gestão eficaz de projetos pode transformar o desempenho
+        da sua empresa.
+      </p>
+      <button class="diagnose-button" routerLink="/login">
+        Faça um diagnóstico
+      </button>
+    </div>
+  </div>
   <div class="slider-nav">
     <button class="nav-button" (click)="voltar()">
       <span class="material-icons">arrow_back_ios</span>

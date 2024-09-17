@@ -30,41 +30,41 @@ export class SliderComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.startAutoSlide();
+    // this.startAutoSlide();
   }
 
   ngOnDestroy(): void {
-    this.stopAutoSlide();
+    // this.stopAutoSlide();
   }
 
   voltar(): void {
     this.currentIndex =
       this.currentIndex === 0 ? this.items.length - 1 : this.currentIndex - 1;
-    this.resetAutoSlide();
+    // this.resetAutoSlide();
   }
 
   avancar(): void {
     this.currentIndex =
       this.currentIndex === this.items.length - 1 ? 0 : this.currentIndex + 1;
-    this.resetAutoSlide();
+    // this.resetAutoSlide();
   }
 
-  private startAutoSlide(): void {
-    this.autoSlideInterval = setInterval(() => {
-      this.avancar();
-    }, 3000);
-  }
+  // private startAutoSlide(): void {
+  //   this.autoSlideInterval = setInterval(() => {
+  //     this.avancar();
+  //   }, 10000);
+  // }
 
-  private stopAutoSlide(): void {
-    if (this.autoSlideInterval) {
-      clearInterval(this.autoSlideInterval);
-    }
-  }
+  // private stopAutoSlide(): void {
+  //   if (this.autoSlideInterval) {
+  //     clearInterval(this.autoSlideInterval);
+  //   }
+  // }
 
-  private resetAutoSlide(): void {
-    this.stopAutoSlide();
-    setTimeout(() => {
-      this.startAutoSlide();
-    }, this.pauseDuration);
-  }
+  // private resetAutoSlide(): void {
+  //   this.stopAutoSlide();
+  //   setTimeout(() => {
+  //     this.startAutoSlide();
+  //   }, this.pauseDuration);
+  // }
 }
