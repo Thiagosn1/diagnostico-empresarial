@@ -70,3 +70,71 @@ td.mat-cell:not(:last-child) {
 .no-data {
   margin-top: 20px;
 }
+
+@media (max-width: 1024px) {
+  .table-container {
+    padding: 15px;
+    width: 80%;
+  }
+
+  .table-scroll {
+    max-height: 60vh;
+    width: 100%;
+  }
+
+  .mat-mdc-header-cell {
+    font-size: 18px;
+  }
+
+  .mat-mdc-cell {
+    font-size: 16px !important;
+  }
+
+  .input-editing {
+    font-size: 16px;
+  }
+
+  .mat-mdc-cell, .mat-mdc-header-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 768px) {
+  .parent-container {
+    margin-left: -100px;
+  }
+
+  .table-container {
+    width: 90%;
+    margin-right: -40px;
+  }
+
+  .mat-mdc-header-cell {
+    font-size: 16px;
+  }
+
+  .mat-mdc-cell {
+    font-size: 14px !important;
+  }
+
+  .input-editing {
+    font-size: 14px;
+  }
+
+  th.mat-header-cell:not(:last-child),
+  td.mat-cell:not(:last-child) {
+    border-right: 1px solid #000;
+  }
+
+  .search-bar {
+    padding: 0 0.5em;
+  }
+
+  .mat-mdc-cell, .mat-mdc-header-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
