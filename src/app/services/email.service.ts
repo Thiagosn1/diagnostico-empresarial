@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class EmailService {
-  private apiUrl = 'http://localhost:4200/api';
+  private apiUrl = 'http://15.228.13.33';
 
   email: string = '';
 

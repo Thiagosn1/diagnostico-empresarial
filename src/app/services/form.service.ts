@@ -22,9 +22,9 @@ export class FormService {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/categories';
+      let apiUrl = 'http://15.228.13.33/categories';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://localhost:4200/api/admin/categories';
+        apiUrl = 'http://15.228.13.33/admin/categories';
       }
       return this.http.get<Category[]>(apiUrl, { headers });
     } else {

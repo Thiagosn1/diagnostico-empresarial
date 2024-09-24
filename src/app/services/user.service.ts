@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:4200/api/users';
-  private apiUrlAdmin = 'http://localhost:4200/api/admin/users';
+  private apiUrl = 'http://15.228.13.33/users';
+  private apiUrlAdmin = 'http://15.228.13.33/admin/users';
 
   constructor(
     private http: HttpClient,

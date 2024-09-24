@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class BusinessesService {
-  private apiUrl = 'http://localhost:4200/api/businesses';
-  private apiUrlAdmin = 'http://localhost:4200/api/admin/businesses';
+  private apiUrl = 'http://15.228.13.33/businesses';
+  private apiUrlAdmin = 'http://15.228.13.33/admin/businesses';
 
   constructor(
     private http: HttpClient,
@@ -37,9 +37,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = `http://localhost:4200/api/businesses/${id}`;
+      let apiUrl = `http://15.228.13.33/businesses/${id}`;
       if (this.router.url.includes('/admin')) {
-        apiUrl = `http://localhost:4200/api/admin/businesses/${id}`;
+        apiUrl = `http://15.228.13.33/admin/businesses/${id}`;
       }
       return this.http.get<any>(apiUrl, { headers });
     } else {
@@ -56,9 +56,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/businesses';
+      let apiUrl = 'http://15.228.13.33/businesses';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://localhost:4200/api/admin/businesses';
+        apiUrl = 'http://15.228.13.33/admin/businesses';
       }
       return this.http.get<any>(apiUrl, { headers });
     } else {
@@ -75,9 +75,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/users';
+      let apiUrl = 'http://15.228.13.33/users';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://localhost:4200/api/admin/users';
+        apiUrl = 'http://15.228.13.33/admin/users';
       }
       return this.http.get<any>(apiUrl, { headers });
     } else {
@@ -109,9 +109,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/businesses';
+      let apiUrl = 'http://15.228.13.33/api/businesses';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://localhost:4200/api/admin/businesses';
+        apiUrl = 'http://15.228.13.33/admin/businesses';
       }
       return this.http.put<any>(`${apiUrl}/${id}`, empresa, { headers });
     } else {

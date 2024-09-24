@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class BusinessUsersService {
-  private apiUrl = 'http://localhost:4200/api/businessusers';
+  private apiUrl = 'http://15.228.13.33/businessusers';
 
   constructor(
     private http: HttpClient,
@@ -22,7 +22,7 @@ export class BusinessUsersService {
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http
-        .get<any>('http://localhost:4200/api/businesses', {
+        .get<any>('http://15.228.13.33/businesses', {
           headers,
         })
         .pipe(map((res) => res[0]?.businessUsers || []));
@@ -42,7 +42,7 @@ export class BusinessUsersService {
       if (token) {
         const headers = new HttpHeaders().set('Authorization', token);
         this.http
-          .get<any>('http://localhost:4200/api/businesses', { headers })
+          .get<any>('http://15.228.13.33/businesses', { headers })
           .subscribe((response) => {
             const businessId = response[0].id;
             const bodyAdd = {
@@ -60,7 +60,7 @@ export class BusinessUsersService {
                 };
                 this.http
                   .post(
-                    'http://localhost:4200/api/businessusers/invite',
+                    'http://15.228.13.33/businessusers/invite',
                     bodyInvite,
                     { headers }
                   )
@@ -95,7 +95,7 @@ export class BusinessUsersService {
             };
             this.http
               .put(
-                `http://localhost:4200/api/businessusers/invite/${id}`,
+                `http://15.228.13.33/businessusers/invite/${id}`,
                 bodyInvite,
                 { headers }
               )
@@ -116,9 +116,9 @@ export class BusinessUsersService {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://localhost:4200/api/businessusers';
+      let apiUrl = 'http://15.228.13.33/businessusers';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://localhost:4200/api/admin/businessusers';
+        apiUrl = 'http://15.228.13.33/admin/businessusers';
       }
       return this.http.delete<any>(`${apiUrl}/${id}`, { headers });
     } else {
