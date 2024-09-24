@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class BusinessUsersService {
-  private apiUrl = 'http://15.228.13.33/businessusers';
+  private apiUrl = '/api/businessusers';
 
   constructor(
     private http: HttpClient,
@@ -22,7 +22,7 @@ export class BusinessUsersService {
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
       return this.http
-        .get<any>('http://15.228.13.33/businesses', {
+        .get<any>('/api/businesses', {
           headers,
         })
         .pipe(map((res) => res[0]?.businessUsers || []));
@@ -42,7 +42,7 @@ export class BusinessUsersService {
       if (token) {
         const headers = new HttpHeaders().set('Authorization', token);
         this.http
-          .get<any>('http://15.228.13.33/businesses', { headers })
+          .get<any>('/api/businesses', { headers })
           .subscribe((response) => {
             const businessId = response[0].id;
             const bodyAdd = {
@@ -60,7 +60,7 @@ export class BusinessUsersService {
                 };
                 this.http
                   .post(
-                    'http://15.228.13.33/businessusers/invite',
+                    '/api/businessusers/invite',
                     bodyInvite,
                     { headers }
                   )
@@ -95,7 +95,7 @@ export class BusinessUsersService {
             };
             this.http
               .put(
-                `http://15.228.13.33/businessusers/invite/${id}`,
+                `/api/businessusers/invite/${id}`,
                 bodyInvite,
                 { headers }
               )
@@ -116,9 +116,9 @@ export class BusinessUsersService {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://15.228.13.33/businessusers';
+      let apiUrl = '/api/businessusers';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://15.228.13.33/admin/businessusers';
+        apiUrl = '/api/admin/businessusers';
       }
       return this.http.delete<any>(`${apiUrl}/${id}`, { headers });
     } else {

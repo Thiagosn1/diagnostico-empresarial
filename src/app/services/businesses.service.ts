@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class BusinessesService {
-  private apiUrl = 'http://15.228.13.33/businesses';
-  private apiUrlAdmin = 'http://15.228.13.33/admin/businesses';
+  private apiUrl = '/api/businesses';
+  private apiUrlAdmin = '/api/admin/businesses';
 
   constructor(
     private http: HttpClient,
@@ -37,9 +37,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = `http://15.228.13.33/businesses/${id}`;
+      let apiUrl = `/api/businesses/${id}`;
       if (this.router.url.includes('/admin')) {
-        apiUrl = `http://15.228.13.33/admin/businesses/${id}`;
+        apiUrl = `/api/admin/businesses/${id}`;
       }
       return this.http.get<any>(apiUrl, { headers });
     } else {
@@ -56,9 +56,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://15.228.13.33/businesses';
+      let apiUrl = '/api/businesses';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://15.228.13.33/admin/businesses';
+        apiUrl = '/api/admin/businesses';
       }
       return this.http.get<any>(apiUrl, { headers });
     } else {
@@ -75,9 +75,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://15.228.13.33/users';
+      let apiUrl = '/api/users';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://15.228.13.33/admin/users';
+        apiUrl = '/api/admin/users';
       }
       return this.http.get<any>(apiUrl, { headers });
     } else {
@@ -109,9 +109,9 @@ export class BusinessesService {
 
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://15.228.13.33/api/businesses';
+      let apiUrl = '/api/api/businesses';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://15.228.13.33/admin/businesses';
+        apiUrl = '/api/admin/businesses';
       }
       return this.http.put<any>(`${apiUrl}/${id}`, empresa, { headers });
     } else {

@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class FormService {
-  private apiUrl = 'http://localhost:4200/api/admin/categories';
-  private apiUrlQuestions = 'http://localhost:4200/api/admin/questions';
+  private apiUrl = '/api/admin/categories';
+  private apiUrlQuestions = '/api/admin/questions';
 
   constructor(
     private http: HttpClient,
@@ -22,9 +22,9 @@ export class FormService {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = 'http://15.228.13.33/categories';
+      let apiUrl = '/api/categories';
       if (this.router.url.includes('/admin')) {
-        apiUrl = 'http://15.228.13.33/admin/categories';
+        apiUrl = '/api/admin/categories';
       }
       return this.http.get<Category[]>(apiUrl, { headers });
     } else {

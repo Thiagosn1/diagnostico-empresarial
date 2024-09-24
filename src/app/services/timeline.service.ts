@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class TimelineService {
-  private apiUrl = 'http://15.228.13.33/admin/timelines';
+  private apiUrl = '/api/admin/timelines';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

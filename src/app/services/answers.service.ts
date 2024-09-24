@@ -7,7 +7,7 @@ import { Observable, catchError, map, mergeMap, of, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AnswerService {
-  private apiUrl = 'http://15.228.13.33';
+  private apiUrl = '/api';
   private answersUrl = `${this.apiUrl}/answers`;
   private businessUsersUrl = `${this.apiUrl}/businessusers`;
 
