@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { catchError, Observable, of, tap } from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
+import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ApiUrlService } from './apiUrl.service';
 
@@ -31,14 +36,16 @@ export class EmailService {
   }
 
   enviarEmail(email: string): Observable<any> {
-    this.email = email;
-    const user = { email: this.email };
+    const user = { email: email };
     const url = this.apiUrlService.getFullApiUrl('requirelogin');
     console.log('Enviando requisição para:', url);
 
     return this.http.post(url, user).pipe(
-      tap(() => console.log('Email enviado para autenticação')),
-      catchError(this.handleError('enviarEmail'))
+      tap((response) => console.log('Resposta da API:', response)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erro ao enviar email:', error);
+        return throwError(() => error);
+      })
     );
   }
 

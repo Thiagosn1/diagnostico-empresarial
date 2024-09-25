@@ -39,10 +39,7 @@ export class ApiUrlService {
   }
 
   getFullApiUrl(endpoint: string): string {
-    // Adiciona o protocolo apenas se não for a URL local
-    if (this.currentApiUrl === this.prodApiUrl) {
-      return `http://${this.currentApiUrl}${endpoint}`;
-    }
+    // Não adiciona o protocolo para a URL de produção
     return `${this.currentApiUrl}${endpoint}`;
   }
 }
