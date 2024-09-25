@@ -23,16 +23,9 @@ export class EmailService {
       : null;
   }
 
-  private getUrl(endpoint: string): string {
-    return `${this.apiUrlService.getApiUrl()}${endpoint}`.replace(
-      /([^:]\/)\/+/g,
-      '$1'
-    );
-  }
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(`${operation} falhou: ${error.message}`);
+      console.error(`${operation} falhou:`, error);
       return of(result as T);
     };
   }
@@ -40,8 +33,10 @@ export class EmailService {
   enviarEmail(email: string): Observable<any> {
     this.email = email;
     const user = { email: this.email };
+    const url = this.apiUrlService.getFullApiUrl('requirelogin');
+    console.log('Enviando requisição para:', url);
 
-    return this.http.post(this.getUrl('requirelogin'), user).pipe(
+    return this.http.post(url, user).pipe(
       tap(() => console.log('Email enviado para autenticação')),
       catchError(this.handleError('enviarEmail'))
     );
@@ -54,10 +49,12 @@ export class EmailService {
       return of(null);
     }
 
-    return this.http.get(this.getUrl('users'), { headers }).pipe(
-      tap((data) => console.log('Dados do usuário recuperados', data)),
-      catchError(this.handleError('buscarEmail'))
-    );
+    return this.http
+      .get(this.apiUrlService.getFullApiUrl('users'), { headers })
+      .pipe(
+        tap((data) => console.log('Dados do usuário recuperados', data)),
+        catchError(this.handleError('buscarEmail'))
+      );
   }
 
   enviarToken(token: string): Observable<HttpResponse<any>> {
@@ -66,7 +63,7 @@ export class EmailService {
       loginCode: token,
     };
     return this.http
-      .post<any>(this.getUrl('login'), body, {
+      .post<any>(this.apiUrlService.getFullApiUrl('login'), body, {
         observe: 'response',
       })
       .pipe(

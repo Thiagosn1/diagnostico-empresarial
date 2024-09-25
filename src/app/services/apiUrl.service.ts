@@ -37,4 +37,12 @@ export class ApiUrlService {
       console.error('URL inválida. Use localApiUrl ou prodApiUrl.');
     }
   }
+
+  getFullApiUrl(endpoint: string): string {
+    // Adiciona o protocolo apenas se não for a URL local
+    if (this.currentApiUrl === this.prodApiUrl) {
+      return `http://${this.currentApiUrl}${endpoint}`;
+    }
+    return `${this.currentApiUrl}${endpoint}`;
+  }
 }
