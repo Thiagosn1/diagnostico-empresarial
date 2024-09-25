@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ApiUrlService } from './apiUrl.service';
 
@@ -16,43 +16,66 @@ export class EmailService {
     private apiUrlService: ApiUrlService
   ) {}
 
-  enviarEmail(email: string) {
-    this.email = email;
-    const user = {
-      email: this.email,
-    };
+  private getHeaders(): HttpHeaders | null {
+    const token = this.authService.getToken();
+    return token
+      ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      : null;
+  }
 
-    const postRequireLogin = this.http.post(
-      `${this.apiUrlService.getApiUrl()}/requirelogin`,
-      user
+  private getUrl(endpoint: string): string {
+    return `${this.apiUrlService.getApiUrl()}${endpoint}`.replace(
+      /([^:]\/)\/+/g,
+      '$1'
     );
-    return postRequireLogin;
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} falhou: ${error.message}`);
+      return of(result as T);
+    };
+  }
+
+  enviarEmail(email: string): Observable<any> {
+    this.email = email;
+    const user = { email: this.email };
+
+    return this.http.post(this.getUrl('requirelogin'), user).pipe(
+      tap(() => console.log('Email enviado para autenticação')),
+      catchError(this.handleError('enviarEmail'))
+    );
   }
 
   buscarEmail(): Observable<any> {
-    const token = this.authService.getToken();
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get(`${this.apiUrlService.getApiUrl()}/users`, {
-        headers,
-      });
-    } else {
+    const headers = this.getHeaders();
+    if (!headers) {
       console.error('Nenhum token de autenticação disponível');
       return of(null);
     }
+
+    return this.http.get(this.getUrl('users'), { headers }).pipe(
+      tap((data) => console.log('Dados do usuário recuperados', data)),
+      catchError(this.handleError('buscarEmail'))
+    );
   }
 
-  enviarToken(token: string): Observable<any> {
+  enviarToken(token: string): Observable<HttpResponse<any>> {
     const body = {
       email: this.email,
       loginCode: token,
     };
-    return this.http.post(`${this.apiUrlService.getApiUrl()}/login`, body, {
-      observe: 'response',
-    });
+    return this.http
+      .post<any>(this.getUrl('login'), body, {
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) => console.log('Login bem-sucedido', response)),
+        catchError(this.handleError<HttpResponse<any>>('enviarToken'))
+      );
   }
 
-  reenviarToken() {
+  reenviarToken(): Observable<any> {
     return this.enviarEmail(this.email);
   }
 }

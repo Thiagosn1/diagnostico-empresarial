@@ -27,7 +27,10 @@ export class AnswerService {
   }
 
   private getUrl(endpoint: string): string {
-    return `${this.apiUrlService.getApiUrl()}${endpoint}`;
+    return `${this.apiUrlService.getApiUrl()}${endpoint}`.replace(
+      /([^:]\/)\/+/g,
+      '$1'
+    );
   }
 
   buscarBusinessUserId(): Observable<number | null> {

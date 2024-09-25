@@ -27,14 +27,19 @@ export class TimelineService {
     };
   }
 
+  private getUrl(endpoint: string): string {
+    return `${this.apiUrlService.getApiUrl()}${endpoint}`.replace(
+      /([^:]\/)\/+/g,
+      '$1'
+    );
+  }
+
   createTimeline(item: any): Observable<any> {
     const headers = this.getHeaders();
     if (!headers) return of(null);
 
     return this.http
-      .post<any>(`${this.apiUrlService.getApiUrl()}admin/timelines`, item, {
-        headers,
-      })
+      .post<any>(this.getUrl('admin/timelines'), item, { headers })
       .pipe(catchError(this.handleError<any>('createTimeline')));
   }
 
@@ -43,9 +48,7 @@ export class TimelineService {
     if (!headers) return of([]);
 
     return this.http
-      .get<TimelineItem[]>(`${this.apiUrlService.getApiUrl()}admin/timelines`, {
-        headers,
-      })
+      .get<TimelineItem[]>(this.getUrl('admin/timelines'), { headers })
       .pipe(catchError(this.handleError<TimelineItem[]>('getTimeline', [])));
   }
 
@@ -54,11 +57,7 @@ export class TimelineService {
     if (!headers) return of(null);
 
     return this.http
-      .put<any>(
-        `${this.apiUrlService.getApiUrl()}admin/timelines/${id}`,
-        item,
-        { headers }
-      )
+      .put<any>(this.getUrl(`admin/timelines/${id}`), item, { headers })
       .pipe(catchError(this.handleError<any>('updateTimeline')));
   }
 }

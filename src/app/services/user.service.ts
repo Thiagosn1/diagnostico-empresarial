@@ -28,12 +28,19 @@ export class UserService {
     };
   }
 
+  private getUrl(endpoint: string): string {
+    return `${this.apiUrlService.getApiUrl()}${endpoint}`.replace(
+      /([^:]\/)\/+/g,
+      '$1'
+    );
+  }
+
   obterUsuario(): Observable<any> {
     const headers = this.getHeaders();
     if (!headers) return of(null);
 
     return this.http
-      .get<any>(`${this.apiUrlService.getApiUrl()}users`, { headers })
+      .get<any>(this.getUrl('users'), { headers })
       .pipe(catchError(this.handleError<any>('obterUsuario')));
   }
 
@@ -42,7 +49,7 @@ export class UserService {
     if (!headers) return of([]);
 
     return this.http
-      .get<any>(`${this.apiUrlService.getApiUrl()}admin/users`, { headers })
+      .get<any>(this.getUrl('admin/users'), { headers })
       .pipe(catchError(this.handleError<any>('obterUsuarios', [])));
   }
 
@@ -50,12 +57,12 @@ export class UserService {
     const headers = this.getHeaders();
     if (!headers) return of(null);
 
-    const apiUrl = this.router.url.includes('/admin')
-      ? `${this.apiUrlService.getApiUrl()}admin/users/${id}`
-      : `${this.apiUrlService.getApiUrl()}users/${id}`;
+    const endpoint = this.router.url.includes('/admin')
+      ? `admin/users/${id}`
+      : `users/${id}`;
 
     return this.http
-      .put<any>(apiUrl, user, { headers })
+      .put<any>(this.getUrl(endpoint), user, { headers })
       .pipe(catchError(this.handleError<any>('atualizarUsuario')));
   }
 
@@ -65,7 +72,7 @@ export class UserService {
 
     return this.http
       .put<any>(
-        `${this.apiUrlService.getApiUrl()}admin/users/setauthority/${id}`,
+        this.getUrl(`admin/users/setauthority/${id}`),
         { text: 'ROOT' },
         { headers }
       )
@@ -78,7 +85,7 @@ export class UserService {
 
     return this.http
       .put<any>(
-        `${this.apiUrlService.getApiUrl()}admin/users/setauthority/${id}`,
+        this.getUrl(`admin/users/setauthority/${id}`),
         { text: 'DEFAULT' },
         { headers }
       )
@@ -90,9 +97,7 @@ export class UserService {
     if (!headers) return of(null);
 
     return this.http
-      .delete<any>(`${this.apiUrlService.getApiUrl()}admin/users/${id}`, {
-        headers,
-      })
+      .delete<any>(this.getUrl(`admin/users/${id}`), { headers })
       .pipe(catchError(this.handleError<any>('excluirUsuario')));
   }
 }

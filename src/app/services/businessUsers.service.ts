@@ -31,7 +31,7 @@ export class BusinessUsersService {
   private getUrl(endpoint: string, isAdmin: boolean = false): string {
     const baseUrl = this.apiUrlService.getApiUrl();
     const adminPrefix = isAdmin ? 'admin/' : '';
-    return `${baseUrl}${adminPrefix}${endpoint}`;
+    return `${baseUrl}${adminPrefix}${endpoint}`.replace(/([^:]\/)\/+/g, '$1');
   }
 
   obterFuncionarios(): Observable<any[]> {
