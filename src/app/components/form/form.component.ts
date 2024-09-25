@@ -109,14 +109,19 @@ export class FormComponent implements AfterViewInit, OnInit {
   buscarRespostas(): void {
     this.answerService.buscarRespostas().subscribe({
       next: (respostas) => {
-        this.perguntasAtuais = respostas.length;
+        if (respostas) {
+          this.perguntasAtuais = respostas.length;
 
-        if (this.perguntasAtuais === this.totalPerguntas) {
-          this.router.navigate(['/relatorio']);
-          return;
+          if (this.perguntasAtuais === this.totalPerguntas) {
+            this.router.navigate(['/relatorio']);
+            return;
+          }
+
+          this.atualizarStatusCategorias(respostas);
+        } else {
+          this.perguntasAtuais = 0;
+          this.atualizarStatusCategorias([]);
         }
-
-        this.atualizarStatusCategorias(respostas);
       },
       error: (error) => {
         console.error('Erro ao buscar as respostas:', error);

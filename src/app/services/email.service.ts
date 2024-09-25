@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { ApiUrlService } from './apiUrl.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmailService {
-  private apiUrl = '/api';
-
   email: string = '';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private apiUrlService: ApiUrlService
+  ) {}
 
   enviarEmail(email: string) {
     this.email = email;
@@ -20,7 +23,7 @@ export class EmailService {
     };
 
     const postRequireLogin = this.http.post(
-      `${this.apiUrl}/requirelogin`,
+      `${this.apiUrlService.getApiUrl()}/requirelogin`,
       user
     );
     return postRequireLogin;
@@ -30,13 +33,12 @@ export class EmailService {
     const token = this.authService.getToken();
     if (token) {
       const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get(`${this.apiUrl}/users`, { headers });
+      return this.http.get(`${this.apiUrlService.getApiUrl()}/users`, {
+        headers,
+      });
     } else {
       console.error('Nenhum token de autenticação disponível');
-      return new Observable((subscriber) => {
-        subscriber.next(null);
-        subscriber.complete();
-      });
+      return of(null);
     }
   }
 
@@ -45,7 +47,7 @@ export class EmailService {
       email: this.email,
       loginCode: token,
     };
-    return this.http.post(`${this.apiUrl}/login`, body, {
+    return this.http.post(`${this.apiUrlService.getApiUrl()}/login`, body, {
       observe: 'response',
     });
   }

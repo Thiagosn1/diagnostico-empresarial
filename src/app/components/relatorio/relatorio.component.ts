@@ -58,11 +58,21 @@ export class RelatorioComponent implements OnInit {
   }
 
   buscarCategorias(business: any): void {
-    this.answerService.buscarCategorias().subscribe((categorias) => {
-      this.radarChartLabels = categorias.map(
-        (categoria: any) => categoria.name
-      );
-      this.buscarQuestoes(business.id, categorias);
+    this.answerService.buscarCategorias().subscribe({
+      next: (categorias) => {
+        if (categorias) {
+          this.radarChartLabels = categorias.map(
+            (categoria: any) => categoria.name
+          );
+          this.buscarQuestoes(business.id, categorias);
+        } else {
+          this.radarChartLabels = [];
+          console.error('Nenhuma categoria encontrada');
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar categorias:', error);
+      },
     });
   }
 

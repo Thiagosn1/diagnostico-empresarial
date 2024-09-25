@@ -24,25 +24,36 @@ export class InfoComponent {
   buscarRespostas(): void {
     this.answerService.buscarQuestoes().subscribe({
       next: (questoes) => {
-        this.answerService.buscarRespostas().subscribe({
-          next: (respostas) => {
-            this.carregandoDados = false;
-            if (respostas.length > 0) {
-              this.textoBotao = 'Continuar de onde parou';
-              this.estaContinuando = true;
-              this.todasPerguntasRespondidas =
-                questoes.length === respostas.length;
-              if (this.todasPerguntasRespondidas) {
-                setTimeout(() => {
-                  this.router.navigate(['/']);
-                }, 6000);
+        if (questoes) {
+          this.answerService.buscarRespostas().subscribe({
+            next: (respostas) => {
+              this.carregandoDados = false;
+              if (respostas && respostas.length > 0) {
+                this.textoBotao = 'Continuar de onde parou';
+                this.estaContinuando = true;
+                this.todasPerguntasRespondidas =
+                  questoes.length === respostas.length;
+                if (this.todasPerguntasRespondidas) {
+                  setTimeout(() => {
+                    this.router.navigate(['/']);
+                  }, 6000);
+                }
+              } else {
+                this.textoBotao = 'Iniciar';
+                this.estaContinuando = false;
+                this.todasPerguntasRespondidas = false;
               }
-            }
-          },
-          error: (error) => {
-            console.error('Erro ao buscar as respostas:', error);
-          },
-        });
+            },
+            error: (error) => {
+              console.error('Erro ao buscar as respostas:', error);
+            },
+          });
+        } else {
+          this.carregandoDados = false;
+          this.textoBotao = 'Iniciar';
+          this.estaContinuando = false;
+          this.todasPerguntasRespondidas = false;
+        }
       },
       error: (error) => {
         console.error('Erro ao buscar as questões:', error);

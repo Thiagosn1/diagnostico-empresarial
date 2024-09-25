@@ -1,52 +1,64 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { TimelineItem } from '../models/form.model';
 import { AuthService } from './auth.service';
+import { ApiUrlService } from './apiUrl.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TimelineService {
-  private apiUrl = '/api/admin/timelines';
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private apiUrlService: ApiUrlService
+  ) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  private getHeaders(): HttpHeaders | null {
+    const token = this.authService.getToken();
+    return token ? new HttpHeaders().set('Authorization', token) : null;
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} falhou: ${error.message}`);
+      return of(result as T);
+    };
+  }
 
   createTimeline(item: any): Observable<any> {
-    const token = this.authService.getToken();
+    const headers = this.getHeaders();
+    if (!headers) return of(null);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.post<any>(`${this.apiUrl}`, item, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next(null);
-        subscriber.complete();
-      });
-    }
+    return this.http
+      .post<any>(`${this.apiUrlService.getApiUrl()}admin/timelines`, item, {
+        headers,
+      })
+      .pipe(catchError(this.handleError<any>('createTimeline')));
   }
 
   getTimeline(): Observable<TimelineItem[]> {
-    const token = this.authService.getToken();
-    const headers = token
-      ? new HttpHeaders().set('Authorization', token)
-      : undefined;
-    return this.http.get<TimelineItem[]>(this.apiUrl, { headers });
+    const headers = this.getHeaders();
+    if (!headers) return of([]);
+
+    return this.http
+      .get<TimelineItem[]>(`${this.apiUrlService.getApiUrl()}admin/timelines`, {
+        headers,
+      })
+      .pipe(catchError(this.handleError<TimelineItem[]>('getTimeline', [])));
   }
 
   updateTimeline(id: number, item: any): Observable<any> {
-    const token = this.authService.getToken();
+    const headers = this.getHeaders();
+    if (!headers) return of(null);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.put<any>(`${this.apiUrl}/${id}`, item, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next(null);
-        subscriber.complete();
-      });
-    }
+    return this.http
+      .put<any>(
+        `${this.apiUrlService.getApiUrl()}admin/timelines/${id}`,
+        item,
+        { headers }
+      )
+      .pipe(catchError(this.handleError<any>('updateTimeline')));
   }
 }

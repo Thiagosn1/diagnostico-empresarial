@@ -3,13 +3,6 @@ command = "ng build --configuration=production"
 publish = "dist/diagnostico-empresarial/"
 
 [[redirects]]
-from = "/api/*"
-to = "http://15.228.13.33/:splat"
-status = 200
-force = true
-timeout = 60000
-
-[[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200

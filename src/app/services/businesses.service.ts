@@ -1,125 +1,96 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { ApiUrlService } from './apiUrl.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BusinessesService {
-  private apiUrl = '/api/businesses';
-  private apiUrlAdmin = '/api/admin/businesses';
-
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private apiUrlService: ApiUrlService
   ) {}
 
-  criarEmpresa(business: any) {
+  private getHeaders(): HttpHeaders | null {
     const token = this.authService.getToken();
+    return token ? new HttpHeaders().set('Authorization', token) : null;
+  }
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.post(this.apiUrl, business, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
+  private handleError<T>(operation: string, result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`Erro ao ${operation}:`, error);
+      return of(result as T);
+    };
+  }
+
+  private getUrl(endpoint: string, isAdmin: boolean = false): string {
+    const baseUrl = this.apiUrlService.getApiUrl();
+    const adminPrefix = isAdmin ? 'admin/' : '';
+    return `${baseUrl}${adminPrefix}${endpoint}`;
+  }
+
+  criarEmpresa(business: any): Observable<any> {
+    const headers = this.getHeaders();
+    if (!headers) return of(null);
+
+    return this.http
+      .post(this.getUrl('businesses'), business, { headers })
+      .pipe(catchError(this.handleError<any>('criar empresa')));
   }
 
   obterEmpresa(id: number): Observable<any> {
-    const token = this.authService.getToken();
+    const headers = this.getHeaders();
+    if (!headers) return of(null);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = `/api/businesses/${id}`;
-      if (this.router.url.includes('/admin')) {
-        apiUrl = `/api/admin/businesses/${id}`;
-      }
-      return this.http.get<any>(apiUrl, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next(null);
-        subscriber.complete();
-      });
-    }
+    const isAdmin = this.router.url.includes('/admin');
+    return this.http
+      .get<any>(`${this.getUrl('businesses', isAdmin)}/${id}`, { headers })
+      .pipe(catchError(this.handleError<any>('obter empresa')));
   }
 
-  obterEmpresas(): Observable<any> {
-    const token = this.authService.getToken();
+  obterEmpresas(): Observable<any[]> {
+    const headers = this.getHeaders();
+    if (!headers) return of([]);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = '/api/businesses';
-      if (this.router.url.includes('/admin')) {
-        apiUrl = '/api/admin/businesses';
-      }
-      return this.http.get<any>(apiUrl, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
+    const isAdmin = this.router.url.includes('/admin');
+    return this.http
+      .get<any[]>(this.getUrl('businesses', isAdmin), { headers })
+      .pipe(catchError(this.handleError<any[]>('obter empresas', [])));
   }
 
-  obterUsuarios(): Observable<any> {
-    const token = this.authService.getToken();
+  obterUsuarios(): Observable<any[]> {
+    const headers = this.getHeaders();
+    if (!headers) return of([]);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = '/api/users';
-      if (this.router.url.includes('/admin')) {
-        apiUrl = '/api/admin/users';
-      }
-      return this.http.get<any>(apiUrl, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
+    const isAdmin = this.router.url.includes('/admin');
+    return this.http
+      .get<any[]>(this.getUrl('users', isAdmin), { headers })
+      .pipe(catchError(this.handleError<any[]>('obter usuários', [])));
   }
 
   excluirEmpresa(id: number): Observable<any> {
-    const token = this.authService.getToken();
+    const headers = this.getHeaders();
+    if (!headers) return of(null);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      return this.http.delete<any>(`${this.apiUrlAdmin}/${id}`, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
+    return this.http
+      .delete<any>(`${this.getUrl('businesses', true)}/${id}`, { headers })
+      .pipe(catchError(this.handleError<any>('excluir empresa')));
   }
 
   atualizarEmpresa(id: number, empresa: any): Observable<any> {
-    const token = this.authService.getToken();
+    const headers = this.getHeaders();
+    if (!headers) return of(null);
 
-    if (token) {
-      const headers = new HttpHeaders().set('Authorization', token);
-      let apiUrl = '/api/api/businesses';
-      if (this.router.url.includes('/admin')) {
-        apiUrl = '/api/admin/businesses';
-      }
-      return this.http.put<any>(`${apiUrl}/${id}`, empresa, { headers });
-    } else {
-      console.error('Nenhum token de autenticação disponível');
-      return new Observable<any>((subscriber) => {
-        subscriber.next([]);
-        subscriber.complete();
-      });
-    }
+    const isAdmin = this.router.url.includes('/admin');
+    return this.http
+      .put<any>(`${this.getUrl('businesses', isAdmin)}/${id}`, empresa, {
+        headers,
+      })
+      .pipe(catchError(this.handleError<any>('atualizar empresa')));
   }
 }

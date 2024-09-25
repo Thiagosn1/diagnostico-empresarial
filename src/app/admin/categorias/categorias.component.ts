@@ -112,17 +112,22 @@ export class CategoriasComponent implements OnInit {
   excluirCategoria(categoryId: number): void {
     this.formService.getCategoria(categoryId).subscribe({
       next: (category) => {
-        this.formService.excluirCategoria(categoryId).subscribe({
-          next: () => {
-            this.carregarDados();
-            this.salvarAlteracaoNaLinhaDoTempo(
-              `Categoria ${category.name} excluída`
-            );
-          },
-          error: (error) => {
-            console.error('Erro ao excluir categoria:', error);
-          },
-        });
+        if (category) {
+          const categoryName = category.name;
+          this.formService.excluirCategoria(categoryId).subscribe({
+            next: () => {
+              this.carregarDados();
+              this.salvarAlteracaoNaLinhaDoTempo(
+                `Categoria ${categoryName} excluída`
+              );
+            },
+            error: (error) => {
+              console.error('Erro ao excluir categoria:', error);
+            },
+          });
+        } else {
+          console.error('Categoria não encontrada');
+        }
       },
       error: (error) => {
         console.error('Erro ao obter categoria:', error);

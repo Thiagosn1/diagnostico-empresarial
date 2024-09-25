@@ -114,17 +114,21 @@ export class QuestoesComponent implements OnInit {
       const questao = this.formQuestao.value;
       this.formService.adicionarQuestao(questao).subscribe({
         next: (question) => {
-          this.mostrarFormulario = false;
-          this.carregarDados();
-          this.formQuestao.reset();
-          this.mostrarFormulario = false;
-          this.salvarAlteracaoNaTimeline(
-            `Questão ${
-              question.id
-            } adicionada na categoria ${this.obterNomeCategoria(
-              question.categoryId
-            )}`
-          );
+          if (question) {
+            this.mostrarFormulario = false;
+            this.carregarDados();
+            this.formQuestao.reset();
+            this.mostrarFormulario = false;
+            this.salvarAlteracaoNaTimeline(
+              `Questão ${
+                question.id
+              } adicionada na categoria ${this.obterNomeCategoria(
+                question.categoryId
+              )}`
+            );
+          } else {
+            console.error('Erro ao adicionar questão: resposta indefinida');
+          }
         },
         error: (error) => {
           console.error('Erro ao adicionar questão:', error);
@@ -136,19 +140,23 @@ export class QuestoesComponent implements OnInit {
   excluirQuestao(questionId: number): void {
     this.formService.getQuestao(questionId).subscribe({
       next: (question) => {
-        this.formService.excluirQuestao(questionId).subscribe({
-          next: () => {
-            this.carregarDados();
-            this.salvarAlteracaoNaTimeline(
-              `Questão ${questionId} excluída da categoria ${this.obterNomeCategoria(
-                question.categoryId
-              )}`
-            );
-          },
-          error: (error) => {
-            console.error('Erro ao excluir questão:', error);
-          },
-        });
+        if (question) {
+          this.formService.excluirQuestao(questionId).subscribe({
+            next: () => {
+              this.carregarDados();
+              this.salvarAlteracaoNaTimeline(
+                `Questão ${questionId} excluída da categoria ${this.obterNomeCategoria(
+                  question.categoryId
+                )}`
+              );
+            },
+            error: (error) => {
+              console.error('Erro ao excluir questão:', error);
+            },
+          });
+        } else {
+          console.error('Erro ao obter questão: resposta indefinida');
+        }
       },
       error: (error) => {
         console.error('Erro ao obter questão:', error);
