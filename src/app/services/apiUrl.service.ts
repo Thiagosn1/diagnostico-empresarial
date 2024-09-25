@@ -13,7 +13,6 @@ export class ApiUrlService {
   }
 
   private determineInitialApiUrl(): string {
-    // isDevMode() é uma função do Angular que retorna true se estiver em modo de desenvolvimento
     return isDevMode() ? this.localApiUrl : this.prodApiUrl;
   }
 
@@ -36,10 +35,5 @@ export class ApiUrlService {
     } else {
       console.error('URL inválida. Use localApiUrl ou prodApiUrl.');
     }
-  }
-
-  getFullApiUrl(endpoint: string): string {
-    // Não adiciona o protocolo para a URL de produção
-    return `${this.currentApiUrl}${endpoint}`;
   }
 }
