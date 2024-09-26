@@ -18,31 +18,31 @@
 }
 
 .card-title {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 .card-value {
-  font-size: 2.5em;
+  font-size: 2.3em;
 }
 
 .card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
 }
 
 .top-cards {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
 }
 
 .small-card {
-  width: 240px;
-  height: 195px;
+  width: 300px;
+  height: 250px;
   text-align: center;
 }
 
@@ -53,21 +53,21 @@
 .full-width-card {
   min-width: 280px;
   min-height: 193px;
-  padding: 16px;
+  padding: 20px;
   box-sizing: border-box;
 }
 
-.card-title {
-  font-size: 2.5em;
+.timeline-title {
+  font-size: 2em;
 }
 
 .mat-mdc-header-cell {
   font-weight: inherit !important;
-  font-size: 20px;
+  font-size: 1.7em;
 }
 
 .mat-mdc-cell {
-  font-size: 18px !important;
+  font-size: 1.5em !important;
 }
 
 .form-button {
@@ -87,101 +87,76 @@
   overflow-x: auto;
 }
 
-@media screen and (min-width: 1600px) {
-  .small-card {
-    width: 350px;
-    height: 250px;
+@media screen and (max-width: 1440px) {
+  .card-container {
+    gap: 30px;
   }
 
-  .full-width-card {
-    min-width: 550px;
-    min-height: 350px;
-    font-size: 1.5em;
+  .top-cards {
+    gap: 30px;
   }
-}
 
-@media screen and (max-width: 1300px) {
   .small-card {
-    width: 200px;
-    height: 160px;
+    width: 220px;
+    height: 200px;
   }
 
   .card-title {
+    font-size: 2em;
+  }
+
+  .card-value {
+    font-size: 2em;
+  }
+
+  .timeline-title {
     font-size: 1.8em;
   }
 
-  .card-value {
-    font-size: 2.2em;
-  }
-
-  .full-width-card {
-    min-width: 400px;
-    min-height: 250px;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .top-cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .small-card {
-    width: 45%;
-    max-width: 180px;
-    margin: 10px;
-  }
-
-  .full-width-card {
-    width: 90%;
-    max-width: 350px;
-    margin-bottom: 20px;
-  }
-
-  .card-title {
+  .mat-mdc-header-cell {
     font-size: 1.5em;
   }
 
-  .card-value {
-    font-size: 2em;
-  }
-
-  .table-container {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 20px;
-  }
-
-  .mat-mdc-header-cell,
   .mat-mdc-cell {
-    white-space: nowrap;
+    font-size: 1.2em !important;
   }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1300px) {
+@media screen and (max-width: 1024px) {
   .top-cards {
-    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 35px;
   }
 
   .small-card {
-    width: 180px;
-    height: 150px;
+    width: calc(35% - 10px);
+    height: 200px;
   }
 
   .card-title {
-    font-size: 1.6em;
+    font-size: 1.9em;
   }
 
   .card-value {
-    font-size: 2em;
+    font-size: 1.9em;
   }
 
-  .full-width-card {
-    min-width: 350px;
-    min-height: 220px;
+  .timeline-title {
+    font-size: 1.7em;
+  }
+
+  .mat-mdc-header-cell {
+    font-size: 1.4em;
+  }
+
+  .mat-mdc-cell {
+    font-size: 1.1em !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-container {
+    margin-left: -50px;
   }
 }

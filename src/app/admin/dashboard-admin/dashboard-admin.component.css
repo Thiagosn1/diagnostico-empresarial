@@ -114,35 +114,29 @@ mat-icon {
 }
 
 @media screen and (max-width: 768px) {
-  /* ALTERADO: Força o menu a ficar sempre colapsado */
   .sidenav {
     width: 60px !important;
   }
 
-  /* ALTERADO: Reduz o tamanho da imagem do usuário */
   .sidenav .user-image {
     width: 35px;
     height: 35px;
   }
 
-  /* ALTERADO: Oculta o nome do usuário, email e texto dos itens do menu */
   .sidenav .user-name,
   .sidenav .user-email,
   .sidenav .menu-item-content span:not(.mat-icon) {
     display: none;
   }
 
-  /* ALTERADO: Centraliza os ícones do menu */
   .sidenav .menu-item-content {
     justify-content: center;
   }
 
-  /* ALTERADO: Oculta o botão de toggle do menu */
   .toggle-button {
     display: none;
   }
 
-  /* ALTERADO: Ajusta o conteúdo principal para o menu colapsado */
   .sidenav-content {
     margin-left: 60px;
   }
