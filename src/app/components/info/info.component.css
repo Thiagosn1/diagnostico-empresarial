@@ -13,16 +13,16 @@
 }
 
 .form-card {
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
   background-color: #d9d9d9;
   border-radius: 20px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 16px;
-  position: relative; /* Adicionado para posicionamento absoluto do botão "Sair" */
+  padding: 20px;
+  position: relative;
 }
 
 .form-title {
@@ -60,15 +60,13 @@ button {
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   cursor: pointer;
   border: none;
+  margin-top: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 button:hover {
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
   background-color: #0046b2;
-}
-
-.continue-button {
-  width: 300px;
 }
 
 .info-styles {
@@ -107,75 +105,6 @@ button:hover {
   line-height: 29px;
   color: #000000;
   margin: 10px 0;
-}
-
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.form-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  background-color: #d9d9d9;
-  border-radius: 20px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 16px;
-  position: relative; /* Adicionado para posicionamento absoluto do botão "Sair" */
-}
-
-.form-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  font-size: 35px;
-  line-height: 29px;
-  color: #000000;
-}
-
-.form-content {
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  align-items: center;
-}
-
-span {
-  font-size: 20px;
-  text-align: justify;
-}
-
-button {
-  width: 130px;
-  height: 48px;
-  background-color: #0064fb;
-  border-radius: 50px;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  cursor: pointer;
-  border: none;
-}
-
-button:hover {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
-  background-color: #0046b2;
 }
 
 .continue-button {
@@ -225,7 +154,7 @@ button:hover {
   width: 40px;
   height: 40px;
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 20px;
   display: flex;
   justify-content: center;
@@ -241,9 +170,15 @@ button:hover {
   transform: rotateY(0deg);
 }
 
-@media (min-width: 1400px) {
+@media (max-width: 1024px) {
   .form-card {
-    width: 800px;
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-card {
+    width: 70%;
   }
 }
 
@@ -260,7 +195,7 @@ button:hover {
   }
 
   .form-title {
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
 
   .form-content p {
@@ -269,6 +204,7 @@ button:hover {
   }
 
   .button.sair {
+    margin-top: 10px;
     font-size: 0.8em;
     width: 40px;
     height: 40px;

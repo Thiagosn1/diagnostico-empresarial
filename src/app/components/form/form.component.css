@@ -162,16 +162,6 @@ button:hover {
   margin-right: 8px;
 }
 
-@media screen and (max-width: 1400px) {
-  .question-container {
-    min-height: 90vh;
-  }
-
-  .progress-text {
-    margin-top: 5rem;
-  }
-}
-
 @media screen and (max-width: 1024px) {
   .category {
     font-size: 1rem;
@@ -201,6 +191,18 @@ button:hover {
     border-radius: 15px;
   }
 }
+
+/* @media screen and (max-width: 1400px) {
+  .question-container {
+    min-height: 90vh;
+  }
+
+  .progress-text {
+    margin-top: 5rem;
+  }
+}
+
+
 
 @media screen and (max-width: 768px) {
   .question {
@@ -280,4 +282,4 @@ button:hover {
   .voltar-button span {
     display: none;
   }
-}
+} */
