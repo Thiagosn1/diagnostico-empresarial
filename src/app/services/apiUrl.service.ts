@@ -5,7 +5,7 @@ import { Injectable, isDevMode } from '@angular/core';
 })
 export class ApiUrlService {
   private localApiUrl = 'http://localhost:4200/api/';
-  private prodApiUrl = '/api/';
+  private prodApiUrl = 'https://15.228.13.33:8080/';
   private currentApiUrl: string;
 
   constructor() {
