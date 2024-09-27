@@ -6,3 +6,15 @@ publish = "dist/diagnostico-empresarial/"
 from = "/*"
 to = "/index.html"
 status = 200
+
+[[redirects]]
+from = "/api/*"
+to = "https://15.228.13.33:8080/:splat"
+status = 200
+force = true
+headers = {X-From = "Netlify"}
+
+[[headers]]
+for = "/api/*"
+[headers.values]
+Access-Control-Allow-Origin = "*"
