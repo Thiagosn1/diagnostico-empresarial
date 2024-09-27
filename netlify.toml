@@ -1,29 +1,19 @@
-[
-build
-]
-   command = "ng build --configuration=production"
-   publish = "dist/diagnostico-empresarial/"
+[build]
+  command = "ng build --configuration=production"
+  publish = "dist/diagnostico-empresarial/"
 
-   [[
-redirects
-]]
-   from = "/api/*"
-   to = "http://15.228.13.33:8080/:splat"
-   status = 200
-   force = true
+[[redirects]]
+  from = "/api/*"
+  to = "https://15.228.13.33:8080/:splat"
+  status = 200
+  force = true
 
-   [[
-redirects
-]]
-   from = "/*"
-   to = "/index.html"
-   status = 200
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
-   [[
-headers
-]]
-   for = "/api/*"
-     [
-headers.values
-]
-     Access-Control-Allow-Origin = "*"
+[[headers]]
+  for = "/api/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
