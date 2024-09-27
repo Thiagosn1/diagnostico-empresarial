@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
   max-width: 120vh;
-  max-height: 90vh;
+  max-height: 80vh;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
@@ -140,13 +140,6 @@ mat-form-field {
   font-size: 18px;
 }
 
-@media (max-width: 1440px) {
-  .table-container {
-    max-width: 100vh;
-    max-height: 80vh;
-  }
-}
-
 @media (max-width: 1024px) {
   .table-container {
     max-width: 60vw;
@@ -210,12 +203,12 @@ mat-form-field {
 
 @media (max-width: 480px) {
   .parent-container {
-    margin-left: -50px;
     margin-right: 0;
+    margin-left: 0;
   }
   .table-container {
-    max-width: 70vw;
-    margin-right: 10px;
+    margin-right: 20px;
+    max-height: 80vh;
   }
 
   .table-scroll {
@@ -223,8 +216,10 @@ mat-form-field {
   }
 
   .button {
-    height: 28px;
-    font-size: 11px;
+    width: 180px;
+    height: 50px;
+    font-size: 16px;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   }
 
   .mat-mdc-header-cell {

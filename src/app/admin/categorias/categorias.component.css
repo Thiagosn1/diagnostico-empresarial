@@ -119,12 +119,8 @@ mat-form-field {
 }
 
 @media screen and (max-width: 768px) {
-  .table-container {
-    padding: 15px;
-  }
-
   .category-input {
-    margin-right: 10px;
+    margin-right: 20px;
     margin-bottom: 10px;
   }
 
@@ -142,70 +138,88 @@ mat-form-field {
 
   .mat-mdc-cell {
     font-size: 16px !important;
-    
   }
 
-  .mat-mdc-header-cell, .mat-mdc-cell {
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
     white-space: nowrap;
   }
 
   .erro {
     white-space: nowrap;
-    margin-right: 40px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .parent-container {
-    margin-left: -150px;
-    margin-right: -50px;
-  }
-  .table-container {
-    margin-left: -50px;
-    margin-right: -80px;
-    width: 100%;
-    padding: 15px;
-  }
-
-  .table-scroll {
-    max-height: 50vh;
-    width: 100%;
-  }
-
-  .search-bar {
-    font-size: 14px;
-    margin-left: 10px;
-  }
-
   .category-input {
-    width: 150px;
+    width: 100%; /* Garante que o input de categoria ocupe a largura total */
+    margin-right: 0; /* Remove a margem à direita */
+    margin-bottom: 10px; /* Adiciona margem abaixo para espaçamento */
   }
 
-  .button {
-    width: 100px;
-    height: 55px;
-    font-size: 14px;
-  }
-
-  .mat-mdc-header-cell {
-    font-size: 16px;
-  }
-
-  .mat-mdc-cell {
-    font-size: 14px !important;
-  }
-
-  .input-editing {
-    height: 25px;
-    font-size: 14px;
+  .table-container {
+    width: 70%; /* Mantém a largura do card */
   }
 
   .add-category-container {
+    flex-direction: column;
+    align-items: stretch; /* Faz com que os inputs ocupem a largura total */
+    width: 100%; /* Certifica-se que o container também ocupa a largura total */
+  }
+
+  .category-input {
+    margin-right: 0; /* Remove margem direita */
+    margin-bottom: 10px; /* Espaçamento entre o input e o botão */
+  }
+
+  .button {
+    width: 200px; /* Defina a largura do botão conforme desejado */
+    margin-bottom: 20px; /* Espaçamento abaixo do botão */
+    align-self: center; /* Alinha o botão no centro, se necessário */
+  }
+
+  .table-scroll {
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%; /* Certifica-se que o scroll ocupa a largura total */
+  }
+
+  table {
+    width: 100%;
+    word-wrap: break-word;
+  }
+
+  .mat-mdc-header-cell, .mat-mdc-cell {
+    font-size: 14px;
+  }
+
+  mat-form-field {
+    width: 100%; /* Aplica 100% de largura para todos os campos */
+  }
+
+  .center-text {
+    font-size: 14px;
+  }
+
+  .icon-container {
     display: flex;
     justify-content: center;
   }
+
+  .input-editing {
+    font-size: 18px;
+    height: 25px;
+  }
+
   .erro {
-    white-space: nowrap;
-    margin-right: 60px;
+    font-size: 15px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .no-data {
+    font-size: 14px;
   }
 }
+

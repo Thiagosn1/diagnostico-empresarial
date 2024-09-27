@@ -91,7 +91,10 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   getTooltipPosition(index: number): TooltipPosition {
-    return index === 0 ? this.primeiroTooltipPosition : 'below';
+    if (window.innerWidth <= 768 && index === 0) {
+      return 'above';
+    }
+    return 'below';
   }
 
   carregarDados(): void {

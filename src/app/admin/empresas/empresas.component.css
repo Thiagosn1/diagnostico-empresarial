@@ -73,15 +73,21 @@ td.mat-cell:not(:last-child) {
 
 @media screen and (max-width: 1024px) {
   .table-container {
-    width: 80%;
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: -40px;
+    width: 70%;
   }
 
   .table-scroll {
+    width: 100%;
+    max-height: none;
     overflow-x: auto;
-    max-width: 100%;
+    overflow-y: auto;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .mat-mdc-header-cell {
@@ -90,24 +96,28 @@ td.mat-cell:not(:last-child) {
 
   .mat-mdc-cell {
     font-size: 16px !important;
+    padding: 6px;
   }
 
-  .mat-mdc-cell,
-  .mat-mdc-header-cell {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .input-editing {
+    height: 28px;
+    font-size: 16px;
+  }
+
+  button.mat-icon-button {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  button.mat-icon-button .mat-icon {
+    font-size: 20px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .parent-container {
-    margin-left: -200px;
-    margin-right: 0;
-  }
   .table-container {
-    width: 80%;
-    margin-right: -140px;
+    width: 90%;
   }
 
   .mat-mdc-header-cell {
@@ -116,28 +126,73 @@ td.mat-cell:not(:last-child) {
 
   .mat-mdc-cell {
     font-size: 14px !important;
+    padding: 4px;
   }
 
   .input-editing {
-    height: 25px;
+    height: 26px;
     font-size: 14px;
+  }
+
+  button.mat-icon-button {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+
+  button.mat-icon-button .mat-icon {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .table-container {
+    width: 80%;
+  }
+
+  .mat-mdc-header-cell {
+    font-size: 16px;
+  }
+
+  .mat-mdc-cell {
+    font-size: 14px !important;
+    padding: 4px;
+  }
+
+  .search-bar {
+    width: 100%;
+    padding: 0 0.5em;
+  }
+
+  .input-editing {
+    height: 26px;
+    font-size: 14px;
+  }
+
+  button.mat-icon-button {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+
+  button.mat-icon-button .mat-icon {
+    font-size: 18px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .parent-container {
-    margin-left: -300px;
-    margin-right: 0;
+    box-sizing: border-box;
+    margin-left: -150px;
   }
 
   .table-container {
-    width: 90%;
-    margin-left: 0;
-    margin-right: -240px;
+    width: 65%;
+    margin-right: -150px;
   }
 
   .table-scroll {
-    margin: 0 -5px;
+    max-height: 70vh;
   }
 
   .mat-mdc-header-cell {
@@ -146,11 +201,32 @@ td.mat-cell:not(:last-child) {
 
   .mat-mdc-cell {
     font-size: 12px !important;
-    padding: 4px;
+    padding: 3px;
+  }
+
+  .search-bar {
+    width: 100%;
+    padding: 0 0.3em;
+    margin-bottom: 0.5em;
   }
 
   .input-editing {
-    height: 20px;
+    height: 24px;
     font-size: 12px;
+  }
+
+  button.mat-icon-button {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  button.mat-icon-button .mat-icon {
+    font-size: 16px;
+  }
+
+  th.mat-header-cell:not(:last-child),
+  td.mat-cell:not(:last-child) {
+    border-right: 1px solid #000;
   }
 }

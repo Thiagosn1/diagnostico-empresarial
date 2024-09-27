@@ -73,7 +73,7 @@ td.mat-cell:not(:last-child) {
 
 @media (max-width: 1024px) {
   .table-container {
-    width: 80%;
+    width: 75%;
   }
 
   .table-scroll {
@@ -102,7 +102,7 @@ td.mat-cell:not(:last-child) {
 
 @media (max-width: 768px) {
   .table-container {
-    width: 90%;
+    width: 70%;
   }
 
   .mat-mdc-header-cell {
@@ -130,5 +130,65 @@ td.mat-cell:not(:last-child) {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 480px) {
+  .parent-container {
+    box-sizing: border-box;
+    margin-left: -150px;
+  }
+
+  .table-container {
+    width: 80%;
+    margin-right: -150px;
+  }
+
+  .table-scroll {
+    max-height: 70vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  table {
+    min-width: 100%;
+    width: auto;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    font-size: 12px !important;
+    padding: 4px;
+  }
+
+  .input-editing {
+    height: 24px;
+    font-size: 12px;
+    width: auto;
+  }
+
+  th.mat-header-cell:not(:last-child),
+  td.mat-cell:not(:last-child) {
+    border-right: 1px solid #ccc;
+  }
+
+  .search-bar {
+    padding: 0 0.3em;
+    width: 100%;
+  }
+
+  button.mat-icon-button {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0;
+  }
+
+  button.mat-icon-button .mat-icon {
+    font-size: 16px;
   }
 }

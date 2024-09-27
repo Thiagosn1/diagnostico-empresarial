@@ -55,3 +55,55 @@ button:hover {
   margin-top: 10px;
   border-radius: 1rem;
 }
+
+@media screen and (max-width: 1024px) {
+  mat-card-title {
+    font-size: 22px;
+  }
+  
+  button {
+    width: 120px;
+    height: 44px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .empresa-card {
+    max-width: 60%;
+  }
+  
+  mat-card-title {
+    font-size: 20px;
+  }
+  
+  mat-form-field {
+    margin-top: 16px;
+  }
+  
+  button {
+    width: 110px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .empresa-card {
+    max-width: 80%;
+  }
+  
+  mat-card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  mat-form-field {
+    margin-top: 12px;
+  }
+  
+  .mensagem-erro {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
