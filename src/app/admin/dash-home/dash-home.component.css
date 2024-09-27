@@ -155,8 +155,52 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
+  .small-card {
+    width: 150px;
+    height: 150px;
+  }
+
+  .card-title {
+    font-size: 1.7em;
+  }
+
+  .card-value {
+    font-size: 1.7em;
+  }
+
+  .timeline-title {
+    font-size: 1.6em;
+  }
+
+  .mat-mdc-header-cell {
+    font-size: 1.5em;
+  }
+
+  .mat-mdc-cell {
+    font-size: 1.2em !important;
+  }
+
   .card-container {
-    margin-left: -50px;
+    margin-left: -30px;
+  }
+
+  .full-width-card {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .table-container {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    white-space: nowrap;
   }
 }

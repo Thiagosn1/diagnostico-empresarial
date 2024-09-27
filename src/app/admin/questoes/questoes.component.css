@@ -148,13 +148,10 @@ mat-form-field {
 }
 
 @media (max-width: 1024px) {
-  .parent-container {
-    margin-left: 40px;
-  }
   .table-container {
     max-width: 60vw;
     max-height: 85vh;
-    padding: 15px;
+    margin-left: 20px;
   }
 
   .table-scroll {
@@ -179,7 +176,7 @@ mat-form-field {
 @media (max-width: 768px) {
   .parent-container {
     margin-left: 0;
-    margin-right: 50px;
+    margin-right: 20px;
   }
   .table-container {
     max-width: 70vw;

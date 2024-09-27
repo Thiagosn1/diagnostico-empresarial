@@ -120,7 +120,6 @@ mat-form-field {
 
 @media screen and (max-width: 768px) {
   .table-container {
-    margin-left: -40px;
     padding: 15px;
   }
 

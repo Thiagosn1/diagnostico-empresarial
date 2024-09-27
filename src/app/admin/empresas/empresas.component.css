@@ -73,7 +73,6 @@ td.mat-cell:not(:last-child) {
 
 @media screen and (max-width: 1024px) {
   .table-container {
-    padding: 15px;
     width: 80%;
     max-width: 100%;
     margin-left: 0;

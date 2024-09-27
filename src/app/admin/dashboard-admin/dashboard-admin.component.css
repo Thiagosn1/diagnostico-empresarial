@@ -115,7 +115,7 @@ mat-icon {
 
 @media screen and (max-width: 768px) {
   .sidenav {
-    width: 60px !important;
+    width: 65px;
   }
 
   .sidenav .user-image {
@@ -135,9 +135,5 @@ mat-icon {
 
   .toggle-button {
     display: none;
-  }
-
-  .sidenav-content {
-    margin-left: 60px;
   }
 }
