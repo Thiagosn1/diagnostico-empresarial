@@ -71,6 +71,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatToolbarModule,
     NgOptimizedImage,
     RouterLink,
+    MatDialogModule,
     MatCardModule,
     RouterOutlet,
     MatInputModule,

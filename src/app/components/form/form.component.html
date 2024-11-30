@@ -22,13 +22,12 @@
         class="question-wrapper"
         [@slideRightLeft]="exibirPergunta ? 'center-delayed' : 'right'"
       >
-        <div
-          class="question"
-          *ngIf="exibirPergunta"
-          [@fadeInOut]="perguntaAtual()"
-        >
+      <div *ngIf="categorias && categorias.length > 0">
+        <!-- resto do código -->
+        <div class="question" *ngIf="exibirPergunta && perguntaAtual()">
           {{ perguntaAtual() }}
         </div>
+      </div>
       </div>
       <div class="answer-buttons">
         <div

@@ -164,13 +164,14 @@ export class FormComponent implements AfterViewInit, OnInit {
   }
 
   perguntaAtual() {
-    return this.categorias[this.indiceCategoriaAtual].questions[
-      this.indicePerguntaAtual
-    ].description;
+    if (!this.categorias || !this.categorias[this.indiceCategoriaAtual]) {
+      return '';
+    }
+    return this.categorias[this.indiceCategoriaAtual].questions[this.indicePerguntaAtual]?.description || '';
   }
-
+  
   categoriaAtual() {
-    return this.categorias[this.indiceCategoriaAtual].name;
+    return this.categorias[this.indiceCategoriaAtual]?.name || '';
   }
 
   porcentagemProgresso() {
